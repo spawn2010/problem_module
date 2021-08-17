@@ -35,6 +35,15 @@ class MainController extends Controller
         $problems->problem = $problem['problem'];
         $problems->decision = $problem['decision'];
         $problem->save();
+        return $this->actionTable();
     }
 
+    public function actionTable()
+    {
+        $this->layout = 'table';
+        $problem = new Problem();
+        $model = new TestForm();
+        $problems = Problem::find()->all();
+        return $this->render('table', compact('problems', 'model', 'problem'));
+    }
 }
