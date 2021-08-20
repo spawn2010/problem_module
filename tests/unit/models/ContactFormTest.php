@@ -15,6 +15,7 @@ class ContactFormTest extends \Codeception\Test\Unit
     public function testEmailIsSentOnContact()
     {
         $model = new ContactForm();
+
         $model->attributes = [
             'name' => 'Tester',
             'email' => 'tester@example.com',
@@ -22,9 +23,12 @@ class ContactFormTest extends \Codeception\Test\Unit
             'body' => 'body of current message',
             'verifyCode' => 'testme',
         ];
+
         expect_that($model->contact('admin@example.com'));
+
         // using Yii2 module actions to check email was sent
         $this->tester->seeEmailIsSent();
+
         /** @var MessageInterface $emailMessage */
         $emailMessage = $this->tester->grabLastSentEmail();
         expect('valid email is sent', $emailMessage)->isInstanceOf('yii\mail\MessageInterface');

@@ -2,7 +2,12 @@
 
 namespace app\controllers;
 
+use app\models\Problem;
+use app\models\SignupForm;
+use app\models\User;
 use Yii;
+use yii\base\BaseObject;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -15,7 +20,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
+    public function behaviors ()
     {
         return [
             'access' => [
@@ -41,7 +46,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
+    public function actions ()
     {
         return [
             'error' => [
@@ -59,9 +64,21 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex ()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Problem::find(),
+            'pagination' => [
+                'pageSize' => 20
+            ]
+        ]);
+        if (!Yii::$app->user->isGuest) {
+            $this->redirect('/problem/list');
+        }
+        $model = new LoginForm();
+        return $this->render('login', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -69,14 +86,14 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
+    public function actionLogin ()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            $this->redirect('/problem/list');
         }
         $model->password = '';
         return $this->render('login', [
@@ -89,36 +106,40 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
+    public function actionLogout ()
     {
         Yii::$app->user->logout();
         return $this->goHome();
     }
 
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
+    public function actionAdd ()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-            return $this->refresh();
+        $model = User::find()->where(['username' => 'user'])->one();
+        if (empty($model)) {
+            $user = new User();
+            $user->username = 'user';
+            $user->email = 'admin@кодерe.укр';
+            $user->setPassword('user');
+            $user->generateAuthKey();
+            if ($user->save()) {
+                echo 'good';
+            }
         }
-        return $this->render('contact', [
+    }
+
+    public function actionSignup ()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post())) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->goBack();
+                }
+            }
+        }
+        return $this->render('signup', [
             'model' => $model,
         ]);
     }
 
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 }
