@@ -19,29 +19,27 @@ class ProblemController extends Controller
             ]
         ]);
         $problem = new Problem();
-        $data = Problem::find()->all();
-        //  return $this->render('star',compact('problem'));
-        return $this->render('table', compact('data', 'problem', 'dataProvider'));
-        // $problem = Problem::find()->where(['id' => 3 ])->one();
-        //return $this->render('star',compact('problem'));
+        return $this->render('table', compact('problem', 'dataProvider'));
+
     }
 
     public function actionAddproblem ()
     {
-        $problem = (Yii::$app->request->post('Problem'));
-        $user = new Problem();
-        $user->problem = htmlspecialchars('' . $problem['problem'] . '');
-        $user->decision = htmlspecialchars('' . $problem['decision'] . '');
-        $user->save();
+        $model = new Problem();
+        if (  $model->load(Yii::$app->request->post()) && $model->validate()){
+            $model->save();
+        }else{
+            $errors = $model->errors;
+        }
         return $this->redirect('/problem/list');
 
     }
 
     public function actionAddrating ()
     {
-        $model = Problem::find()->where(['id' => $_POST['id']])->one();
+        $model = Problem::find()->where(['id' => (Yii::$app->request->post('id'))])->one();
         if (!empty($model)) {
-            $model->rating = $_POST['stars'];
+            $model->rating = (Yii::$app->request->post('stars'));
             if ($model->save()) {
                 return true;
             }
