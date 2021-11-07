@@ -28,12 +28,13 @@ $this->title = 'Login';
             'fieldConfig' => [
                 'labelOptions' => ['class' => 'col-lg-1 col-form-label'],
             ],
+
             'action' => '/site/login'
         ]); ?>
         <form class="form">
-            <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('') ?>
 
-            <?= $form->field($model, 'password')->passwordInput() ?>
+            <?= $form->field($model, 'password')->passwordInput()->label('') ?>
 
 
             <div class="form-group">

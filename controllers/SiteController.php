@@ -2,25 +2,23 @@
 
 namespace app\controllers;
 
-use app\models\Problem;
+use app\models\Problem\Problem;
 use app\models\SignupForm;
-use app\models\User;
 use Yii;
-use yii\base\BaseObject;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
+
 
 class SiteController extends Controller
 {
     /**
      * {@inheritdoc}
      */
-    public function behaviors ()
+    public function behaviors()
     {
         return [
             'access' => [
@@ -46,7 +44,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions ()
+    public function actions()
     {
         return [
             'error' => [
@@ -59,26 +57,13 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex ()
+
+    public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Problem::find(),
-            'pagination' => [
-                'pageSize' => 20
-            ]
-        ]);
-        if (!Yii::$app->user->isGuest) {
-            $this->redirect('/problem/list');
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['site/login']);
         }
-        $model = new LoginForm();
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['/problem/list']);
     }
 
     /**
@@ -86,7 +71,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin ()
+    public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -106,28 +91,13 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout ()
+    public function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->goHome();
     }
 
-    public function actionAdd ()
-    {
-        $model = User::find()->where(['username' => 'user'])->one();
-        if (empty($model)) {
-            $user = new User();
-            $user->username = 'user';
-            $user->email = 'admin@кодерe.укр';
-            $user->setPassword('user');
-            $user->generateAuthKey();
-            if ($user->save()) {
-                echo 'good';
-            }
-        }
-    }
-
-    public function actionSignup ()
+    public function actionSignup()
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {

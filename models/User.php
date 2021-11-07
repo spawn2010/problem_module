@@ -30,7 +30,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public static function tableName ()
+    public static function tableName()
     {
         return '{{%user}}';
     }
@@ -38,7 +38,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function behaviors ()
+    public function behaviors()
     {
         return [
             TimestampBehavior::className(),
@@ -48,7 +48,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function rules ()
+    public function rules()
     {
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
@@ -59,7 +59,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public static function findIdentity ($id)
+    public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
     }
@@ -67,7 +67,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public static function findIdentityByAccessToken ($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null)
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
@@ -78,7 +78,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername ($username)
+    public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
@@ -86,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function getId ()
+    public function getId()
     {
         return $this->getPrimaryKey();
     }
@@ -94,7 +94,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function getAuthKey ()
+    public function getAuthKey()
     {
         return $this->auth_key;
     }
@@ -102,7 +102,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @inheritdoc
      */
-    public function validateAuthKey ($authKey)
+    public function validateAuthKey($authKey)
     {
         return $this->getAuthKey() === $authKey;
     }
@@ -113,7 +113,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword ($password)
+    public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
@@ -123,7 +123,7 @@ class User extends ActiveRecord implements IdentityInterface
      *
      * @param string $password
      */
-    public function setPassword ($password)
+    public function setPassword($password)
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
@@ -131,7 +131,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * Generates "remember me" authentication key
      */
-    public function generateAuthKey ()
+    public function generateAuthKey()
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
     }

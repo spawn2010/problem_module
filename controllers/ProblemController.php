@@ -2,15 +2,15 @@
 
 namespace app\controllers;
 
-use app\models\Problem;
+use app\models\Problem\Problem;
+use app\models\Problem\Form;
 use Yii;
-use yii\base\BaseObject;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
-class ProblemController extends Controller
+class  ProblemController extends Controller
 {
-    public function actionList ()
+    public function actionList()
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Problem::find(),
@@ -18,34 +18,30 @@ class ProblemController extends Controller
                 'pageSize' => 20
             ]
         ]);
-        $problem = new Problem();
-        return $this->render('table', compact('problem', 'dataProvider'));
+
+        return $this->render('list', ['dataProvider' => $dataProvider]);
 
     }
 
-    public function actionAddproblem ()
+    public function actionAdd()
     {
-        $model = new Problem();
-        if (  $model->load(Yii::$app->request->post()) && $model->validate()){
-            $model->save();
-        }else{
-            $errors = $model->errors;
+        $model = new Form\Add();
+        $isSave = $model->load(Yii::$app->request->post()) && $model->save();
+        if ($isSave) {
+            Yii::$app->session->setFlash('info', 'проблема успешно добавлена');
+        } else {
+            Yii::$app->session->setFlash('error', 'проблема не добавлена!');
         }
-        return $this->redirect('/problem/list');
+        return $this->redirect(['/problem/list']);
 
     }
 
-    public function actionAddrating ()
+    public function actionAddRating()
     {
-        $model = Problem::find()->where(['id' => (Yii::$app->request->post('id'))])->one();
-        if (!empty($model)) {
-            $model->rating = (Yii::$app->request->post('stars'));
-            if ($model->save()) {
-                return true;
-            }
 
-        }
-        return false;
+        $model = new Form\AddRating();
+        return $model->load(Yii::$app->request->post()) && $model->save();
+
     }
 
 }

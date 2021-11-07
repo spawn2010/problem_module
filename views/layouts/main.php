@@ -28,7 +28,7 @@ AppAsset::register($this);
 <header>
     <?php
     NavBar::begin([
-        'brandLabel' => 'Logo1',
+        'brandLabel' => 'Logo',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top ',
