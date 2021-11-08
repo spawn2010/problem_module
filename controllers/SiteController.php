@@ -12,7 +12,6 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 
-
 class SiteController extends Controller
 {
     /**

@@ -22,7 +22,7 @@ class Add extends Model
 
     public function save()
     {
-        if(!$this->validate()){
+        if (!$this->validate()) {
             return false;
         }
         $problem = new Problem();
@@ -30,11 +30,12 @@ class Add extends Model
         $problem->decision = $this->decision;
         return $problem->save();
     }
+
     public function attributeLabels()
     {
         return [
-            'problem' => Yii::t ('app','Проблема'),
-            'decision' =>  Yii::t ('app','Решение'),
+            'problem' => Yii::t('app', 'Проблема'),
+            'decision' => Yii::t('app', 'Решение'),
         ];
     }
 

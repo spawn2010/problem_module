@@ -14,7 +14,7 @@ class AddRating extends Model
     {
         return [
             [['id', 'value'], 'integer'],
-            [['value'], 'in', 'range' => [1,2,3,4,5]],
+            [['value'], 'in', 'range' => [1, 2, 3, 4, 5]],
         ];
     }
 
@@ -25,14 +25,13 @@ class AddRating extends Model
 
     public function save()
     {
-        if(!$this->validate()){
+        if (!$this->validate()) {
             return false;
         }
-        $problem =  Problem::findOne($this->id);
-        if ($problem === null){
+        $problem = Problem::findOne($this->id);
+        if ($problem === null) {
             return false;
         }
-
         $problem->rating = $this->value;
         return $problem->save();
     }

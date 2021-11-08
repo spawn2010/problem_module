@@ -11,7 +11,6 @@ use yii\db\ActiveRecord;
  * @property mixed|null $decision
  * @property mixed|null $rating
  */
-
 class Problem extends ActiveRecord
 {
 
@@ -31,9 +30,9 @@ class Problem extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'problem' =>  Yii::t ('app','Проблема'),
-            'decision' =>  Yii::t ('app','Решение'),
-            'rating' =>  Yii::t ('app','Оценка'),
+            'problem' => Yii::t('app', 'Проблема'),
+            'decision' => Yii::t('app', 'Решение'),
+            'rating' => Yii::t('app', 'Оценка'),
         ];
     }
 }

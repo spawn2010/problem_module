@@ -18,9 +18,7 @@ class  ProblemController extends Controller
                 'pageSize' => 20
             ]
         ]);
-
         return $this->render('list', ['dataProvider' => $dataProvider]);
-
     }
 
     public function actionAdd()
@@ -33,15 +31,12 @@ class  ProblemController extends Controller
             Yii::$app->session->setFlash('error', 'проблема не добавлена!');
         }
         return $this->redirect(['/problem/list']);
-
     }
 
     public function actionAddRating()
     {
-
         $model = new Form\AddRating();
         return $model->load(Yii::$app->request->post()) && $model->save();
-
     }
 
 }
