@@ -12,7 +12,6 @@ class m211108_120643_create_role_user extends Migration
      */
     public function safeUp()
     {
-
     }
 
     public function up()
@@ -26,7 +25,6 @@ class m211108_120643_create_role_user extends Migration
     public function safeDown()
     {
         echo "m211108_120643_create_role_user cannot be reverted.\n";
-
         return false;
     }
 

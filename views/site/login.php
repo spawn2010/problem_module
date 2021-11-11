@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+
 /* @var $form yii\bootstrap4\ActiveForm */
 
 /* @var $model app\models\LoginForm */
@@ -21,14 +22,14 @@ $this->title = 'Login';
     <div class="col-md-6 cont">
         <h1>Авторизация</h1>
         <br>
-        <?php $form = ActiveForm::begin([
+        <?php
+        $form = ActiveForm::begin([
             'options' => ['class' => 'form form-control-s'],
             'id' => 'testForm',
             'layout' => 'horizontal',
             'fieldConfig' => [
                 'labelOptions' => ['class' => 'col-lg-1 col-form-label'],
             ],
-
             'action' => '/site/login'
         ]); ?>
         <form class="form">
@@ -46,7 +47,8 @@ $this->title = 'Login';
         </form>
 
 
-        <?php ActiveForm::end(); ?>
+        <?php
+        ActiveForm::end(); ?>
 
 
     </div>

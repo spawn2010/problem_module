@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+
 /* @var $form yii\bootstrap4\ActiveForm */
 
 /* @var $model app\models\LoginForm */
@@ -14,7 +15,8 @@ $this->title = 'Регистрация';
     <div class="col-md-6 cont">
         <h1>Регистрация</h1>
         <br>
-        <?php $form = ActiveForm::begin([
+        <?php
+        $form = ActiveForm::begin([
             'options' => ['class' => 'form form-control-s'],
             'id' => 'form-signup',
             'layout' => 'horizontal',
@@ -36,7 +38,8 @@ $this->title = 'Регистрация';
         </form>
 
 
-        <?php ActiveForm::end(); ?>
+        <?php
+        ActiveForm::end(); ?>
 
 
     </div>
