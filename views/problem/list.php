@@ -12,45 +12,54 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
 ?>
-    <div class="container-fluid mt-5">
-    <div class="col-12 col-md-6 p-2">
-        <h1>Список инцидентов</h1>
+<?php
+if (Yii::$app->user->identity->role === 'user') : ?>
+
+
+
+
+
+    <div class="row mt-4 mx-lg-n4">
+        <div class="col-md-8 text-md-left" ><h1>Список инцидентов</h1></div>
+        <div class="col-md-4 text-md-right">
+            <button type="button" class="btn btn-success m-2  " data-toggle="modal" data-target="#addProblemModal">
+                Добавить инцидент
+            </button>
+        </div>
     </div>
-<?php if (Yii::$app->user->identity->role === 'user') : ?>
-    <div class=" col-md-5">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addProblemModal">
-            Добавить инцидент
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="addProblemModal" tabindex="-1" aria-labelledby="addProblemModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Добавление инцидента</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <?php
-                    $problem = new Form\Add();
-                    $form = ActiveForm::begin(['action' => ['/problem/add']]) ?>
-                    <div class="modal-body">
-                        <?= $form->field($problem, 'problem') ?>
-                        <?= $form->field($problem, 'decision') ?>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <?= Html::submitButton('отправить', ['class' => 'btn btn-success']) ?>
-                    </div>
-                    <?php
-                    ActiveForm::end() ?>
+
+
+    <div class="row mt-5 m-lg-0">
+    <!-- Modal -->
+    <div class="modal fade" id="addProblemModal" tabindex="-1" aria-labelledby="addProblemModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавление инцидента</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+                <?php
+                $problem = new Form\Add();
+                $form = ActiveForm::begin(['action' => ['/problem/add']]) ?>
+                <div class="modal-body">
+                    <?= $form->field($problem, 'problem') ?>
+                    <?= $form->field($problem, 'decision') ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <?= Html::submitButton('отправить', ['class' => 'btn btn-success']) ?>
+                </div>
+                <?php
+                ActiveForm::end() ?>
             </div>
         </div>
     </div>
-<?php endif; ?>
+    </div>
+<?php
+endif; ?>
 
 <?php
 $gridColumns = [
@@ -61,8 +70,6 @@ $gridColumns = [
 /**
  * @var $dataProvider
  */
-
-
 $form = ActiveForm::begin(['action' => ['/problem/add-rating']]);
 echo GridView::widget(
     [
@@ -94,10 +101,9 @@ echo GridView::widget(
                 }
 
 JSOUT;
-
                     $canEdit = Yii::$app->user->identity->role === 'user';
-
-                    return StarRating::widget(['name' => 'rating',
+                    return StarRating::widget([
+                        'name' => 'rating',
                         'value' => $problem['rating'],
                         'pluginOptions' => [
                             'theme' => 'krajee-uni',
