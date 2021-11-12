@@ -15,7 +15,6 @@ use yii\helpers\Html;
 <?php
 if (Yii::$app->user->identity->role === 'user') : ?>
 
-
     <div class="row mt-4 mx-lg-n4">
         <div class="col-md-8 text-md-left"><h1>Список инцидентов</h1></div>
         <div class="col-md-4 text-md-right">
