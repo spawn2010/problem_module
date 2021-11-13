@@ -18,7 +18,7 @@ services:
     volumes:
       - 'db:/var/lib/mysql'
     ports:
-      - '33062:3306'
+      - '3306:3306'
 
 volumes:
   db: { }
