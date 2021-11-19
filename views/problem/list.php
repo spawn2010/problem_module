@@ -12,12 +12,13 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
 ?>
+    <div class="row">
+        <div class="col-8 text-left">
+    <h1>Список инцидентов</h1>
+            </div>
 <?php
 if (Yii::$app->user->identity->role === 'user') : ?>
-
-    <div class="row mt-4 mx-lg-n4">
-        <div class="col-md-8 text-md-left"><h1>Список инцидентов</h1></div>
-        <div class="col-md-4 text-md-right">
+        <div class="col-4 text-right">
             <button type="button" class="btn btn-success m-2  " data-toggle="modal" data-target="#addProblemModal">
                 Добавить инцидент
             </button>
@@ -55,7 +56,7 @@ if (Yii::$app->user->identity->role === 'user') : ?>
     </div>
 <?php
 endif; ?>
-
+<div class="container col-md-12">
 <?php
 $gridColumns = [
     'problem',
@@ -121,4 +122,5 @@ JSOUT;
     ]
 );
 ActiveForm::end();
-
+?>
+</div>
