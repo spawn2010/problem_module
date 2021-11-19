@@ -17,6 +17,8 @@ class SignupForm extends Model
 
     public $password;
 
+    public $role = 'user';
+
     /**
      * @inheritdoc
      */
@@ -57,9 +59,14 @@ class SignupForm extends Model
         if (!$this->validate()) {
             return null;
         }
+
         $user = new User();
+        if ( $this->username === 'admin'){
+            $this->role = 'admin';
+        }
         $user->username = $this->username;
         $user->email = $this->email;
+        $user->role = $this->role;
         $user->setPassword($this->password);
         $user->generateAuthKey();
         return $user->save() ? $user : null;
