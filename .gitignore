@@ -1,8 +1,6 @@
 # phpstorm project files
 .idea
 
-.docker-compose.override.yml
-
 # netbeans project files
 nbproject
 
@@ -33,3 +31,4 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+/docker-compose.override.yml
