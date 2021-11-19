@@ -1,6 +1,8 @@
 # phpstorm project files
 .idea
 
+.docker-compose.override.yml
+
 # netbeans project files
 nbproject
 
