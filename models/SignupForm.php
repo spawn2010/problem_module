@@ -61,7 +61,7 @@ class SignupForm extends Model
         }
 
         $user = new User();
-        if ( $this->username === 'admin'){
+        if ($this->username === 'admin') {
             $this->role = 'admin';
         }
         $user->username = $this->username;
