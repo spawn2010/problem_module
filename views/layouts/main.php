@@ -40,7 +40,12 @@ $this->beginBody() ?>
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto mt-2 mt-lg-0'],
+        //       (Yii::$app->user->identity->role === 'user') ? ( ['label' => 'Пользователи', 'url' => ['/site/signup'], 'positions' => 'fixed-left']):('').
+
         'items' => [
+            Yii::$app->user->isGuest ? ('') : ((Yii::$app->user->identity->role === 'admin') ? (
+            ['label' => 'Пользователи', 'url' => ['/user/list'], 'positions' => 'fixed-left']) : ('')),
+
             Yii::$app->user->isGuest ? (
             ['label' => 'Регистрация', 'url' => ['/site/signup'], 'positions' => 'fixed-left']
             ) : (
@@ -48,7 +53,7 @@ $this->beginBody() ?>
                 . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
                     'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-success logout']
+                    ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'

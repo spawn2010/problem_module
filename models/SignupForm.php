@@ -48,6 +48,7 @@ class SignupForm extends Model
             ['password', 'string', 'min' => 4],
         ];
     }
+
     public function attributeLabels()
     {
         return [

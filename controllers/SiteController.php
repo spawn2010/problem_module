@@ -2,10 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\Problem\Problem;
 use app\models\SignupForm;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
