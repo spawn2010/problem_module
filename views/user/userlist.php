@@ -57,7 +57,7 @@ use yii\helpers\Url;
                     <div class="modal-body">
                         <?= $form->field($model, 'username') ?>
                         <?= $form->field($model, 'email') ?>
-                        <?= $form->field($model, 'password') ?>
+                        <?= $form->field($model, 'password')->passwordInput() ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

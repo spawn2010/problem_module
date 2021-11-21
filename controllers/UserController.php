@@ -44,12 +44,6 @@ class UserController extends Controller
     public function actionAdd()
     {
         $model = new SignupForm();
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-            'pagination' => [
-                'pageSize' => 20
-            ]
-        ]);
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 Yii::$app->session->setFlash('info', 'Пользовтель добавлен');
@@ -57,6 +51,25 @@ class UserController extends Controller
                 Yii::$app->session->setFlash('error', 'Ошибка в добавление пользователя');
             }
         }
-        return $this->render('userlist', ['dataProvider' => $dataProvider, 'model' => $model]);
+        return $this->redirect(['/user/list']);
+    }
+
+    public function actionDelete($id)
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find(),
+            'pagination' => [
+                'pageSize' => 20
+            ]
+        ]);
+        $model = User::findOne($id);
+        if ($model) {
+            if ($model->delete()) {
+                Yii::$app->session->setFlash('info', 'Пользовтель Удален');
+            } else {
+                Yii::$app->session->setFlash('error', 'Ошибка при удалении пользователя');
+            }
+        }
+        return $this->redirect(['/user/list']);
     }
 }
