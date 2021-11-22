@@ -2,18 +2,16 @@
 
 namespace app\controllers;
 
-use app\models\Problem\Problem;
 use app\models\SignupForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use Yii;
 
-
 class UserController extends Controller
 {
 
-    public function actionList()
+    public function actionList(): string
     {
         $model = new SignupForm();
         $dataProvider = new ActiveDataProvider([
@@ -31,7 +29,7 @@ class UserController extends Controller
         return $this->render('userview', ['model' => $model]);
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate($id): string
     {
         $model = User::findOne($id);
         if (($model->load(Yii::$app->request->post()) && $model->save())) {
@@ -41,7 +39,7 @@ class UserController extends Controller
         return $this->render('userupdate', ['model' => $model]);
     }
 
-    public function actionAdd()
+    public function actionAdd(): \yii\web\Response
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post())) {
@@ -54,17 +52,12 @@ class UserController extends Controller
         return $this->redirect(['/user/list']);
     }
 
-    public function actionDelete($id)
+    public function actionDelete($id): \yii\web\Response
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-            'pagination' => [
-                'pageSize' => 20
-            ]
-        ]);
         $model = User::findOne($id);
+
         if ($model) {
-            if ($model->delete()) {
+            if ($model-> softDelete()) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
             } else {
                 Yii::$app->session->setFlash('error', 'Ошибка при удалении пользователя');
