@@ -34,7 +34,7 @@ class UserController extends Controller
         $model = User::findOne($id);
         $model->setPassword($model['password']);
         $model->generateAuthKey();
-        if ( $model->load(Yii::$app->request->post()) && $model->update()) {
+        if ($model->load(Yii::$app->request->post()) && $model->update()) {
             return $this->render('userview', ['model' => $model]);
         }
 
@@ -59,7 +59,7 @@ class UserController extends Controller
         $model = User::findOne($id);
 
         if ($model) {
-            if ($model-> softDelete()) {
+            if ($model->softDelete()) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
             } else {
                 Yii::$app->session->setFlash('error', 'Ошибка при удалении пользователя');

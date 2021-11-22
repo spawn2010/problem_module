@@ -15,7 +15,6 @@ use yii\grid\GridView;
 use yii\helpers\Url;
 
 
-
 ?>
 <div class="row">
     <div class="col-8 text-left">
@@ -37,23 +36,24 @@ use yii\helpers\Url;
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Добавление пользователя<h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <h5 class="modal-title">Добавление пользователя
+                            <h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                     </div>
                     <?php
 
 
-        $form = ActiveForm::begin([
-            'options' => ['class' => 'form form-control-s'],
-            'id' => 'form-signup',
-            'layout' => 'horizontal',
-            'fieldConfig' => [
-                'labelOptions' => ['class' => 'col-lg-2 col-form-label'],
-            ],
-            'action' => '/user/add'
-        ]); ?>
+                    $form = ActiveForm::begin([
+                        'options' => ['class' => 'form form-control-s'],
+                        'id' => 'form-signup',
+                        'layout' => 'horizontal',
+                        'fieldConfig' => [
+                            'labelOptions' => ['class' => 'col-lg-2 col-form-label'],
+                        ],
+                        'action' => '/user/add'
+                    ]); ?>
                     <div class="modal-body">
                         <?= $form->field($model, 'username') ?>
                         <?= $form->field($model, 'email') ?>
@@ -61,7 +61,7 @@ use yii\helpers\Url;
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                           <?= Html::submitButton('Добавить', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+                        <?= Html::submitButton('Добавить', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
                     </div>
                     <?php
                     ActiveForm::end() ?>

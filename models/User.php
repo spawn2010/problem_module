@@ -44,10 +44,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'softDeleteBehavior' => [
-                 'class' => SoftDeleteBehavior::className(),
-                 'softDeleteAttributeValues' => [
-                     'status' => 0
-                  ],
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'status' => 0
+                ],
             ],
         ];
     }
@@ -131,7 +131,7 @@ class User extends ActiveRecord implements IdentityInterface
      *
      * @param string $password
      */
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
     }
