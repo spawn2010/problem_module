@@ -73,12 +73,16 @@ use yii\helpers\Url;
 endif; ?>
 
 <?php
+/**
+ * @var $dataProvider
+ */
 echo GridView::widget([
     'dataProvider' => $dataProvider,
     'columns' => [
         'id',
         'username',
         'email',
+        'status',
         'role',
         ['class' => '\yii\grid\ActionColumn']
     ]

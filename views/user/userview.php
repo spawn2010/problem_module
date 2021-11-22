@@ -15,5 +15,6 @@ echo DetailView::widget([
         'username',
         'role',
         'email',
+        'status'
     ],
 ]);

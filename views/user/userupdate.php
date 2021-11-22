@@ -15,6 +15,7 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'email') ?>
 <?= $form->field($model, 'password') ?>
 <?= $form->field($model, 'role') ?>
+<?= $form->field($model, 'status') ?>
 
     <div class="form-group">
         <div>
