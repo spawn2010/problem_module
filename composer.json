@@ -31,8 +31,10 @@
         "codeception/module-yii2": "^1.0.0",
         "codeception/module-asserts": "^1.0.0",
         "kartik-v/yii2-widget-rating": "dev-master",
-        "kartik-v/yii2-export": "@dev"
+        "kartik-v/yii2-export": "@dev",
+        "yii2tech/ar-softdelete": "dev-master"
     },
+
     "config": {
         "process-timeout": 1800,
         "fxp-asset": {
