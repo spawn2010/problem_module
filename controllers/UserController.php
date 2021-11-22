@@ -32,7 +32,9 @@ class UserController extends Controller
     public function actionUpdate($id): string
     {
         $model = User::findOne($id);
-        if (($model->load(Yii::$app->request->post()) && $model->save())) {
+        $model->setPassword($model['password']);
+        $model->generateAuthKey();
+        if ( $model->load(Yii::$app->request->post()) && $model->update()) {
             return $this->render('userview', ['model' => $model]);
         }
 
