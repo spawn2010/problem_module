@@ -31,7 +31,7 @@ use yii\helpers\Url;
 
     <div class="row mt-5 m-lg-0">
         <!-- Modal -->
-        <div class="modal fade" id="addProblemModal" tabindex="-1" aria-labelledby="addProblemModalLabel"
+        <div class="modal fade" id="addProblemModal" tabindex="-1" aria-labelledby="addUserModalLabel"
              aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -43,8 +43,6 @@ use yii\helpers\Url;
                                 </button>
                     </div>
                     <?php
-
-
                     $form = ActiveForm::begin([
                         'options' => ['class' => 'form form-control-s'],
                         'id' => 'form-signup',

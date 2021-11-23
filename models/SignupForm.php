@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use Yii;
 use yii\base\Model;
 
 /**
@@ -80,5 +79,4 @@ class SignupForm extends Model
         $user->generateAuthKey();
         return $user->save() ? $user : null;
     }
-
 }

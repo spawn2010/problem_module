@@ -3,7 +3,6 @@
 namespace app\models\User\Form;
 
 use app\models\User;
-use Yii;
 use yii\base\Model;
 
 /**
