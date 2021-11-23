@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\SignupForm;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -13,39 +12,40 @@ class UserController extends Controller
 
     public function actionList(): string
     {
-        $model = new SignupForm();
+        $model = new User\Form\Add();
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
             'pagination' => [
                 'pageSize' => 20
             ]
         ]);
-        return $this->render('userlist', ['dataProvider' => $dataProvider, 'model' => $model]);
+        return $this->render('list', ['dataProvider' => $dataProvider, 'model' => $model]);
     }
 
     public function actionView($id)
     {
         $model = User::findOne($id);
-        return $this->render('userview', ['model' => $model]);
+        return $this->render('view', ['model' => $model]);
     }
 
     public function actionUpdate($id): string
     {
-        $model = User::findOne($id);
-        $model->setPassword($model['password']);
-        $model->generateAuthKey();
-        if ($model->load(Yii::$app->request->post()) && $model->update()) {
-            return $this->render('userview', ['model' => $model]);
-        }
+        $model = User\Form\Update::findOne($id);
 
-        return $this->render('userupdate', ['model' => $model]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->setPassword($model['password']);
+            if ($model->save()) {
+                return $this->render('view', ['model' => $model]);
+            }
+        }
+        return $this->render('update', ['model' => $model]);
     }
 
     public function actionAdd(): \yii\web\Response
     {
-        $model = new SignupForm();
+        $model = new User\Form\Add();
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
+            if ($user = $model->add()) {
                 Yii::$app->session->setFlash('info', 'Пользовтель добавлен');
             } else {
                 Yii::$app->session->setFlash('error', 'Ошибка в добавление пользователя');
@@ -56,8 +56,7 @@ class UserController extends Controller
 
     public function actionDelete($id): \yii\web\Response
     {
-        $model = User::findOne($id);
-
+        $model = User\Form\Update::findOne($id);
         if ($model) {
             if ($model->softDelete()) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
