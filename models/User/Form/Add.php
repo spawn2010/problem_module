@@ -2,7 +2,7 @@
 
 namespace app\models\User\Form;
 
-use app\models\User;
+use app\models\User\User;
 use yii\base\Model;
 
 /**
@@ -61,7 +61,7 @@ class Add extends Model
     /**
      * Signs user up.
      *
-     * @return User\User|null the saved model or null if saving fails
+     * @return User|null the saved model or null if saving fails
      */
     public function add()
     {
@@ -69,7 +69,7 @@ class Add extends Model
             return null;
         }
 
-        $user = new User\User();
+        $user = new User();
         if ($this->username === 'admin') {
             $this->role = 'admin';
         }

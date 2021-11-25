@@ -2,7 +2,7 @@
 
 namespace app\models\User\Form;
 
-use app\models\User;
+use app\models\User\User;
 
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
