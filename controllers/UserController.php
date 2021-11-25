@@ -28,14 +28,14 @@ class UserController extends Controller
         return $this->render('view', ['model' => $model]);
     }
 
-    public function actionUpdate($id): string
+    public function actionUpdate($id)
     {
         $model = User\Form\Update::findOne($id);
 
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model['password']);
             if ($model->save()) {
-                return $this->render('view', ['model' => $model]);
+                return Yii::$app->response->redirect(['user/view','id' => $model['id']]);
             }
         }
         return $this->render('update', ['model' => $model]);
