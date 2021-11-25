@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         $model = new User\Form\Add();
         $dataProvider = new ActiveDataProvider([
-            'query' => User\User::find(),
+            'query' => User\Form\Update::find(),
             'pagination' => [
                 'pageSize' => 20
             ]
@@ -24,7 +24,7 @@ class UserController extends Controller
 
     public function actionView($id)
     {
-        $model = User\User::findOne($id);
+        $model = User\Form\Update::findOne($id);
         return $this->render('view', ['model' => $model]);
     }
 
