@@ -4,7 +4,6 @@ namespace app\models\User\Form;
 
 use Yii;
 use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;

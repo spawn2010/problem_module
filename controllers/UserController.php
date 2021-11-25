@@ -56,7 +56,7 @@ class UserController extends Controller
 
     public function actionDelete($id): \yii\web\Response
     {
-        $model = User\Form\Update::findOne($id);
+        $model = User\Form\Delete::findOne($id);
         if ($model) {
             if ($model->softDelete()) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
