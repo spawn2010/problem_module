@@ -61,7 +61,7 @@ class Add extends Model
     /**
      * Signs user up.
      *
-     * @return User|null the saved model or null if saving fails
+     * @return User\User|null the saved model or null if saving fails
      */
     public function add()
     {
@@ -69,7 +69,7 @@ class Add extends Model
             return null;
         }
 
-        $user = new User();
+        $user = new User\User();
         if ($this->username === 'admin') {
             $this->role = 'admin';
         }
