@@ -10,6 +10,7 @@ use yii\db\ActiveRecord;
  * @property mixed|null $problem
  * @property mixed|null $decision
  * @property mixed|null $rating
+ * * @property mixed|null $user_id
  */
 class Problem extends ActiveRecord
 {
@@ -22,7 +23,7 @@ class Problem extends ActiveRecord
     public function rules()
     {
         return [
-            [['problem', 'decision'], 'trim'],
+            [['problem', 'decision','user_id'], 'trim'],
             [['problem', 'decision'], 'required'],
         ];
     }

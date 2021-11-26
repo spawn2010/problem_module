@@ -13,7 +13,7 @@ class  ProblemController extends Controller
     public function actionList()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Problem::find(),
+            'query' => Problem::find()->where(['user_id' => Yii::$app->user->id]),
             'pagination' => [
                 'pageSize' => 20
             ]

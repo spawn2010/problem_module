@@ -10,13 +10,15 @@ class Add extends Model
 {
     public $problem;
     public $decision;
+    public $user_id;
+
 
     public function rules()
     {
         return [
             [['problem', 'decision'], 'trim'],
             [['problem', 'decision'], 'required'],
-            [['problem', 'decision'], 'trim'],
+            [['problem', 'decision','user_id'], 'trim'],
         ];
     }
 
@@ -28,6 +30,7 @@ class Add extends Model
         $problem = new Problem();
         $problem->problem = $this->problem;
         $problem->decision = $this->decision;
+        $problem->user_id = Yii::$app->user->id;
         return $problem->save();
     }
 
