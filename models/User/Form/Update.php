@@ -23,8 +23,8 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  */
 class Update extends ActiveRecord implements IdentityInterface
 {
-    public const STATUS_DELETED = 0;
-    public const STATUS_ACTIVE = 1;
+    public const STATUS_DELETED = 'inactive';
+    public const STATUS_ACTIVE = 'active';
     public $password;
 
     /**
