@@ -6,7 +6,9 @@ use yii\widgets\ActiveForm;
 /**
  * @var $model
  */
-
+?>
+    <h2>Редактирование пользователя</h2>
+<?php
 $form = ActiveForm::begin([
     'id' => 'login-form',
     'options' => ['class' => 'container col-md-4'],
