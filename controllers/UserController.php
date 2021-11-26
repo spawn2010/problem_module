@@ -18,6 +18,7 @@ class UserController extends Controller
                 'pageSize' => 20
             ]
         ]);
+
         return $this->render('list', ['dataProvider' => $dataProvider, 'model' => $model]);
     }
 
