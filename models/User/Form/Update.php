@@ -61,7 +61,16 @@ class Update extends ActiveRecord implements IdentityInterface
             [['username', 'role', 'email', 'password'], 'trim'],
         ];
     }
-
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'логин',
+            'status' => 'статус',
+            'password' => 'пароль',
+            'role' => 'роль',
+            'email' => 'email'
+        ];
+    }
     /**
      * @inheritdoc
      */
