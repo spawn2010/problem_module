@@ -44,7 +44,15 @@ $this->beginBody() ?>
 
         'items' => [
             Yii::$app->user->isGuest ? ('') : ((Yii::$app->user->identity->role === 'admin') ? (
-            ['label' => 'Пользователи', 'url' => ['/user/list'], 'positions' => 'fixed-left']) : ('')),
+                '<li>'
+                . Html::beginForm(['/user/list'], 'get', ['class' => 'form-inline'])
+                . Html::submitButton(
+                    'Пользователи',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>'
+            ) : ('')),
 
             Yii::$app->user->isGuest ? (
             ['label' => 'Регистрация', 'url' => ['/site/signup'], 'positions' => 'fixed-left']
