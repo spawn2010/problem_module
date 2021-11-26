@@ -14,8 +14,14 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'username') ?>
 <?= $form->field($model, 'email') ?>
 <?= $form->field($model, 'password') ?>
-<?= $form->field($model, 'role') ?>
-<?= $form->field($model, 'status') ?>
+<?= $form->field($model, 'role')->dropDownList([
+    'admin' => 'Администратор',
+    'user' => 'Пользователь'
+]);  ?>
+<?= $form->field($model, 'status')->dropDownList([
+    'active' => 'Активный',
+    'inactive' => 'Отключен'
+]);  ?>
 
     <div class="form-group">
         <div>
