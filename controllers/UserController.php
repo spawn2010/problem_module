@@ -9,7 +9,6 @@ use Yii;
 
 class UserController extends Controller
 {
-
     public function actionList(): string
     {
         $model = new User\Form\Add();
