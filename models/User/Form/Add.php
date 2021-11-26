@@ -19,6 +19,7 @@ class Add extends Model
 
     public $role = 'user';
 
+
     /**
      * @inheritdoc
      */
@@ -30,7 +31,7 @@ class Add extends Model
             [
                 'username',
                 'unique',
-                'targetClass' => '\app\models\User',
+                'targetClass' => '\app\models\User\User',
                 'message' => 'This username has already been taken.'
             ],
             ['username', 'string', 'min' => 2, 'max' => 255],
@@ -41,7 +42,7 @@ class Add extends Model
             [
                 'email',
                 'unique',
-                'targetClass' => '\app\models\User',
+                'targetClass' => '\app\models\User\User',
                 'message' => 'This email address has already been taken.'
             ],
             ['password', 'required'],
@@ -66,8 +67,8 @@ class Add extends Model
     public function add()
     {
         if (!$this->validate()) {
-            return null;
-        }
+           return null;
+       }
 
         $user = new User();
         if ($this->username === 'admin') {
