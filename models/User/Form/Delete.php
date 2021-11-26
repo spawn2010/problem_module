@@ -8,8 +8,8 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 class Delete  extends ActiveRecord
 {
-    public const STATUS_DELETED = 0;
-    public const STATUS_ACTIVE = 1;
+    public const STATUS_DELETED = 'inactive';
+    public const STATUS_ACTIVE = 'active';
 
     public static function tableName(): string
     {
@@ -28,7 +28,7 @@ class Delete  extends ActiveRecord
             'softDeleteBehavior' => [
                 'class' => SoftDeleteBehavior::className(),
                 'softDeleteAttributeValues' => [
-                    'status' => 0
+                    'status' => self::STATUS_DELETED
                 ],
             ],
         ];
