@@ -12,7 +12,7 @@ class m211126_121441_update_user_status extends Migration
      */
     public function safeUp()
     {
-        $this->alterColumn('user', 'status', 'string');
+        $this->alterColumn('{{%user}}', 'status', 'string');
     }
 
     /**
