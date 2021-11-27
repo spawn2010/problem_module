@@ -40,25 +40,17 @@ $this->beginBody() ?>
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto mt-2 mt-lg-0'],
-        //       (Yii::$app->user->identity->role === 'user') ? ( ['label' => 'Пользователи', 'url' => ['/site/signup'], 'positions' => 'fixed-left']):('').
 
         'items' => [
             Yii::$app->user->isGuest ? ('') : ((Yii::$app->user->identity->role === 'admin') ? (
-                '<li>'
-                . Html::beginForm(['/user/list'], 'get', ['class' => 'form-inline'])
-                . Html::submitButton(
-                    'Пользователи',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            ) : ('')),
+            ['label' => 'Пользователи', 'url' => ['/user/list'], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left']) : ('')),
 
             Yii::$app->user->isGuest ? (
             ['label' => 'Регистрация', 'url' => ['/site/signup'], 'positions' => 'fixed-left']
             ) : (
+                  // ['label' => 'Выйти (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout'], ['b'], 'positions' => 'fixed-left']
                 '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'form-inline'])
+                . Html::beginForm(['/site/logout'], 'post', ['class' => 'nav-link'])
                 . Html::submitButton(
                     'Выйти (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
