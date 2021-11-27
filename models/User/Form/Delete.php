@@ -5,7 +5,7 @@ namespace app\models\User\Form;
 use app\models\User;
 use yii\base\Model;
 
-class Delete  extends Model
+class Delete extends Model
 {
 
     public function delete($id)

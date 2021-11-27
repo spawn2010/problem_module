@@ -67,8 +67,8 @@ class Add extends Model
     public function add()
     {
         if (!$this->validate()) {
-           return null;
-       }
+            return null;
+        }
 
         $user = new User();
         if ($this->username === 'admin') {
