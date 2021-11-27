@@ -10,14 +10,15 @@ use yii\web\Controller;
 
 class  ProblemController extends Controller
 {
-    public $query;
+   // public $query;
     public function actionList()
     {
+        $query = '';
     if (Yii::$app->user->identity->role === 'user') (
-        $this->query = ['user_id' => Yii::$app->user->id]
+        $query = ['user_id' => Yii::$app->user->id]
     );
         $dataProvider = new ActiveDataProvider([
-            'query' => Problem::find()->where($this->query),
+            'query' => Problem::find()->where($query),
             'pagination' => [
                 'pageSize' => 20
             ]
