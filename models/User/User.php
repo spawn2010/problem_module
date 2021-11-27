@@ -43,15 +43,15 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function behaviors(): array
     {
-            return [
-                TimestampBehavior::className(),
-                'softDeleteBehavior' => [
-                    'class' => SoftDeleteBehavior::className(),
-                    'softDeleteAttributeValues' => [
-                        'status' => 'inactive'
-                    ],
+        return [
+            TimestampBehavior::className(),
+            'softDeleteBehavior' => [
+                'class' => SoftDeleteBehavior::className(),
+                'softDeleteAttributeValues' => [
+                    'status' => 'inactive'
                 ],
-            ];
+            ],
+        ];
     }
 
     /**
