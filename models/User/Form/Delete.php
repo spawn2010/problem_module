@@ -2,35 +2,17 @@
 
 namespace app\models\User\Form;
 
+use app\models\User;
 use yii\base\Model;
-use yii\db\ActiveRecord;
-use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
-class Delete  extends ActiveRecord
+class Delete  extends Model
 {
-    public const STATUS_DELETED = 'inactive';
-    public const STATUS_ACTIVE = 'active';
 
-    public static function tableName(): string
+    public function delete($id)
     {
-        return '{{%user}}';
-    }
+        $model = User\User::findOne($id);
 
-    public function rules()
-    {
-        return [
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
-        ];
-    }
-    public function behaviors(): array
-    {
-        return [
-            'softDeleteBehavior' => [
-                'class' => SoftDeleteBehavior::className(),
-                'softDeleteAttributeValues' => [
-                    'status' => self::STATUS_DELETED
-                ],
-            ],
-        ];
+        return $model->softDelete();
+
     }
 }

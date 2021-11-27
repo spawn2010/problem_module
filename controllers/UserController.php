@@ -56,14 +56,16 @@ class UserController extends Controller
 
     public function actionDelete($id): \yii\web\Response
     {
-        $model = User\Form\Delete::findOne($id);
-        if ($model) {
-            if ($model->softDelete()) {
+
+        $model = new User\Form\Delete;
+
+            if ($model->delete($id)) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
             } else {
                 Yii::$app->session->setFlash('error', 'Ошибка при удалении пользователя');
             }
-        }
+
         return $this->redirect(['/user/list']);
+
     }
 }
