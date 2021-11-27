@@ -20,7 +20,7 @@ class m211126_121441_update_user_status extends Migration
      */
     public function safeDown()
     {
-        echo "m211126_121441_update_user_status cannot be reverted.\n";
+        $this->alterColumn('user', 'status', 'smallInteger');
 
         return false;
     }

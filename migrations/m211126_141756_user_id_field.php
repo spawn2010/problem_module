@@ -20,8 +20,7 @@ class m211126_141756_user_id_field extends Migration
      */
     public function safeDown()
     {
-        echo "m211126_141756_user_id_field cannot be reverted.\n";
-
+       $this->dropColumn('problems','user_id');
         return false;
     }
 
