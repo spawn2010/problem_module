@@ -36,4 +36,9 @@ class Problem extends ActiveRecord
             'rating' => Yii::t('app', 'Оценка'),
         ];
     }
+
+    public static function find()
+    {
+        return Yii::createObject(Query::class, [get_called_class()]);
+    }
 }

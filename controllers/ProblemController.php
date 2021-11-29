@@ -13,12 +13,12 @@ class  ProblemController extends Controller
    // public $query;
     public function actionList()
     {
-        $query = '';
-    if (Yii::$app->user->identity->role === 'user') (
-        $query = ['user_id' => Yii::$app->user->id]
-    );
+        $query = Problem::find();
+    if (Yii::$app->user->identity->role === 'user') {
+        $query = $query->findByUser(Yii::$app->user->id);
+    };
         $dataProvider = new ActiveDataProvider([
-            'query' => Problem::find()->where($query),
+            'query' => $query,
             'pagination' => [
                 'pageSize' => 20
             ]
