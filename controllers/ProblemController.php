@@ -20,7 +20,7 @@ class  ProblemController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 20
+                'pageSize' => 7
             ]
         ]);
         return $this->render('list', ['dataProvider' => $dataProvider]);
