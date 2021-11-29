@@ -24,7 +24,7 @@ class Add extends Model
         ];
     }
 
-    public function save()
+    public function save($userId)
     {
         if (!$this->validate()) {
             return false;
@@ -32,7 +32,7 @@ class Add extends Model
         $problem = new Problem();
         $problem->problem = $this->problem;
         $problem->decision = $this->decision;
-        $problem->user_id = Yii::$app->user->id;
+        $problem->user_id = $userId;
         return $problem->save();
     }
 

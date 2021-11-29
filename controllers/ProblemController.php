@@ -29,7 +29,7 @@ class  ProblemController extends Controller
     public function actionAdd()
     {
         $model = new Form\Add();
-        $isSave = $model->load(Yii::$app->request->post()) && $model->save();
+        $isSave = $model->load(Yii::$app->request->post()) && $model->save(Yii::$app->user->id);
         if ($isSave) {
             Yii::$app->session->setFlash('info', 'проблема успешно добавлена');
         } else {
