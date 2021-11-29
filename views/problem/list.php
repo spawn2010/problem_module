@@ -62,6 +62,7 @@ endif; ?>
         'problem',
         'decision',
         'rating',
+
     ];
     /**
      * @var $dataProvider
@@ -71,7 +72,10 @@ endif; ?>
         [
             'dataProvider' => $dataProvider,
             'summary' => false,
-            'columns' => [
+            'columns' => [[
+                    'attribute'=>'user_id',
+                'value'=>'user.username'
+            ],
                 'problem',
                 'decision',
                 [
