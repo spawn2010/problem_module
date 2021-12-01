@@ -16,7 +16,6 @@ use yii\db\ActiveRecord;
  */
 class Problem extends ActiveRecord
 {
-
     public static function tableName()
     {
         return 'problems';
@@ -30,16 +29,10 @@ class Problem extends ActiveRecord
         ];
     }
 
-    public function     attributeLabels()
-
-
+    public function attributeLabels(): array
     {
-
-
         return [
             'problem' => Yii::t('app', 'Проблема'),
-
-
             'decision' => Yii::t('app', 'Решение'),
             'rating' => Yii::t('app', 'Оценка'),
             'user_id' => Yii::t('app', 'Имя пользователя'),

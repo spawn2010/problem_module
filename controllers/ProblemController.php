@@ -8,15 +8,15 @@ use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
-class  ProblemController extends Controller
+class ProblemController extends Controller
 {
-   // public $query;
     public function actionList()
     {
         $query = Problem::find();
-    if (Yii::$app->user->identity->role === 'user') {
-        $query = $query->findByUser(Yii::$app->user->id);
-    };
+
+        if (Yii::$app->user->identity->role === 'user') {
+            $query = $query->findByUser(Yii::$app->user->id);
+        };
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -43,5 +43,4 @@ class  ProblemController extends Controller
         $model = new Form\AddRating();
         return $model->load(Yii::$app->request->post()) && $model->save();
     }
-
 }
