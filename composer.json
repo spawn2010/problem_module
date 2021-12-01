@@ -32,7 +32,10 @@
         "codeception/module-asserts": "^1.0.0",
         "kartik-v/yii2-widget-rating": "dev-master",
         "kartik-v/yii2-export": "@dev",
-        "yii2tech/ar-softdelete": "dev-master"
+        "yii2tech/ar-softdelete": "dev-master",
+        "squizlabs/php_codesniffer": "3.5.5",
+        "friendsofphp/php-cs-fixer": "v2.16.3",
+        "phpunit/phpunit": "6.5.9"
     },
 
     "config": {

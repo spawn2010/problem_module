@@ -32,5 +32,14 @@ services:
     ports:
       - 8081:80
 
+  debug:
+    build:
+      context: .
+    volumes:
+      - ./:/var/www/html
+    environment:
+      PHP_CS_FIXER_ALLOW_XDEBUG: 1
+    tty: true
+
 volumes:
   db: { }

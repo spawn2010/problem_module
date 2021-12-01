@@ -25,15 +25,21 @@ class Problem extends ActiveRecord
     public function rules()
     {
         return [
-            [['problem', 'decision','user_id'], 'trim'],
+            [['problem', 'decision', 'user_id'], 'trim'],
             [['problem', 'decision'], 'required'],
         ];
     }
 
-    public function attributeLabels()
+    public function     attributeLabels()
+
+
     {
+
+
         return [
             'problem' => Yii::t('app', 'Проблема'),
+
+
             'decision' => Yii::t('app', 'Решение'),
             'rating' => Yii::t('app', 'Оценка'),
             'user_id' => Yii::t('app', 'Имя пользователя'),
@@ -42,8 +48,8 @@ class Problem extends ActiveRecord
 
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class,[
-            'id'=>'user_id'
+        return $this->hasOne(User::class, [
+            'id' => 'user_id'
         ]);
     }
 
