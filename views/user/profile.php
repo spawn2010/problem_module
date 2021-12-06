@@ -16,6 +16,7 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'username') ?>
 <?= $form->field($model, 'email') ?>
 <?= $form->field($model, 'password') ?>
+
     <div class="form-group">
         <div>
             <?= Html::submitButton('Сохранить изменения', ['class' => 'btn btn-success']) ?>

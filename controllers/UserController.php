@@ -10,10 +10,6 @@ use Yii;
 
 class UserController extends Controller
 {
-    public function __construct($id, $module, $config = [])
-    {
-        parent::__construct($id, $module, $config);
-    }
 
     public function actionList(): string
     {
@@ -36,6 +32,12 @@ class UserController extends Controller
     public function actionProfile($id)
     {
         $model = User\Form\Update::findOne($id);
+       if (!$model['user_image']){
+
+           $avatar = new LasseRafn\InitialAvatarGenerator\InitialAvatar();
+           echo $avatar->name('USR')->generateSvg()->toXMLString();
+
+       }
 
         if ($id == Yii::$app->user->id) {
             return $this->render('profile', ['model' => $model]);
