@@ -33,7 +33,7 @@ class UserController extends Controller
         $model = User\User::findOne($id);
         $update = new User\Form\Update();
         if ($update->update($id)){
-            return Yii::$app->response->redirect(['user/view','id' => $model['id']]);
+            return $this->redirect(['user/view','id' => $model['id']]);
         }
         return $this->render('update', ['model' => $model]);
     }
@@ -54,7 +54,7 @@ class UserController extends Controller
     public function actionDelete($id): \yii\web\Response
     {
 
-        $model = new User\Form\Delete;
+        $model = new User\Form\Delete();
 
             if ($model->delete($id)) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
