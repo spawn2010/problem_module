@@ -21,7 +21,7 @@ class m211126_141756_user_id_field extends Migration
     public function safeDown()
     {
        $this->dropColumn('problems','user_id');
-        return false;
+        return true;
     }
 
     /*
