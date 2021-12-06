@@ -3,12 +3,17 @@
 namespace app\controllers;
 
 use app\models\User;
+use http\Exception;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use Yii;
 
 class UserController extends Controller
 {
+    public function __construct($id, $module, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+    }
 
     public function actionList(): string
     {
@@ -28,6 +33,16 @@ class UserController extends Controller
         return $this->render('view', ['model' => $model]);
     }
 
+    public function actionProfile($id)
+    {
+        $model = User\Form\Update::findOne($id);
+
+        if ($id == Yii::$app->user->id) {
+            return $this->render('profile', ['model' => $model]);
+        }
+        throw new \yii\web\HttpException(404,'Невозможно редактировать данные другого пользователя');
+    }
+
     public function actionUpdate($id)
     {
         $model = User\Form\Update::findOne($id);
@@ -35,7 +50,7 @@ class UserController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model['password']);
             if ($model->save()) {
-                return Yii::$app->response->redirect(['user/view','id' => $model['id']]);
+                return Yii::$app->response->redirect(['user/view', 'id' => $model['id']]);
             }
         }
         return $this->render('update', ['model' => $model]);

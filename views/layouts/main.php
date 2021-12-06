@@ -52,7 +52,14 @@ $this->beginBody() ?>
                 )
                 . Html::endForm()
                 . '</li>'
-            ) : ('')),
+            ) : ('<li>'
+                . Html::beginForm(['/user/profile','id'=>Yii::$app->user->id], 'post', ['class' => 'form-inline'])
+                . Html::submitButton(
+                    'Мой профиль',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>')),
 
             Yii::$app->user->isGuest ? (
             ['label' => 'Регистрация', 'url' => ['/site/signup'], 'positions' => 'fixed-left']
