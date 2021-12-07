@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
     <h2>Редактирование пользователя</h2>
 <?php
 $form = ActiveForm::begin([
-    'id' => 'login-form',
+    'id' => 'update-form',
     'options' => ['class' => 'container col-md-4'],
 ]) ?>
 <?= $form->field($model, 'username') ?>

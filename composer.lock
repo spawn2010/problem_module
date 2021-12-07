@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ba0ea40c1a7753a240953c263cb1e9b",
+    "content-hash": "422ddc2c89710e741512695c7e6cda0b",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -7408,117 +7408,6 @@
                 }
             ],
             "time": "2021-08-09T21:07:34+00:00"
-        },
-        {
-            "name": "zertex/avatar-generator",
-            "version": "1.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zertex/avatar-generator.git",
-                "reference": "425790e8371679813e34ab7730a421464576741f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zertex/avatar-generator/zipball/425790e8371679813e34ab7730a421464576741f",
-                "reference": "425790e8371679813e34ab7730a421464576741f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "library",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "zertex\\avatar\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Egor Oldenburger",
-                    "email": "egor@oldenburger.ru",
-                    "homepage": "http://zertex.ru"
-                }
-            ],
-            "description": "Avatar generator by username, file or url.",
-            "keywords": [
-                "avatar",
-                "userpic"
-            ],
-            "support": {
-                "issues": "https://github.com/zertex/avatar-generator/issues?state=open",
-                "source": "https://github.com/zertex/avatar-generator"
-            },
-            "time": "2018-10-12T16:54:48+00:00"
-        },
-        {
-            "name": "zertex/yii2-avatar-generator",
-            "version": "1.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/zertex/yii2-avatar-generator.git",
-                "reference": "6465c4c918b1862954e04cdb11104b17fc2907a1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/zertex/yii2-avatar-generator/zipball/6465c4c918b1862954e04cdb11104b17fc2907a1",
-                "reference": "6465c4c918b1862954e04cdb11104b17fc2907a1",
-                "shasum": ""
-            },
-            "require": {
-                "zertex/avatar-generator": "*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "yii2-extension",
-            "extra": {
-                "asset-installer-paths": {
-                    "npm-asset-library": "vendor/npm",
-                    "bower-asset-library": "vendor/bower"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "zertex\\avatar_generator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Egor Oldenburger",
-                    "email": "egor@oldenburger.ru",
-                    "homepage": "http://zertex.ru"
-                }
-            ],
-            "description": "Avatar generator for Yii2 Framework.",
-            "keywords": [
-                "avatar",
-                "avatar-generator",
-                "userpic",
-                "yii 2",
-                "yii2"
-            ],
-            "support": {
-                "issues": "https://github.com/zertex/yii2-avatar-generator/issues?state=open",
-                "source": "https://github.com/zertex/yii2-avatar-generator"
-            },
-            "time": "2018-07-05T16:48:21+00:00"
         }
     ],
     "aliases": [],
@@ -7532,7 +7421,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4.0"
+        "php": ">=7.4.0",
+        "ext-gd": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"

@@ -3,10 +3,10 @@
 namespace app\controllers;
 
 use app\models\User;
-use http\Exception;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use Yii;
+use yii\web\UploadedFile;
 
 class UserController extends Controller
 {
@@ -31,15 +31,19 @@ class UserController extends Controller
 
     public function actionProfile($id)
     {
-        $model = User\Form\Update::findOne($id);
-       if (!$model['user_image']){
-
-           $avatar = new LasseRafn\InitialAvatarGenerator\InitialAvatar();
-           echo $avatar->name('USR')->generateSvg()->toXMLString();
-
-       }
-
+        $model = User\Form\Profile::findOne($id);
+        $model['user_image'] = $model->getAvatar($id);
         if ($id == Yii::$app->user->id) {
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model['user_image'] = UploadedFile::getInstance($model,'user_image')) {
+                        $model['user_image']->saveAs("image/{$model['user_image']->baseName}.{$model['user_image']->extension}",false);
+                        $model->save(false);
+                    }
+                $model->setPassword($model['password']);
+                if ($model->save()) {
+                    return Yii::$app->response->redirect(['user/view', 'id' => $model['id']]);
+                }
+            }
             return $this->render('profile', ['model' => $model]);
         }
         throw new \yii\web\HttpException(404,'Невозможно редактировать данные другого пользователя');
@@ -48,7 +52,6 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = User\Form\Update::findOne($id);
-
         if ($model->load(Yii::$app->request->post())) {
             $model->setPassword($model['password']);
             if ($model->save()) {
