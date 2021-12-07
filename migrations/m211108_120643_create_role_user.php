@@ -16,7 +16,7 @@ class m211108_120643_create_role_user extends Migration
 
     public function up()
     {
-        $this->addColumn('user', 'role', $this->string(64));
+        $this->addColumn('{{%user}}', 'role', $this->string(64));
     }
 
     /**
