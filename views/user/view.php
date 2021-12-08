@@ -16,8 +16,10 @@ echo DetailView::widget([
         'role',
         'email',
         'status',
-        ['attribute' => 'img',
+        [
+            'attribute' => 'img',
             'value' => $model['user_image'],
-            'format' => ['image',['width' => 100, 'height'=>100]]]
+            'format' => ['image', ['width' => 100, 'height' => 100]]
+        ]
     ],
 ]);

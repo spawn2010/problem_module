@@ -61,6 +61,7 @@ class Update extends ActiveRecord implements IdentityInterface
             [['username', 'role', 'email', 'password'], 'trim'],
         ];
     }
+
     public function attributeLabels()
     {
         return [
@@ -71,6 +72,7 @@ class Update extends ActiveRecord implements IdentityInterface
             'email' => 'email'
         ];
     }
+
     /**
      * @inheritdoc
      */

@@ -63,6 +63,7 @@ class Profile extends ActiveRecord implements IdentityInterface
             [['user_image'], 'file', 'extensions' => 'png, jpg'],
         ];
     }
+
     public function attributeLabels()
     {
         return [
@@ -73,6 +74,7 @@ class Profile extends ActiveRecord implements IdentityInterface
             'email' => 'email'
         ];
     }
+
     /**
      * @inheritdoc
      */
@@ -125,12 +127,13 @@ class Profile extends ActiveRecord implements IdentityInterface
 
     public function getAvatar($id)
     {
+        $path = '/web/image/';
         $model = self::findOne($id);
-        if (!$model['user_image']){
+        if (!$model['user_image']) {
             $avatar = new InitialAvatar();
             return $model['user_image'] = $avatar->width(100)->height(100)->name($model->username)->generateSvg()->toXMLString();
         }
-        return $model['user_image'];
+        return $path.$model['user_image'];
     }
 
 }

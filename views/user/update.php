@@ -19,11 +19,11 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'role')->dropDownList([
     'admin' => 'Администратор',
     'user' => 'Пользователь'
-]);  ?>
+]); ?>
 <?= $form->field($model, 'status')->dropDownList([
     'active' => 'Активный',
     'inactive' => 'Отключен'
-]);  ?>
+]); ?>
 
     <div class="form-group">
         <div>

@@ -12,7 +12,7 @@ class m211206_154009_user_image_field extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('user', 'user_image', $this->binary());
+        $this->addColumn('user', 'user_image', $this->string());
     }
 
     /**

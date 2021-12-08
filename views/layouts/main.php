@@ -53,7 +53,7 @@ $this->beginBody() ?>
                 . Html::endForm()
                 . '</li>'
             ) : ('<li>'
-                . Html::beginForm(['/user/profile','id'=>Yii::$app->user->id], 'post', ['class' => 'form-inline'])
+                . Html::beginForm(['/user/profile', 'id' => Yii::$app->user->id], 'post', ['class' => 'form-inline'])
                 . Html::submitButton(
                     'Мой профиль',
                     ['class' => 'btn btn-link logout']

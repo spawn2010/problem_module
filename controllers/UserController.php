@@ -32,7 +32,9 @@ class UserController extends Controller
     public function actionProfile($id)
     {
         $model = User\Form\Profile::findOne($id);
-        $model['user_image'] = $model->getAvatar($id);
+
+        $image = $model->getAvatar($id);
+
         if ($id == Yii::$app->user->id) {
             if ($model->load(Yii::$app->request->post())) {
                 if ($model['user_image'] = UploadedFile::getInstance($model,'user_image')) {
@@ -44,7 +46,7 @@ class UserController extends Controller
                     return Yii::$app->response->redirect(['user/view', 'id' => $model['id']]);
                 }
             }
-            return $this->render('profile', ['model' => $model]);
+            return $this->render('profile', ['model' => $model,'image' => $image]);
         }
         throw new \yii\web\HttpException(404,'Невозможно редактировать данные другого пользователя');
     }

@@ -6,7 +6,7 @@ use yii\base\Model;
 use yii\db\ActiveRecord;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
-class Delete  extends ActiveRecord
+class Delete extends ActiveRecord
 {
     public const STATUS_DELETED = 'inactive';
     public const STATUS_ACTIVE = 'active';
@@ -22,6 +22,7 @@ class Delete  extends ActiveRecord
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];
     }
+
     public function behaviors(): array
     {
         return [
