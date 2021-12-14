@@ -24,7 +24,7 @@ class Add extends Model
         ];
     }
 
-    public function save($userId)
+    public function save()
     {
         if (!$this->validate()) {
             return false;
@@ -32,7 +32,7 @@ class Add extends Model
         $problem = new Problem();
         $problem->problem = $this->problem;
         $problem->decision = $this->decision;
-        $problem->user_id = $userId;
+        $problem->user_id = $this->user_id;
         return $problem->save();
     }
 
