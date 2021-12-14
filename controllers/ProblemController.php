@@ -10,12 +10,17 @@ use yii\web\Controller;
 
 class  ProblemController extends Controller
 {
+    // public $query;
     public function actionList()
     {
+        $query = Problem::find();
+        if (Yii::$app->user->identity->role === 'user') {
+            $query = $query->findByUser(Yii::$app->user->id);
+        };
         $dataProvider = new ActiveDataProvider([
-            'query' => Problem::find(),
+            'query' => $query,
             'pagination' => [
-                'pageSize' => 20
+                'pageSize' => 7
             ]
         ]);
         return $this->render('list', ['dataProvider' => $dataProvider]);
@@ -24,6 +29,7 @@ class  ProblemController extends Controller
     public function actionAdd()
     {
         $model = new Form\Add();
+        $model->user_id = Yii::$app->user->id;
         $isSave = $model->load(Yii::$app->request->post()) && $model->save();
         if ($isSave) {
             Yii::$app->session->setFlash('info', 'проблема успешно добавлена');

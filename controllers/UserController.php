@@ -10,23 +10,23 @@ use yii\web\UploadedFile;
 
 class UserController extends Controller
 {
-
     public function actionList(): string
     {
         $model = new User\Form\Add();
         $dataProvider = new ActiveDataProvider([
-            'query' => User\Form\Update::find(),
+            'query' => User\User::find(),
             'pagination' => [
                 'pageSize' => 20
             ]
         ]);
+
         return $this->render('list', ['dataProvider' => $dataProvider, 'model' => $model]);
     }
 
     public function actionView($id)
     {
-        $model = User\Form\Update::findOne($id);
 
+        $model = User\User::findOne($id);
         return $this->render('view', ['model' => $model]);
     }
 
@@ -57,12 +57,10 @@ class UserController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = User\Form\Update::findOne($id);
-        if ($model->load(Yii::$app->request->post())) {
-            $model->setPassword($model['password']);
-            if ($model->save()) {
-                return Yii::$app->response->redirect(['user/view', 'id' => $model['id']]);
-            }
+        $model = User\User::findOne($id);
+        $update = new User\Form\Update();
+        if ($update->update($id)){
+            return $this->redirect(['user/view','id' => $model['id']]);
         }
         return $this->render('update', ['model' => $model]);
     }
@@ -82,14 +80,16 @@ class UserController extends Controller
 
     public function actionDelete($id): \yii\web\Response
     {
-        $model = User\Form\Delete::findOne($id);
-        if ($model) {
-            if ($model->softDelete()) {
+
+        $model = new User\Form\Delete();
+
+            if ($model->delete($id)) {
                 Yii::$app->session->setFlash('info', 'Пользовтель Удален');
             } else {
                 Yii::$app->session->setFlash('error', 'Ошибка при удалении пользователя');
             }
-        }
+
         return $this->redirect(['/user/list']);
+
     }
 }

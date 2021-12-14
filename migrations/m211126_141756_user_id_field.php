@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Class m211126_121441_update_user_status
+ * Class m211126_141756_user_id_field
  */
-class m211126_121441_update_user_status extends Migration
+class m211126_141756_user_id_field extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->alterColumn('{{%user}}', 'status', 'string');
+        $this->addColumn('problems', 'user_id', $this->integer());
     }
 
     /**
@@ -20,9 +20,8 @@ class m211126_121441_update_user_status extends Migration
      */
     public function safeDown()
     {
-        $this->alterColumn('user', 'status', 'smallInteger');
-
-        return false;
+       $this->dropColumn('problems','user_id');
+        return true;
     }
 
     /*
@@ -34,7 +33,7 @@ class m211126_121441_update_user_status extends Migration
 
     public function down()
     {
-        echo "m211126_121441_update_user_status cannot be reverted.\n";
+        echo "m211126_141756_user_id_field cannot be reverted.\n";
 
         return false;
     }

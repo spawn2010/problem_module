@@ -62,6 +62,7 @@ endif; ?>
         'problem',
         'decision',
         'rating',
+
     ];
     /**
      * @var $dataProvider
@@ -72,6 +73,11 @@ endif; ?>
             'dataProvider' => $dataProvider,
             'summary' => false,
             'columns' => [
+                [
+                    'attribute' => 'user_id',
+                    'value' => 'user.username',
+                    'visible' => Yii::$app->user->identity->role === 'admin'
+                ],
                 'problem',
                 'decision',
                 [
