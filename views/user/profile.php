@@ -11,8 +11,7 @@ use yii\bootstrap4\Html;
  */
 ?>
 <h2>Профиль пользователя</h2>
-<?php
-echo '<img src='.$image.'>';
+<?php echo '<img src='.$image.'>';
 $form = ActiveForm::begin([
     'id' => 'login-form',
     'options' => ['class' => 'container col-md-6 mt-2', 'enctype' => 'multipart/form-data'],
