@@ -30,29 +30,22 @@ class UserController extends Controller
         return $this->render('view', ['model' => $model]);
     }
 
-    public function actionProfile($id)
+    public function actionProfile()
     {
-        $model = User\User::findOne($id);
+        $userId = Yii::$app->user->id;
 
-        $image = new User\Form\Profile();
+        $profile = new User\Form\Profile(['id' => $userId]);
 
-        $image = $image->getAvatar($id);
-
-        if ($id == Yii::$app->user->id) {
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model['user_image'] = UploadedFile::getInstance($model, 'user_image')) {
-                    $model['user_image']->saveAs("image/{$model['user_image']->baseName}.{$model['user_image']->extension}",
-                        false);
-                    $model->save(false);
-                }
-                $model->setPassword($model['password']);
-                if ($model->save()) {
-                    return Yii::$app->response->redirect(['user/view', 'id' => $model['id']]);
-                }
+        if ($profile->load(Yii::$app->request->post())) {
+            $avatar = UploadedFile::getInstance($profile, 'avatar');
+            if ($avatar) {
+                $profile->avatar = sprintf('avatar_%d.%s', $profile->id, $avatar->extension);
+                $avatar->saveAs(User\User::getAvatarFolder() . $profile->avatar);
             }
-            return $this->render('profile', ['model' => $model, 'image' => $image]);
+            $profile->save();
         }
-        throw new \yii\web\HttpException(404, 'Невозможно редактировать данные другого пользователя');
+
+        return $this->render('profile', ['profile' => $profile]);
     }
 
     public function actionUpdate($id)

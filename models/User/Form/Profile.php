@@ -4,25 +4,44 @@ namespace app\models\User\Form;
 
 use app\models\User\User;
 use LasseRafn\InitialAvatarGenerator\InitialAvatar;
+use Yii;
 use yii\base\Model;
 
 
-class Profile extends model
+class Profile extends Model
 {
-    public function findOne($id): ?User
+    public $id;
+    public $username;
+    public $email;
+    public $password;
+    public $avatar;
+
+    public function getAvatar()
     {
-        return User::findOne($id);
+        $user = User::findOne($this->id);
+        if ($user === null) {
+            return false;
+        }
+
+        return $user->getAvatarUrl();
     }
 
-    public function getAvatar($id)
+    public function save()
     {
-        $path = '/web/image/';
-        $model = User::findOne($id);
-        if (empty($model['user_image'])) {
-            $avatar = new InitialAvatar();
-            return $model['user_image'] = $avatar->name($model->username)->generate()->stream('png', 100);;
+        if ($this->validate() === false) {
+            return false;
         }
-        return $path . $model['user_image'];
+
+        $user = User::findOne($this->id);
+        if ($user === null) {
+            return false;
+        }
+
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setAvatar($this->avatar);
+        $user->setPassword($this->password);
+        return $user->save();
     }
 
 }
