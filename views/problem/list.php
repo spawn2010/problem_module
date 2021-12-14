@@ -17,6 +17,7 @@ use yii\helpers\Html;
         <h1>Список инцидентов</h1>
     </div>
     <?php
+    $condition = '1';
     if (Yii::$app->user->identity->role === 'user') : ?>
     <div class="col-4 text-right">
         <button type="button" class="btn btn-success m-2  " data-toggle="modal" data-target="#addProblemModal">
@@ -38,6 +39,7 @@ use yii\helpers\Html;
                         </button>
                     </div>
                     <?php
+                    $condition = '0';
                     $problem = new Form\Add();
                     $form = ActiveForm::begin(['action' => ['/problem/add']]) ?>
                     <div class="modal-body">
@@ -72,10 +74,12 @@ endif; ?>
         [
             'dataProvider' => $dataProvider,
             'summary' => false,
-            'columns' => [[
-                    'attribute'=>'user_id',
-                'value'=>'user.username'
-            ],
+            'columns' => [
+                [
+                    'attribute' => 'user_id',
+                    'value' => 'user.username',
+                    'visible' => $condition
+                ],
                 'problem',
                 'decision',
                 [

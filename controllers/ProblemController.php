@@ -10,13 +10,13 @@ use yii\web\Controller;
 
 class  ProblemController extends Controller
 {
-   // public $query;
+    // public $query;
     public function actionList()
     {
         $query = Problem::find();
-    if (Yii::$app->user->identity->role === 'user') {
-        $query = $query->findByUser(Yii::$app->user->id);
-    };
+        if (Yii::$app->user->identity->role === 'user') {
+            $query = $query->findByUser(Yii::$app->user->id);
+        };
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
