@@ -9,7 +9,6 @@ use Yii;
 
 class UserController extends Controller
 {
-
     public function actionList(): string
     {
         $model = new User\Form\Add();
@@ -19,6 +18,7 @@ class UserController extends Controller
                 'pageSize' => 20
             ]
         ]);
+
         return $this->render('list', ['dataProvider' => $dataProvider, 'model' => $model]);
     }
 
