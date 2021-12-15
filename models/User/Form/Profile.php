@@ -4,8 +4,10 @@ namespace app\models\User\Form;
 
 use app\models\User\User;
 use LasseRafn\InitialAvatarGenerator\InitialAvatar;
+use phpDocumentor\Reflection\Types\Null_;
 use Yii;
 use yii\base\Model;
+use yii\helpers\Html;
 
 
 class Profile extends Model
@@ -22,8 +24,12 @@ class Profile extends Model
         if ($user === null) {
             return false;
         }
-
-        return $user->getAvatarUrl();
+        $this->avatar = $user->user_image;
+        if ($user->user_image === null) {
+            $generateAvatar = new InitialAvatar();
+            return $generateAvatar->name($user->username)->size(100)->generateSvg()->toXMLString();
+        }
+            return $user->getAvatarUrl();
     }
 
     public function save()

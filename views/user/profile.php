@@ -12,7 +12,12 @@ use yii\bootstrap4\Html;
 ?>
 <h2>Профиль пользователя</h2>
 
-<?= Html::img($profile->getAvatar()) ?>
+<?php if (isset($profile->avatar)){
+    echo $profile->getAvatar();
+}?>
+
+<?=Html::img($profile->getAvatar())?>
+
 
 <?php
 $form = ActiveForm::begin([

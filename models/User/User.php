@@ -23,6 +23,7 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property string $role
+ * * @property string $user_image
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -173,7 +174,7 @@ class User extends ActiveRecord implements IdentityInterface
      *
      * @return string
      */
-    public function getAvatar(): string
+    public function getAvatar()
     {
         return $this->user_image;
     }
