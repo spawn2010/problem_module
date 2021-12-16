@@ -4,10 +4,7 @@ namespace app\models\User\Form;
 
 use app\models\User\User;
 use LasseRafn\InitialAvatarGenerator\InitialAvatar;
-use phpDocumentor\Reflection\Types\Null_;
-use Yii;
 use yii\base\Model;
-use yii\helpers\Html;
 
 
 class Profile extends Model
@@ -18,18 +15,31 @@ class Profile extends Model
     public $password;
     public $avatar;
 
+    public function rules()
+    {
+        return [
+            [['username', 'email', 'password'], 'trim'],
+        ];
+    }
+
     public function getAvatar()
     {
         $user = User::findOne($this->id);
         if ($user === null) {
             return false;
         }
-        $this->avatar = $user->user_image;
+        return $this->avatar = $user->getAvatarUrl();
+    }
+
+    public function generateAvatar(): string
+    {
+        $user = User::findOne($this->id);
         if ($user->user_image === null) {
             $generateAvatar = new InitialAvatar();
-            return $generateAvatar->name($user->username)->size(100)->generateSvg()->toXMLString();
+            return $generateAvatar->name($this->username)->size(100)->generateSvg()->toXMLString();
         }
-            return $user->getAvatarUrl();
+
+        return false;
     }
 
     public function save()
@@ -45,9 +55,25 @@ class Profile extends Model
 
         $user->username = $this->username;
         $user->email = $this->email;
-        $user->setAvatar($this->avatar);
-        $user->setPassword($this->password);
+
+        if ($this->avatar) {
+            $user->setAvatar($this->avatar);
+        }
+
+        if ($this->password) {
+            $user->setPassword($this->password);
+        }
+
         return $user->save();
     }
+
+    public function attributes()
+    {
+        $user = User::findOne($this->id);
+        $this->username = $user->username;
+        $this->password = $user->password;
+        $this->email = $user->email;
+    }
+
 
 }

@@ -12,8 +12,8 @@ use yii\bootstrap4\Html;
 ?>
 <h2>Профиль пользователя</h2>
 
-<?php if (isset($profile->avatar)){
-    echo $profile->getAvatar();
+<?php if (!($profile->avatar)){
+    echo $profile->generateAvatar();
 }?>
 
 <?=Html::img($profile->getAvatar())?>
