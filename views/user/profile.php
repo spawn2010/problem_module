@@ -16,7 +16,7 @@ use yii\bootstrap4\Html;
     echo $profile->generateAvatar();
 }?>
 
-<?=Html::img($profile->getAvatar())?>
+<?=Html::img($profile->getAvatar(),['widht'=>'100','height'=>'100'])?>
 
 
 <?php
