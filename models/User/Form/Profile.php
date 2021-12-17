@@ -14,6 +14,16 @@ class Profile extends Model
     public $email;
     public $password;
     public $avatar;
+    public $model;
+
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->model = User::findOne($this->id);
+        $this->username = $this->model->username;
+        $this->password = $this->model->password;
+        $this->email = $this->model->email;
+    }
 
     public function rules()
     {
@@ -24,7 +34,7 @@ class Profile extends Model
 
     public function getAvatar()
     {
-        $user = User::findOne($this->id);
+        $user = $this->model;
         if ($user === null) {
             return false;
         }
@@ -33,7 +43,7 @@ class Profile extends Model
 
     public function generateAvatar(): string
     {
-        $user = User::findOne($this->id);
+        $user = $this->model;
         if ($user->user_image === null) {
             $generateAvatar = new InitialAvatar();
             return $generateAvatar->name($this->username)->size(100)->generateSvg()->toXMLString();
@@ -48,7 +58,7 @@ class Profile extends Model
             return false;
         }
 
-        $user = User::findOne($this->id);
+        $user = $this->model;
         if ($user === null) {
             return false;
         }
@@ -66,14 +76,5 @@ class Profile extends Model
 
         return $user->save();
     }
-
-    public function attributes()
-    {
-        $user = User::findOne($this->id);
-        $this->username = $user->username;
-        $this->password = $user->password;
-        $this->email = $user->email;
-    }
-
 
 }
