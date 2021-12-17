@@ -69,6 +69,20 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'role' => 'Роль',
+            'password' => 'Пароль',
+            'status' => 'Статус',
+            'id' => 'ID',
+            'img' => 'Аватар',
+            'email' => 'Email',
+
+        ];
+    }
+
     public static function getAvatarFolder()
     {
         return Yii::getAlias(sprintf(
