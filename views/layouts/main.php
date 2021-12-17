@@ -50,7 +50,7 @@ $this->beginBody() ?>
             $items[] = ['label' => 'Пользователи', 'url' => ['/user/list'], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left'];
         }
 
-        $items[] = ['label' => 'Мой профиль', 'url' => ['/user/profile', 'id' => Yii::$app->user->identity->id], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left'];
+        $items[] = ['label' => 'Мой профиль', 'url' => ['/user/profile'], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left'];
 
         $items[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post', ['class' => 'nav-link'])
