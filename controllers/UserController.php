@@ -10,6 +10,15 @@ use yii\web\UploadedFile;
 
 class UserController extends Controller
 {
+    public $profile;
+
+    public function __construct($id, $module, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+        $userId = Yii::$app->user->id;
+        $this->profile = new User\Form\Profile(['id' => $userId]);
+    }
+
     public function actionList(): string
     {
         $model = new User\Form\Add();
@@ -32,19 +41,17 @@ class UserController extends Controller
 
     public function actionProfile()
     {
-        $userId = Yii::$app->user->id;
-        $profile = new User\Form\Profile(['id' => $userId]);
-        $profile->attributes();
-        if ($profile->load(Yii::$app->request->post())) {
-            $avatar = UploadedFile::getInstance($profile, 'avatar');
+
+        if ($this->profile->load(Yii::$app->request->post())) {
+            $avatar = UploadedFile::getInstance($this->profile, 'avatar');
             if ($avatar) {
-                $profile->avatar = sprintf('avatar_%d.%s', $profile->id, $avatar->extension);
-                $avatar->saveAs(User\User::getAvatarFolder() . $profile->avatar);
+                $this->profile->avatar = sprintf('avatar_%d.%s', $this->profile->id, $avatar->extension);
+                $avatar->saveAs(User\User::getAvatarFolder() . $this->profile->avatar);
             }
-            $profile->save();
+            $this->profile->save();
         }
 
-        return $this->render('profile', ['profile' => $profile]);
+        return $this->render('profile', ['profile' => $this->profile]);
     }
 
     public function actionUpdate($id)
