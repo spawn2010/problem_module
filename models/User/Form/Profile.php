@@ -41,12 +41,12 @@ class Profile extends Model
         return $this->avatar = $user->getAvatarUrl();
     }
 
-    public function generateAvatar(): string
+    public function generateAvatar($username): string
     {
         $user = $this->model;
         if ($user->user_image === null) {
             $generateAvatar = new InitialAvatar();
-            return $generateAvatar->name($this->username)->size(100)->generateSvg()->toXMLString();
+            return $generateAvatar->name($username)->size(100)->generateSvg()->toXMLString();
         }
 
         return false;

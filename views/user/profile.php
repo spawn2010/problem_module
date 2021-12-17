@@ -13,7 +13,7 @@ use yii\bootstrap4\Html;
 <h2>Профиль пользователя</h2>
 
 <?php if (!($profile->avatar)){
-    echo $profile->generateAvatar();
+    echo $profile->generateAvatar($profile->username);
 }?>
 
 <?=Html::img($profile->getAvatar(),['widht'=>'100','height'=>'100'])?>

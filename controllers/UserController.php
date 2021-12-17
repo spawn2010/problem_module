@@ -34,9 +34,8 @@ class UserController extends Controller
 
     public function actionView($id)
     {
-
         $model = User\User::findOne($id);
-        return $this->render('view', ['model' => $model]);
+        return $this->render('view', ['model' => $model,'profile'=>$this->profile]);
     }
 
     public function actionProfile()

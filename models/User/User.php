@@ -77,7 +77,7 @@ class User extends ActiveRecord implements IdentityInterface
             'password' => 'Пароль',
             'status' => 'Статус',
             'id' => 'ID',
-            'img' => 'Аватар',
+            'user_image' => 'Аватар',
             'email' => 'Email',
 
         ];
