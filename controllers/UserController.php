@@ -10,14 +10,6 @@ use yii\web\UploadedFile;
 
 class UserController extends Controller
 {
-    public $profile;
-
-    public function __construct($id, $module, $config = [])
-    {
-        parent::__construct($id, $module, $config);
-        $userId = Yii::$app->user->id;
-        $this->profile = new User\Form\Profile(['id' => $userId]);
-    }
 
     public function actionList(): string
     {
@@ -32,25 +24,27 @@ class UserController extends Controller
         return $this->render('list', ['dataProvider' => $dataProvider, 'model' => $model]);
     }
 
-    public function actionView($id)
+    public function actionView($id): string
     {
         $model = User\User::findOne($id);
-        return $this->render('view', ['model' => $model,'profile'=>$this->profile]);
+        $profile = new User\Form\Profile(['id' => $id]);
+        return $this->render('view', ['model' => $model,'profile'=>$profile]);
     }
 
-    public function actionProfile()
+    public function actionProfile(): string
     {
-
-        if ($this->profile->load(Yii::$app->request->post())) {
-            $avatar = UploadedFile::getInstance($this->profile, 'avatar');
+        $userId = Yii::$app->user->id;
+        $profile = new User\Form\Profile(['id' => $userId]);
+        if ($profile->load(Yii::$app->request->post())) {
+            $avatar = UploadedFile::getInstance($profile, 'avatar');
             if ($avatar) {
-                $this->profile->avatar = sprintf('avatar_%d.%s', $this->profile->id, $avatar->extension);
-                $avatar->saveAs(User\User::getAvatarFolder() . $this->profile->avatar);
+                $profile->avatar = sprintf('avatar_%d.%s', $profile->id, $avatar->extension);
+                $avatar->saveAs(User\User::getAvatarFolder() . $profile->avatar);
             }
-            $this->profile->save();
+            $profile->save();
         }
 
-        return $this->render('profile', ['profile' => $this->profile]);
+        return $this->render('profile', ['profile' => $profile]);
     }
 
     public function actionUpdate($id)

@@ -21,7 +21,6 @@ class Profile extends Model
         parent::__construct($config);
         $this->model = User::findOne($this->id);
         $this->username = $this->model->username;
-        $this->password = $this->model->password;
         $this->email = $this->model->email;
     }
 
