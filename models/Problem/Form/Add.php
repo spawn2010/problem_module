@@ -17,10 +17,10 @@ class Add extends Model
     public function rules()
     {
         return [
-            [['problem', 'decision','user_id'], 'trim'],
+            [['problem', 'decision', 'user_id'], 'trim'],
             [['problem', 'decision'], 'required'],
-            ['user_id','integer'],
-            ['user_id','exist', 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            ['user_id', 'integer'],
+            ['user_id', 'exist', 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 

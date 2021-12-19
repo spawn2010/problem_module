@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
     <h2>Редактирование пользователя</h2>
 <?php
 $form = ActiveForm::begin([
-    'id' => 'login-form',
+    'id' => 'update-form',
     'options' => ['class' => 'container col-md-4'],
 ]) ?>
 <?= $form->field($model, 'username') ?>
@@ -19,11 +19,11 @@ $form = ActiveForm::begin([
 <?= $form->field($model, 'role')->dropDownList([
     'admin' => 'Администратор',
     'user' => 'Пользователь'
-]);  ?>
+]); ?>
 <?= $form->field($model, 'status')->dropDownList([
     'active' => 'Активный',
     'inactive' => 'Отключен'
-]);  ?>
+]); ?>
 
     <div class="form-group">
         <div>

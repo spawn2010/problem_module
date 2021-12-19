@@ -16,6 +16,5 @@ class Update extends Model
             $model->setPassword($model['password']);
             return $model->save();
         }
-
     }
 }

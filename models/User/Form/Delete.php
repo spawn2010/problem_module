@@ -5,7 +5,6 @@ namespace app\models\User\Form;
 use app\models\User;
 use yii\base\Model;
 
-
 class Delete extends Model
 {
 
@@ -15,6 +14,5 @@ class Delete extends Model
             return $model->softDelete();
         }
         return false;
-
     }
 }

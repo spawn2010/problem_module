@@ -38,27 +38,34 @@ $this->beginBody() ?>
             'class' => 'navbar navbar-expand-lg navbar-dark bg-dark fixed-top',
         ],
     ]);
+
+    $items = [];
+
+    if (Yii::$app->user->isGuest) {
+        $items[] = ['label' => 'Регистрация', 'url' => ['/site/signup'], 'positions' => 'fixed-left'];
+    }
+
+    if (Yii::$app->user->identity) {
+        if (Yii::$app->user->identity->role === 'admin') {
+            $items[] = ['label' => 'Пользователи', 'url' => ['/user/list'], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left'];
+        }
+
+        $items[] = ['label' => 'Мой профиль', 'url' => ['/user/profile'], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left'];
+
+        $items[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post', ['class' => 'nav-link'])
+            . Html::submitButton(
+                'Выйти (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav ml-auto mt-2 mt-lg-0'],
 
-        'items' => [
-            Yii::$app->user->isGuest ? ('') : ((Yii::$app->user->identity->role === 'admin') ? (
-            ['label' => 'Пользователи', 'url' => ['/user/list'], 'options'=>['class'=> 'btn ms'], 'positions' => 'fixed-left']) : ('')),
-
-            Yii::$app->user->isGuest ? (
-            ['label' => 'Регистрация', 'url' => ['/site/signup'], 'positions' => 'fixed-left']
-            ) : (
-                  // ['label' => 'Выйти (' . Yii::$app->user->identity->username . ')', 'url' => ['/site/logout'], ['b'], 'positions' => 'fixed-left']
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post', ['class' => 'nav-link'])
-                . Html::submitButton(
-                    'Выйти (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
+        'items' => $items,
     ]);
     NavBar::end();
     ?>

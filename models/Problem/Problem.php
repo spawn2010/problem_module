@@ -25,7 +25,7 @@ class Problem extends ActiveRecord
     public function rules()
     {
         return [
-            [['problem', 'decision','user_id'], 'trim'],
+            [['problem', 'decision', 'user_id'], 'trim'],
             [['problem', 'decision'], 'required'],
         ];
     }
@@ -42,8 +42,8 @@ class Problem extends ActiveRecord
 
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class,[
-            'id'=>'user_id'
+        return $this->hasOne(User::class, [
+            'id' => 'user_id'
         ]);
     }
 

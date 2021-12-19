@@ -5,9 +5,25 @@ use yii\widgets\DetailView;
 /**
  * @var $model
  */
+/**
+ * @var $profile
+ */
 ?>
-    <h2>Информация о пользователе <?= Yii::$app->user->identity->username ?></h2>
+    <h2>Информация о пользователе <?= $model->username ?></h2>
 <?php
+
+if ($model['user_image']){
+    $model['user_image'] = $model->getAvatarUrl();
+    $avatar = 'user_image:image';
+}else{
+    $model['user_image'] =  $profile->generateAvatar($model->username);
+    $avatar =  [
+        'attribute' => 'user_image',
+        'format'=>'raw',
+        'value' => $model['user_image'],
+    ];
+}
+
 echo DetailView::widget([
     'model' => $model,
     'attributes' => [
@@ -15,6 +31,8 @@ echo DetailView::widget([
         'username',
         'role',
         'email',
-        'status'
+        'status',
+        $avatar
+
     ],
 ]);

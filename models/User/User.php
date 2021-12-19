@@ -23,9 +23,12 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property string $role
+ * * @property string $user_image
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    public const AVATAR_FOLDER = '/static/images';
+
     public const STATUS_DELETED = 'inactive';
     public const STATUS_ACTIVE = 'active';
     public $password;
@@ -64,6 +67,28 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['username', 'role', 'email', 'password'], 'trim'],
         ];
+    }
+
+    public function attributeLabels(): array
+    {
+        return [
+            'username' => Yii::t('app','Логин'),
+            'role' => Yii::t('app','Роль'),
+            'password' => Yii::t('app','Пароль'),
+            'status' => Yii::t('app','Статус'),
+            'id' => Yii::t('app','ID'),
+            'user_image' => Yii::t('app','Аватар'),
+            'email' => Yii::t('app','Email'),
+
+        ];
+    }
+
+    public static function getAvatarFolder()
+    {
+        return Yii::getAlias(sprintf(
+            '@webroot%s/',
+            self::AVATAR_FOLDER
+        ));
     }
 
     /**
@@ -146,5 +171,31 @@ class User extends ActiveRecord implements IdentityInterface
         $this->auth_key = Yii::$app->security->generateRandomString();
     }
 
+    /**
+     * Устанавливает название файла с аватаром пользователя
+     *
+     * @param $avatar
+     *
+     * @property string $avatar
+     */
+    public function setAvatar($avatar): void
+    {
+        $this->user_image = $avatar;
+    }
+
+    /**
+     * Возвращает название файла с аватаром пользователя
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->user_image;
+    }
+
+    public function getAvatarUrl(): string
+    {
+        return sprintf('%s/%s', self::AVATAR_FOLDER, $this->getAvatar());
+    }
 
 }
