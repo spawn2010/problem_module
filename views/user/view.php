@@ -32,6 +32,7 @@ echo DetailView::widget([
         'role',
         'email',
         'status',
+        $avatar
 
     ],
 ]);
