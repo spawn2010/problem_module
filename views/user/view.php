@@ -1,5 +1,6 @@
 <?php
 
+use kartik\rating\StarRating;
 use yii\widgets\DetailView;
 
 /**
@@ -23,7 +24,7 @@ if ($model['user_image']){
         'value' => $model['user_image'],
     ];
 }
-
+echo '<div class="container">';
 echo DetailView::widget([
     'model' => $model,
     'attributes' => [
@@ -37,9 +38,61 @@ echo DetailView::widget([
     ],
 ]);
 
-echo '<h2>СПИСОК ИНЦИДЕНТОВ</h2>
- <div class="container>
- <div class="row">';
-foreach ($model->getProblem()->all() as $item){
-    echo '<h2 class="col-6 col-sm-3 text-left" ><li>'.$item['problem'].'</li></h2>';
+$data = [];
+$i = 0;
+$k = 1;
+foreach ($model->getProblem()->all() as $value){
+    if (!$value['decision'] or !$value['rating']){
+        $data[$i] = $value;
+    }
+    $data[$i] = $value;
+    if($data[$i]['rating'] > $data[$k-1]['rating']){
+        $data[$i] = $data[$i+1];
+    }
+    $i++;
+    $k++;
 }
+
+$id = 'problem4';
+
+foreach ($data as $problem){
+    if ($problem['rating'] > 4 ){
+        $id = 'problem1';
+    }elseif ($problem['rating'] > 3){
+        $id = 'problem2';
+    }elseif ($problem['rating']){
+        $id = 'problem3';
+    }
+    echo '<div class="container mt-3" id="'.$id.'">
+<div class="row border border-2">
+  <div class="col text-left p-3">
+  <div class=""><h6>Инцидент:</h6></div>
+  <div><h6>'.$problem['problem'].'</h6></div>
+  </div>
+  <div class="col text-right">'.StarRating::widget([
+            'name' => 'rating',
+            'value' => $problem['rating'],
+            'pluginOptions' => [
+                'theme' => 'krajee-uni',
+                'showClear' => false,
+                'showCaption' => false,
+                'min' => 0,
+                'max' => 5,
+                'step' => 1,
+                'size' => 'md',
+                'language' => 'ru',
+                'displayOnly' => true,
+            ],
+
+        ]).'</div>
+  <div class="w-100 p-1"></div>
+  <div class="col text-left p-3">
+  <div><h6>Решение:</h6></div>
+  <div class="border p-3" id="decision"><h6>'.$problem['decision'].'</h6></div>
+  </div>
+  </div>
+</div>';
+}
+
+
+
