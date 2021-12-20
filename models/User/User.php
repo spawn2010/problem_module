@@ -2,9 +2,11 @@
 
 namespace app\models\User;
 
+use app\models\Problem\Problem;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 use yii2tech\ar\softdelete\SoftDeleteBehavior;
@@ -198,4 +200,10 @@ class User extends ActiveRecord implements IdentityInterface
         return sprintf('%s/%s', self::AVATAR_FOLDER, $this->getAvatar());
     }
 
+    public function getProblem(): ActiveQuery
+    {
+        return $this->hasOne(Problem::class, [
+            'user_id' => 'id'
+        ]);
+    }
 }

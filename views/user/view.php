@@ -32,7 +32,13 @@ echo DetailView::widget([
         'role',
         'email',
         'status',
-        $avatar
 
     ],
 ]);
+
+echo '<h2>СПИСОК ИНЦИДЕНТОВ</h2>
+ <div class="container>
+ <div class="row">';
+foreach ($model->getProblem()->all() as $item){
+    echo '<h2 class="col-6 col-sm-3 text-left" ><li>'.$item['problem'].'</li></h2>';
+}
