@@ -24,8 +24,9 @@ if ($model['user_image']){
         'value' => $model['user_image'],
     ];
 }
-echo '<div class="container">';
-echo DetailView::widget([
+?>
+<div class="container">
+<?= DetailView::widget([
     'model' => $model,
     'attributes' => [
         'id',
@@ -36,40 +37,18 @@ echo DetailView::widget([
         $avatar
 
     ],
-]);
-// мб есть смысл вынести сортировку отдельным методом?
-$data = [];
-$i = 0;
-$k = 1;
-foreach ($model->getProblem()->all() as $value){
-    if (!$value['decision'] or !$value['rating']){
-        $data[$i] = $value;
-    }
-    $data[$i] = $value;
-    if($data[$i]['rating'] > $data[$k-1]['rating']){
-        $data[$i] = $data[$i+1];
-    }
-    $i++;
-    $k++;
-}
+]);?>
+<?php
 
-$id = 'problem4';
-// вот тут тоже вопрос, эт работает но как то костыльно что ли, но я не додумался на данный момент сделать это менее топорно, мб позже что придет в голову
-foreach ($data as $problem){
-    if ($problem['rating'] > 4 ){
-        $id = 'problem1';
-    }elseif ($problem['rating'] > 3){
-        $id = 'problem2';
-    }elseif ($problem['rating']){
-        $id = 'problem3';
-    }
-    echo '<div class="container mt-3" id="'.$id.'">
+foreach ($model->problems() as $problem){
+    $class = ($problem['rating'] > '4') ? 'high_rating' : ($problem['rating'] > '3' ? 'average_rating' : ($problem['rating']  ? 'law_rating' : 'no_rating')); ?>
+<div class="container mt-3 <?=$class?>">
 <div class="row border border-2">
   <div class="col text-left p-3">
   <div class=""><h6>Инцидент:</h6></div>
-  <div><h6>'.$problem['problem'].'</h6></div>
+  <div><h6><?=$problem['problem']?></h6></div>
   </div>
-  <div class="col text-right">'.StarRating::widget([
+  <div class="col text-right"><?=StarRating::widget([
             'name' => 'rating',
             'value' => $problem['rating'],
             'pluginOptions' => [
@@ -84,15 +63,16 @@ foreach ($data as $problem){
                 'displayOnly' => true,
             ],
 
-        ]).'</div>
+        ])?>
+  </div>
   <div class="w-100 p-1"></div>
   <div class="col text-left p-3">
   <div><h6>Решение:</h6></div>
-  <div class="border p-3" id="decision"><h6>'.$problem['decision'].'</h6></div>
+  <div class="border p-3" id="decision"><h6><?=$problem['decision']?></h6></div>
   </div>
   </div>
-</div>';
-}
+</div>
+<?php }?>
 
 
 

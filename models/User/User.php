@@ -200,10 +200,16 @@ class User extends ActiveRecord implements IdentityInterface
         return sprintf('%s/%s', self::AVATAR_FOLDER, $this->getAvatar());
     }
 
-    public function getProblem(): ActiveQuery
+    public function getProblems(): ActiveQuery
     {
-        return $this->hasOne(Problem::class, [
+        return $this->hasMany(Problem::class, [
             'user_id' => 'id'
         ]);
     }
+
+    public function problems(): array
+    {
+       return $this->getProblems()->orderBy('rating')->all();
+    }
+
 }

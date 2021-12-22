@@ -1,12 +1,13 @@
-#problem1 {
+.high_rating {
     background-color: #f6fff7;
 }
-#problem2 {
+.average_rating {
     background-color: #fffef6;
 }
-#problem3 {
+.law_rating {
     background-color: #fff5f5;
 }
-#problem4 {
+.no_rating {
     background-color: #fafafa;
 }
+

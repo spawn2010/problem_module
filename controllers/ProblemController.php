@@ -10,7 +10,6 @@ use yii\web\Controller;
 
 class  ProblemController extends Controller
 {
-    // public $query;
     public function actionList()
     {
         $query = Problem::find();
