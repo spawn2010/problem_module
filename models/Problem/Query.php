@@ -11,4 +11,10 @@ class Query extends ActiveQuery
         $this->where(['user_id' => $userId]);
         return $this;
     }
+
+    public function orderByRating()
+    {
+        $this->orderBy('rating');
+        return $this;
+    }
 }

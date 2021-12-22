@@ -9,6 +9,9 @@ use yii\widgets\DetailView;
 /**
  * @var $profile
  */
+/**
+ * @var $problems
+ */
 ?>
     <h2>Информация о пользователе <?= $model->username ?></h2>
 <?php
@@ -40,7 +43,7 @@ if ($model['user_image']){
 ]);?>
 <?php
 
-foreach ($model->problems() as $problem){
+foreach ($model->problems as $problem){
     $class = ($problem['rating'] > '4') ? 'high_rating' : ($problem['rating'] > '3' ? 'average_rating' : ($problem['rating']  ? 'law_rating' : 'no_rating')); ?>
 <div class="container mt-3 <?=$class?>">
 <div class="row border border-2">

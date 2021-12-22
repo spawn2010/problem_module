@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Problem\Problem;
+use app\models\Problem\Query;
 use app\models\User;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -28,6 +30,11 @@ class UserController extends Controller
     {
         $model = User\User::findOne($id);
         $profile = new User\Form\Profile(['id' => $id]);
+        //первый вариант
+       // echo '<pre>'.var_dump($problems = Problem::find()->findProblems($id)->all()).'</pre>';
+        //второй вариант
+        //var_dump($model->getProblems()->findProblems($id)->all());
+
         return $this->render('view', ['model' => $model,'profile'=>$profile]);
     }
 

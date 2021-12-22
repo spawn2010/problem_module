@@ -3,6 +3,7 @@
 namespace app\models\User;
 
 use app\models\Problem\Problem;
+use app\models\Problem\Query;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -200,16 +201,10 @@ class User extends ActiveRecord implements IdentityInterface
         return sprintf('%s/%s', self::AVATAR_FOLDER, $this->getAvatar());
     }
 
-    public function getProblems(): ActiveQuery
+    public function getProblems()
     {
-        return $this->hasMany(Problem::class, [
-            'user_id' => 'id'
-        ]);
-    }
+        return $this->hasMany(Problem::class, ['user_id' => 'id'])->orderByRating();
 
-    public function problems(): array
-    {
-       return $this->getProblems()->orderBy('rating')->all();
     }
 
 }
