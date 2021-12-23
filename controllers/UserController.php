@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         $model = User\User::findOne($id);
         $profile = new User\Form\Profile(['id' => $id]);
-        return $this->render('view', ['model' => $model,'profile'=>$profile]);
+        return $this->render('view', ['model' => $model, 'profile' => $profile]);
     }
 
     public function actionProfile(): string
