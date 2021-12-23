@@ -204,7 +204,6 @@ class User extends ActiveRecord implements IdentityInterface
     public function getProblems()
     {
         return $this->hasMany(Problem::class, ['user_id' => 'id'])->orderByRating();
-
     }
 
 }
