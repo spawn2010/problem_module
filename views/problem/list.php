@@ -60,14 +60,14 @@ use yii\helpers\Html;
 endif;
 
 $canEdit = Yii::$app->user->identity->role === 'user';
-$id = Yii::$app->user->identity->getId();
 $addRatingUrl = Url::to(['/problem/add-rating']);
-$addRatingCallback = <<<JSOUT
+function addRatingCallback($id, $url){
+    return <<<JSOUT
                 function(event,value,caption)
                 {
                         $.ajax(
                         {
-                        url: '{$addRatingUrl}',
+                        url: '{$url}',
                         method:'post',
                         data:{
                             value: value,
@@ -78,8 +78,9 @@ $addRatingCallback = <<<JSOUT
                         }
                         )
                 }
-
 JSOUT;
+}
+
 foreach ($model->all() as $problem){
     $class = \app\models\Problem\View::getClassRating($problem['rating']); ?>
     <div class="container mt-3 <?=$class?>">
@@ -103,7 +104,7 @@ foreach ($model->all() as $problem){
                         'displayOnly' => $canEdit,
                     ],
                     'pluginEvents' => [
-                        'rating:change' => " $addRatingCallback"
+                        'rating:change' => addRatingCallback($problem['id'],$addRatingUrl)
                     ]
                 ]);?>
             </div>
