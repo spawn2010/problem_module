@@ -8,6 +8,7 @@
 
 use app\models\Problem\Problem;
 use app\models\Problem\Form;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 
@@ -55,7 +56,11 @@ use yii\helpers\Html;
     </div>
 <?php
 endif;
-echo $this->render('collection', ['collection' => $collection->all()]);
+
+foreach ($collection->all() as $problem){
+    echo $this->render('_list_item', ['problem' => $problem]);
+}
+
 
 
 

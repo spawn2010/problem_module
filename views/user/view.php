@@ -42,7 +42,11 @@ if ($model['user_image']){
     ],
 ]);?>
 <?php
-echo $this->render(Url::to(['/problem/collection']), ['collection' => $model->problems,]);
+
+foreach ($model->problems as $problem){
+    echo $this->render(Url::to(['/problem/_list_item']), ['problem' => $problem]);
+}
+
 
 
 

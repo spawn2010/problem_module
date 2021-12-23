@@ -3,21 +3,23 @@
 use kartik\rating\StarRating;
 use yii\helpers\Url;
 
-
+/**
+ * @var $problem
+ */
 
 $canEdit = Yii::$app->user->identity->role === 'user';
 $addRatingUrl = Url::to(['/problem/add-rating']);
-function addRatingCallback($id, $url){
-    return <<<JSOUT
+
+$addRatingCallback =  <<<JSOUT
                 function(event,value,caption)
                 {
                         $.ajax(
                         {
-                        url: '{$url}',
+                        url: '{$addRatingUrl}',
                         method:'post',
                         data:{
                             value: value,
-                            id: {$id} ,
+                            id: {$problem['id']} ,
                         },
                         dataType:'json',
                         success:function(data) { location.reload();}
@@ -25,9 +27,7 @@ function addRatingCallback($id, $url){
                         )
                 }
 JSOUT;
-}
 
-foreach ($collection as $problem){
     $class = \app\models\Problem\View::getClassRating($problem['rating']); ?>
     <div class="container mt-3 <?=$class?>">
         <div class="row border border-2">
@@ -50,7 +50,7 @@ foreach ($collection as $problem){
                         'displayOnly' => $canEdit,
                     ],
                     'pluginEvents' => [
-                        'rating:change' => addRatingCallback($problem['id'],$addRatingUrl)
+                        'rating:change' => $addRatingCallback
                     ]
                 ]);?>
             </div>
@@ -63,4 +63,3 @@ foreach ($collection as $problem){
             </div>
         </div>
     </div>
-<?php }?>
