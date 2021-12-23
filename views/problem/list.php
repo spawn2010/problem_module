@@ -9,7 +9,6 @@
 use app\models\Problem\Problem;
 use app\models\Problem\Form;
 use kartik\rating\StarRating;
-use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;

@@ -5,7 +5,6 @@ namespace app\controllers;
 use app\models\Problem\Problem;
 use app\models\Problem\Form;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class  ProblemController extends Controller
@@ -14,7 +13,6 @@ class  ProblemController extends Controller
     {
         $model = Problem::find();
         if (Yii::$app->user->identity->role === 'user') {
-
             $model = $model->findByUser(Yii::$app->user->id);
         };
         return $this->render('list', ['model'=>$model]);
