@@ -13,8 +13,10 @@ class  ProblemController extends Controller
     public function actionList()
     {
         $query = Problem::find();
+        $model = Problem::find();
         if (Yii::$app->user->identity->role === 'user') {
             $query = $query->findByUser(Yii::$app->user->id);
+            $model = $model->findByUser(Yii::$app->user->id);
         };
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -22,7 +24,7 @@ class  ProblemController extends Controller
                 'pageSize' => 7
             ]
         ]);
-        return $this->render('list', ['dataProvider' => $dataProvider]);
+        return $this->render('list', ['dataProvider' => $dataProvider,'model'=>$model]);
     }
 
     public function actionAdd()
