@@ -11,11 +11,11 @@ class  ProblemController extends Controller
 {
     public function actionList()
     {
-        $model = Problem::find();
+        $collection = Problem::find();
         if (Yii::$app->user->identity->role === 'user') {
-            $model = $model->findByUser(Yii::$app->user->id);
+            $collection = $collection->findByUser(Yii::$app->user->id);
         };
-        return $this->render('list', ['model'=>$model]);
+        return $this->render('list', ['collection'=>$collection]);
     }
 
     public function actionAdd()
