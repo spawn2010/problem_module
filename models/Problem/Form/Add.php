@@ -9,7 +9,7 @@ use yii\base\Model;
 
 class Add extends Model
 {
-    public $problem;
+    public $content;
     public $decision;
     public $user_id;
 
@@ -17,8 +17,8 @@ class Add extends Model
     public function rules()
     {
         return [
-            [['problem', 'decision', 'user_id'], 'trim'],
-            [['problem', 'decision'], 'required'],
+            [['content', 'decision', 'user_id'], 'trim'],
+            [['content'], 'required'],
             ['user_id', 'integer'],
             ['user_id', 'exist', 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -30,7 +30,7 @@ class Add extends Model
             return false;
         }
         $problem = new Problem();
-        $problem->problem = $this->problem;
+        $problem->content = $this->content;
         $problem->decision = $this->decision;
         $problem->user_id = $this->user_id;
         return $problem->save();
@@ -39,7 +39,7 @@ class Add extends Model
     public function attributeLabels()
     {
         return [
-            'problem' => Yii::t('app', 'Проблема'),
+            'content' => Yii::t('app', 'Проблема'),
             'decision' => Yii::t('app', 'Решение'),
         ];
     }

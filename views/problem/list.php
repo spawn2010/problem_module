@@ -41,11 +41,10 @@ use yii\helpers\Html;
                     $problem = new Form\Add();
                     $form = ActiveForm::begin(['action' => ['/problem/add']]) ?>
                     <div class="modal-body">
-                        <?= $form->field($problem, 'problem') ?>
-                        <?= $form->field($problem, 'decision') ?>
+                        <?= $form->field($problem, 'content')->textarea() ?>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                         <?= Html::submitButton('отправить', ['class' => 'btn btn-success']) ?>
                     </div>
                     <?php
@@ -59,7 +58,7 @@ endif; ?>
 <div class="container col-md-12">
     <?php
     $gridColumns = [
-        'problem',
+        'content',
         'decision',
         'rating',
 
@@ -78,7 +77,7 @@ endif; ?>
                     'value' => 'user.username',
                     'visible' => Yii::$app->user->identity->role === 'admin'
                 ],
-                'problem',
+                'content',
                 'decision',
                 [
                     'attribute' => 'rating',
