@@ -49,7 +49,7 @@ foreach ($model->problems as $problem){
 <div class="row border border-2">
   <div class="col text-left p-3">
   <div class=""><h6>Инцидент:</h6></div>
-  <div><h6><?=$problem['problem']?></h6></div>
+  <div><h6><?=$problem['content']?></h6></div>
   </div>
   <div class="col text-right"><?=StarRating::widget([
             'name' => 'rating',
