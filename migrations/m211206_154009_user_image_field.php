@@ -12,7 +12,7 @@ class m211206_154009_user_image_field extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('user', 'user_image', $this->string());
+        $this->addColumn('{{%user}}', 'user_image', $this->string());
     }
 
     /**
@@ -20,7 +20,7 @@ class m211206_154009_user_image_field extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('user','user_image');
+        $this->dropColumn('{{%user}}','user_image');
         return true;
     }
 

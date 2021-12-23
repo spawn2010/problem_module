@@ -12,7 +12,7 @@ class m211126_141756_user_id_field extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('problems', 'user_id', $this->integer());
+        $this->addColumn('{{%problems}}', 'user_id', $this->integer());
     }
 
     /**
@@ -20,7 +20,7 @@ class m211126_141756_user_id_field extends Migration
      */
     public function safeDown()
     {
-       $this->dropColumn('problems','user_id');
+       $this->dropColumn('{{%problems}}','user_id');
         return true;
     }
 

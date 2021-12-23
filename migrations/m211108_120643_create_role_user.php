@@ -24,7 +24,7 @@ class m211108_120643_create_role_user extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('user','role');
+        $this->dropColumn('{{%user}}','role');
         return false;
     }
 
