@@ -2,11 +2,12 @@
 /**
  * @var Problem $problem
  */
+/**
+ * @var $collection
+ */
 
 use app\models\Problem\Problem;
 use app\models\Problem\Form;
-use kartik\rating\StarRating;
-use yii\grid\GridView;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
@@ -54,78 +55,13 @@ use yii\helpers\Html;
         </div>
     </div>
 <?php
-endif; ?>
-<div class="container col-md-12">
-    <?php
-    $gridColumns = [
-        'content',
-        'decision',
-        'rating',
+endif;
 
-    ];
-    /**
-     * @var $dataProvider
-     */
-    $form = ActiveForm::begin(['action' => ['/problem/add-rating']]);
-    echo GridView::widget(
-        [
-            'dataProvider' => $dataProvider,
-            'summary' => false,
-            'columns' => [
-                [
-                    'attribute' => 'user_id',
-                    'value' => 'user.username',
-                    'visible' => Yii::$app->user->identity->role === 'admin'
-                ],
-                'content',
-                'decision',
-                [
-                    'attribute' => 'rating',
-                    'format' => 'raw',
-                    'value' => static function ($problem) {
-                        $addRatingUrl = Url::to(['/problem/add-rating']);
-                        $addRatingCallback = <<<JSOUT
-                function(event,value,caption)
-                {
-                        $.ajax(
-                        {
-                        url: '{$addRatingUrl}',
-                        method:'post',
-                        data:{
-                            value: value,
-                            id: {$problem->id} ,
-                        },
-                        dataType:'json',
-                        success:function(data) { location.reload();}
-                        }
-                        )
-                }
+foreach ($collection->all() as $problem){
+    echo $this->render('_list_item', ['problem' => $problem]);
+}
 
-JSOUT;
-                        $canEdit = Yii::$app->user->identity->role === 'user';
-                        return StarRating::widget([
-                            'name' => 'rating',
-                            'value' => $problem['rating'],
-                            'pluginOptions' => [
-                                'theme' => 'krajee-uni',
-                                'showClear' => false,
-                                'showCaption' => false,
-                                'min' => 0,
-                                'max' => 5,
-                                'step' => 1,
-                                'size' => 'md',
-                                'language' => 'ru',
-                                'displayOnly' => $canEdit,
-                            ],
-                            'pluginEvents' => [
-                                'rating:change' => " $addRatingCallback"
-                            ]
-                        ]);
-                    }
-                ],
-            ]
-        ]
-    );
-    ActiveForm::end();
-    ?>
-</div>
+
+
+
+

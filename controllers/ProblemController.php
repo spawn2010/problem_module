@@ -5,24 +5,17 @@ namespace app\controllers;
 use app\models\Problem\Problem;
 use app\models\Problem\Form;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 
 class  ProblemController extends Controller
 {
     public function actionList()
     {
-        $query = Problem::find();
+        $collection = Problem::find();
         if (Yii::$app->user->identity->role === 'user') {
-            $query = $query->findByUser(Yii::$app->user->id);
+            $collection = $collection->findByUser(Yii::$app->user->id);
         };
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 7
-            ]
-        ]);
-        return $this->render('list', ['dataProvider' => $dataProvider]);
+        return $this->render('list', ['collection'=>$collection]);
     }
 
     public function actionAdd()
