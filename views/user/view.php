@@ -44,7 +44,7 @@ if ($model['user_image']){
 <?php
 
 foreach ($model->problems as $problem){
-    $class = ($problem['rating'] > '4') ? 'high_rating' : ($problem['rating'] > '3' ? 'average_rating' : ($problem['rating']  ? 'law_rating' : 'no_rating')); ?>
+    $class = \app\models\Problem\View::getClassRating($problem['rating']); ?>
 <div class="container mt-3 <?=$class?>">
 <div class="row border border-2">
   <div class="col text-left p-3">
