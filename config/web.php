@@ -50,6 +50,7 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 'user/<id:\d+>' => 'user/view',
+                'problem/<id:\d+>' => 'problem/view',
             ],
         ],
     ],

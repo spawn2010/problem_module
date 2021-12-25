@@ -18,6 +18,12 @@ class  ProblemController extends Controller
         return $this->render('list', ['collection'=>$collection]);
     }
 
+    public function actionView($id): string
+    {
+        $model = Problem::findOne($id);
+        return $this->render('view', ['problem' => $model]);
+    }
+
     public function actionAdd()
     {
         $model = new Form\Add();

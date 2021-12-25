@@ -13,7 +13,6 @@ class Add extends Model
     public $decision;
     public $user_id;
 
-
     public function rules()
     {
         return [
@@ -33,6 +32,7 @@ class Add extends Model
         $problem->content = $this->content;
         $problem->decision = $this->decision;
         $problem->user_id = $this->user_id;
+        $problem->created_at = date("Y-m-d H:i:s");
         return $problem->save();
     }
 

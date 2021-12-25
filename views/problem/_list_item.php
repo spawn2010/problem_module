@@ -32,7 +32,7 @@ JSOUT;
     <div class="container mt-3 <?=$class?>">
         <div class="row border border-2">
             <div class="col text-left p-3">
-                <div class=""><h6>Инцидент:</h6></div>
+                <div class=""><h6>Инцидент <a href="/problem/<?=$problem['id']?>">#<?=$problem['id']?></a></h6></div>
                 <div><h6><?=$problem['content']?></h6></div>
             </div>
             <div class="col text-right"><?=StarRating::widget([

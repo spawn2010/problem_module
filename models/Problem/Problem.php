@@ -12,7 +12,8 @@ use yii\db\ActiveRecord;
  * @property mixed|null $content
  * @property mixed|null $decision
  * @property mixed|null $rating
- * * @property mixed|null $user_id
+ * @property mixed|null $created_at
+ *  @property mixed|null $user_id
  */
 class Problem extends ActiveRecord
 {
@@ -25,7 +26,7 @@ class Problem extends ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'decision', 'user_id'], 'trim'],
+            [['content', 'decision', 'user_id','created_at'], 'trim'],
             [['content'], 'required'],
         ];
     }
