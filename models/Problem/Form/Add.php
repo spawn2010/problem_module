@@ -32,7 +32,7 @@ class Add extends Model
         $problem->content = $this->content;
         $problem->decision = $this->decision;
         $problem->user_id = $this->user_id;
-        $problem->created_at = date("Y-m-d H:i:s");
+        $problem->created_at = date("d-m-Y H:i");
         return $problem->save();
     }
 
