@@ -9,6 +9,7 @@ use yii\helpers\Url;
 
 $canEdit = Yii::$app->user->identity->role === 'user';
 $addRatingUrl = Url::to(['/problem/add-rating']);
+$id = $problem['id'];
 
 $addRatingCallback =  <<<JSOUT
                 function(event,value,caption)
@@ -32,7 +33,7 @@ JSOUT;
     <div class="container mt-3 <?=$class?>">
         <div class="row border border-2">
             <div class="col text-left p-3">
-                <div class=""><h6>Инцидент <a href="<?=Url::to(['problem/'.$problem['id']]);?>">#<?=$problem['id']?></a></h6></div>
+                <div class=""><h6>Инцидент <a href="<?=Url::to(["problem/$id"]);?>">#<?=$id?></a></h6></div>
                 <div><h6><?=$problem['content']?></h6></div>
             </div>
             <div class="col text-right"><?=StarRating::widget([
