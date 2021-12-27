@@ -33,8 +33,8 @@ JSOUT;
     <div class="container mt-3 <?=$class?>">
         <div class="row border border-2">
             <div class="col text-left p-3">
-                <div class=""><h6>Инцидент <a href="<?=Url::to(["problem/$id"]);?>">#<?=$id?></a></h6></div>
-                <div><h6><?=$problem['content']?></h6></div>
+                <div class=""><span style="font-size: medium">Инцидент <a href="<?=Url::to(["problem/$id"]);?>">#<?=$id?></a></span></div>
+                <div><span style="font-size: medium"><?=$problem['content']?></span></div>
             </div>
             <div class="col text-right"><?=StarRating::widget([
                     'name' => 'rating',
@@ -58,8 +58,8 @@ JSOUT;
             <div class="w-100 p-1"></div>
             <div class="col text-left p-3">
                 <?php if($problem['decision']):?>
-                    <div><h6>Решение:</h6></div>
-                    <div class="border p-3" id="decision"><h6><?=$problem['decision']?></h6></div>
+                    <div><span style="font-size: medium">Решение:</span></div>
+                    <div class="border p-3" id="decision"><span style="font-size: medium"><?=$problem['decision']?></span></div>
                 <?php endif;?>
             </div>
         </div>
