@@ -3,7 +3,6 @@
 /**
  * @var $problem
  */
-Yii::$app->timeZone = 'Europe/Moscow';
 ?>
 <div class="container mt-3 no_rating ">
     <div class="row border border-2">
