@@ -4,6 +4,7 @@ namespace app\models\Problem;
 
 use app\models\User\User;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -12,10 +13,23 @@ use yii\db\ActiveRecord;
  * @property mixed|null $content
  * @property mixed|null $decision
  * @property mixed|null $rating
- * * @property mixed|null $user_id
+ * @property mixed|null $created_at
+ * @property mixed|null $user_id
  */
+
 class Problem extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    'created_at',
+                ],
+            ],
+        ];
+    }
 
     public static function tableName()
     {

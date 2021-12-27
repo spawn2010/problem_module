@@ -13,7 +13,6 @@ class Add extends Model
     public $decision;
     public $user_id;
 
-
     public function rules()
     {
         return [

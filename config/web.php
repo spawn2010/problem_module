@@ -7,6 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'ru',
+    'timeZone' => 'Europe/Moscow',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -50,6 +51,7 @@ $config = [
             'enableStrictParsing' => false,
             'rules' => [
                 'user/<id:\d+>' => 'user/view',
+                'problem/<id:\d+>' => 'problem/view',
             ],
         ],
     ],
