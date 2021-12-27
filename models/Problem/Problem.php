@@ -25,11 +25,8 @@ class Problem extends ActiveRecord
             'timestamp' => [
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
-                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    'created_at',
                 ],
-                'value' => function () {
-                    return gmdate("Y-m-d H:i:s");
-                },
             ],
         ];
     }
