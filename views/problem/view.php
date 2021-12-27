@@ -7,7 +7,7 @@
 <div class="container mt-3 no_rating ">
     <div class="row border">
         <div class="col text-left p-3">
-            <div><h6><?=$problem['content']?></h6></div>
+            <div><p style="font-size: medium"><?=$problem['content']?></p></div>
         </div>
         <div class="w-100 p-1"></div>
         <div class="col text-left p-3">
