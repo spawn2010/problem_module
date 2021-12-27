@@ -10,4 +10,10 @@
 .no_rating {
     background-color: #fafafa;
 }
-
+.problem-meta{
+    font-size: medium;
+    color: gray;
+}
+.problem-content{
+    font-size: medium;
+}
