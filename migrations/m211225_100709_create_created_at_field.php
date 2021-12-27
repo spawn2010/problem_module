@@ -1,5 +1,6 @@
 <?php
 
+use yii\db\Expression;
 use yii\db\Migration;
 
 /**
@@ -12,7 +13,7 @@ class m211225_100709_create_created_at_field extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%problems}}', 'created_at', $this->timestamp()->defaultValue(Yii::$app->db->createCommand('SELECT now()')->queryScalar()));
+        $this->addColumn('{{%problems}}', 'created_at', $this->timestamp()->defaultValue(new Expression('NOW()')));
     }
 
     /**
