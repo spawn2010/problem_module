@@ -3,7 +3,7 @@
  * @var $problem
  */
 ?>
-<div class="text-left"><h2>Инцидент #<?=$problem['id']?></h2></div>
+<div class="text-left"><h3><b>Инцидент #<?=$problem['id']?></b></h3></div>
 <div class="container mt-3 no_rating ">
     <div class="row border">
         <div class="col text-left p-3">
