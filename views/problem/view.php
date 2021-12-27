@@ -1,11 +1,9 @@
 <?php
 
-use kartik\rating\StarRating;
-use yii\helpers\Url;
-
 /**
  * @var $problem
  */
+$datetime = new DateTimeImmutable($problem['created_at']);
 
 ?>
 <div class="container mt-3 no_rating ">
@@ -17,7 +15,7 @@ use yii\helpers\Url;
         <div class="w-100 p-1"></div>
         <div class="col text-left p-3">
                 <div class="border-top pt-3" id="problem"><h6>Автор: <?=$problem->user['username']?></h6></div>
-                <div><h6>Добавлено: <?=substr_replace($problem['created_at'], "в ", 11, 0);?></h6></div>
+                <div><h6>Добавлено: <?=$datetime->format('d.m.Y')?> в <?=$datetime->format('H:i')?></h6></div>
         </div>
     </div>
 </div>

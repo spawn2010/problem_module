@@ -4,6 +4,7 @@ namespace app\models\Problem;
 
 use app\models\User\User;
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -13,10 +14,25 @@ use yii\db\ActiveRecord;
  * @property mixed|null $decision
  * @property mixed|null $rating
  * @property mixed|null $created_at
- *  @property mixed|null $user_id
+ * @property mixed|null $user_id
  */
+
 class Problem extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    \yii\db\BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                ],
+                'value' => function () {
+                    return gmdate("Y-m-d H:i:s");
+                },
+            ],
+        ];
+    }
 
     public static function tableName()
     {
@@ -26,7 +42,7 @@ class Problem extends ActiveRecord
     public function rules()
     {
         return [
-            [['content', 'decision', 'user_id','created_at'], 'trim'],
+            [['content', 'decision', 'user_id'], 'trim'],
             [['content'], 'required'],
         ];
     }

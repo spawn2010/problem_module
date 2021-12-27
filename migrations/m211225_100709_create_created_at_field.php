@@ -12,7 +12,7 @@ class m211225_100709_create_created_at_field extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%problems}}', 'created_at', $this->string(50));
+        $this->addColumn('{{%problems}}', 'created_at', $this->timestamp()->defaultValue((date("Y-m-d H:i:s"))));
     }
 
     /**
