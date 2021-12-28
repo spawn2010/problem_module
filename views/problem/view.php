@@ -2,6 +2,11 @@
 /**
  * @var $problem
  */
+
+use yii\bootstrap4\ActiveForm;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 ?>
 <div class="text-left"><h3><b>Инцидент #<?=$problem['id']?></b></h3></div>
 <div class="container mt-3 no_rating ">
@@ -16,3 +21,14 @@
         </div>
     </div>
 </div>
+<?php
+    $model = new app\models\Decision\Add();
+    $form = ActiveForm::begin([
+    'action' => Url::to(['decision/add'])
+    ]); ?>
+    <form class="form-row">
+        <?= $form->field($model, 'content')->textInput(['autofocus' => true,'placeholder' => "Напишите ваше решение"])->label('') ?>
+        <?= Html::submitButton('Добавить', ['class' => 'btn btn-success', 'name' => 'problem_id', 'value' => $problem['id']]) ?>
+    </form>
+<?php
+ActiveForm::end(); ?>
