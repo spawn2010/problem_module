@@ -2,6 +2,7 @@
 
 namespace app\models\Decision\Form;
 
+use app\models\Decision\Decision;
 use yii\base\Model;
 
 class Add extends Model
