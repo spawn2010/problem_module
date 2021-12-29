@@ -13,7 +13,7 @@ class DecisionController extends Controller
     public function actionAdd()
     {
         $model = new Add();
-        $model->user_id = Yii::$app->user->id;
+        //$model->user_id = Yii::$app->user->id;
         $model->problem_id = Yii::$app->request->post('problem_id');
         $isSave = ($model->load(Yii::$app->request->post()) and $model->save());
         if ($isSave) {
