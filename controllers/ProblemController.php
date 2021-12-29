@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Decision\Decision;
 use app\models\Decision\Form;
+use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
 use Yii;
@@ -31,9 +32,9 @@ class  ProblemController extends Controller
 
     public function actionAdd()
     {
-        $model = new Form\Add();
+        $model = new Add();
         $model->user_id = Yii::$app->user->id;
-        $isSave = $model->load(Yii::$app->request->psost()) && $model->save();
+        $isSave = $model->load(Yii::$app->request->post()) && $model->save();
         $this->setFlash($isSave);
         return $this->redirect(['/problem/list']);
     }
