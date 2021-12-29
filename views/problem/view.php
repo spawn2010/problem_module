@@ -34,10 +34,9 @@ foreach ($decision->all() as $element){
     $form = ActiveForm::begin([
     'action' => Url::to(['problem/decision','id'=>$problem['id']])
     ]); ?>
-    <form class="form-row">
+
         <?= $form->field($model, 'content')->textInput(['placeholder' => "Напишите ваше решение"])->label('') ?>
         <?= Html::submitButton('Добавить решение', ['class' => 'btn btn-success']) ?>
-    </form>
 <?php
 ActiveForm::end(); ?>
 
