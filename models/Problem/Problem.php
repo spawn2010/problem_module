@@ -15,10 +15,16 @@ use yii\db\ActiveRecord;
  * @property mixed|null $rating
  * @property mixed|null $created_at
  * @property mixed|null $user_id
+ * @property mixed|null $id
  */
 
 class Problem extends ActiveRecord
 {
+
+    /**
+     * @var mixed|null
+     */
+
     public function behaviors()
     {
         return [

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models\Decision;
+namespace app\models\Decision\Form;
 
 use yii\base\Model;
 
