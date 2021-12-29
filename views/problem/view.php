@@ -2,23 +2,12 @@
 /**
  * @var $problem
  * @var $decision
+ * @var $model
  */
 
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-
-$user = new \app\models\User\User();
-function getAvatar($username,$image,$user_id){
-    $profile = new \app\models\User\Form\Profile(['id' => $user_id]);
-    if($image){
-       return Html::img($profile->getAvatar(),['widht'=>'50','height'=>'50']);
-    }
-    return $profile->generateAvatar($username,50);
-}
-function getUser($user_id){
-    return \app\models\User\User::findOne($user_id);
-}
 
 ?>
 <div class="text-left"><h3><b>Инцидент #<?=$problem['id']?></b></h3></div>
@@ -37,8 +26,8 @@ function getUser($user_id){
 <?php
 foreach ($decision->all() as $element){
     if ($element['problem_id'] === $problem['id']){
-        $avatar = getAvatar(getUser($element['user_id'])->username,getUser($element['user_id'])->user_image,$element['user_id']);
-        echo $this->render('_decision_item',['image' => $avatar, 'username' => getUser($element['user_id'])->username, 'decision' => $element]);
+        $avatar = $model->getAvatar($model->getUser($element['user_id'])->username,$model->getUser($element['user_id'])->user_image,$element['user_id']);
+        echo $this->render('_decision_item',['image' => $avatar, 'username' => $model->getUser($element['user_id'])->username, 'decision' => $element]);
     }
 }
     $model = new app\models\Decision\Form\Add();

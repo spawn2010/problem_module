@@ -18,21 +18,22 @@ class  ProblemController extends Controller
         if (Yii::$app->user->identity->role === 'user') {
             $collection = $collection->findByUser(Yii::$app->user->id);
         };
-        return $this->render('list', ['collection'=>$collection]);
+        return $this->render('list', ['collection' => $collection]);
     }
 
     public function actionView($id): string
     {
-        $model = Problem::findOne($id);
+        $problem = Problem::findOne($id);
         $decision = Decision::find();
-        return $this->render('view', ['problem' => $model,'decision' => $decision]);
+        $model = new Decision();
+        return $this->render('view', ['problem' => $problem, 'decision' => $decision, 'model' => $model]);
     }
 
     public function actionAdd()
     {
         $model = new Form\Add();
         $model->user_id = Yii::$app->user->id;
-        $isSave = $model->load(Yii::$app->request->post()) && $model->save();
+        $isSave = $model->load(Yii::$app->request->psost()) && $model->save();
         $this->setFlash($isSave);
         return $this->redirect(['/problem/list']);
     }

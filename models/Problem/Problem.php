@@ -17,7 +17,6 @@ use yii\db\ActiveRecord;
  * @property mixed|null $user_id
  * @property mixed|null $id
  */
-
 class Problem extends ActiveRecord
 {
 
