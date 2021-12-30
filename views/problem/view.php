@@ -21,7 +21,7 @@
 foreach ($problem->decisions as $decision){
         echo $this->render('_decision_item',['decision' => $decision]);
 }
-echo $this->render('_form_for_decisions',['problem' => $problem]);
+echo $this->render('_decision_add',['problem' => $problem]);
 
 
 

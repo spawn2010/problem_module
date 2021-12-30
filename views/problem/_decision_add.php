@@ -10,8 +10,9 @@ $model = new app\models\Decision\Form\Add();
 $form = ActiveForm::begin([
     'action' => Url::to(['problem/decision','id'=>$problem['id']])
 ]); ?>
-
-<?= $form->field($model, 'content')->textarea(['placeholder' => "Напишите ваше решение"])->label('') ?>
-<?= Html::submitButton('Добавить решение', ['class' => 'btn btn-success']) ?>
+    <?= $form->field($model, 'content')->textarea(['placeholder' => "Напишите ваше решение"])->label('') ?>
+    <div class="text-right">
+        <?= Html::submitButton('Добавить решение', ['class' => 'btn btn-success']) ?>
+    </div>
 <?php
 ActiveForm::end(); ?>

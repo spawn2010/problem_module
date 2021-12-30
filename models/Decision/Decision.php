@@ -2,6 +2,7 @@
 
 namespace app\models\Decision;
 
+use app\models\Problem\Problem;
 use app\models\User\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -31,7 +32,7 @@ class Decision extends ActiveRecord
 
     public static function tableName()
     {
-        return 'decisions';
+        return '{{%decisions}}';
     }
 
     public function rules()
@@ -39,6 +40,8 @@ class Decision extends ActiveRecord
         return [
             [['content'], 'trim'],
             [['content', 'user_id', 'problem_id'], 'required'],
+            ['user_id', 'exist', 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            ['problem_id', 'exist', 'targetClass' => Problem::className(), 'targetAttribute' => ['problem_id' => 'id']]
         ];
     }
 

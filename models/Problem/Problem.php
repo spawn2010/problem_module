@@ -21,10 +21,6 @@ use yii\db\ActiveRecord;
 class Problem extends ActiveRecord
 {
 
-    /**
-     * @var mixed|null
-     */
-
     public function behaviors()
     {
         return [
