@@ -3,6 +3,7 @@
 namespace app\models\Decision\Form;
 
 use app\models\Decision\Decision;
+use Yii;
 use yii\base\Model;
 
 class Add extends Model
@@ -16,6 +17,13 @@ class Add extends Model
         return [
             [['content'], 'trim'],
             [['content', 'user_id', 'problem_id'], 'required'],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'content' => Yii::t('app', 'Решение'),
         ];
     }
 
