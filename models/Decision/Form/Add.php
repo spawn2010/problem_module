@@ -14,8 +14,8 @@ class Add extends Model
     public function rules()
     {
         return [
-            [['content', 'user_id', 'problem_id'], 'trim'],
-            [['content'], 'required'],
+            [['content'], 'trim'],
+            [['content', 'user_id', 'problem_id'], 'required'],
         ];
     }
 
@@ -24,11 +24,11 @@ class Add extends Model
         if (!$this->validate()) {
             return false;
         }
-        $problem = new Decision();
-        $problem->content = $this->content;
-        $problem->problem_id = $this->problem_id;
-        $problem->user_id = $this->user_id;
-        return $problem->save();
+        $decision = new Decision();
+        $decision->content = $this->content;
+        $decision->problem_id = $this->problem_id;
+        $decision->user_id = $this->user_id;
+        return $decision->save();
     }
 
 

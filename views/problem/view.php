@@ -30,14 +30,7 @@ foreach ($decision->all() as $element){
         echo $this->render('_decision_item',['image' => $avatar, 'username' => $model->getUser($element['user_id'])->username, 'decision' => $element]);
     }
 }
-    $model = new app\models\Decision\Form\Add();
-    $form = ActiveForm::begin([
-    'action' => Url::to(['problem/decision','id'=>$problem['id']])
-    ]); ?>
+echo $this->render('_form_for_decisions',['problem' => $problem]);
 
-        <?= $form->field($model, 'content')->textInput(['placeholder' => "Напишите ваше решение"])->label('') ?>
-        <?= Html::submitButton('Добавить решение', ['class' => 'btn btn-success']) ?>
-<?php
-ActiveForm::end(); ?>
 
 

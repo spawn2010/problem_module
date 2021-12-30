@@ -25,6 +25,24 @@ class m211228_113641_create_decisions_table extends Migration
             'created_at' => $this->timestamp()->defaultValue(new Expression('NOW()')),
         ], $tableOptions);
         $this->execute('INSERT INTO decisions (problem_id, user_id, content) SELECT id, user_id, decision FROM problems WHERE decision !=""');
+
+        $this->addForeignKey(
+            'fk-decision-problem_id',
+            '{{%decisions}}',
+            'problem_id',
+            '{{%problems}}',
+            'id',
+            'CASCADE'
+        );
+
+        $this->addForeignKey(
+            'fk-decision-user_id',
+            '{{%decisions}}',
+            'user_id',
+            '{{%user}}',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
@@ -32,6 +50,16 @@ class m211228_113641_create_decisions_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropForeignKey(
+            'fk-decision-problem_id',
+            '{{%problems}}'
+        );
+
+        $this->dropForeignKey(
+            'fk-decision-user_id',
+            '{{%user}}'
+        );
+
         $this->dropTable('{{%decisions}}');
     }
 }
