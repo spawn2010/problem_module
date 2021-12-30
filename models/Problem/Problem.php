@@ -2,6 +2,7 @@
 
 namespace app\models\Problem;
 
+use app\models\Decision\Decision;
 use app\models\User\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -15,10 +16,11 @@ use yii\db\ActiveRecord;
  * @property mixed|null $rating
  * @property mixed|null $created_at
  * @property mixed|null $user_id
+ * @property mixed|null $id
  */
-
 class Problem extends ActiveRecord
 {
+
     public function behaviors()
     {
         return [
@@ -58,6 +60,13 @@ class Problem extends ActiveRecord
     {
         return $this->hasOne(User::class, [
             'id' => 'user_id'
+        ]);
+    }
+
+    public function getDecisions(): ActiveQuery
+    {
+        return $this->hasMany(Decision::class, [
+            'problem_id' => 'id'
         ]);
     }
 
