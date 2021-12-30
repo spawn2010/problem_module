@@ -2,10 +2,10 @@
 
 namespace app\models\Decision;
 
+use app\models\User\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\helpers\Html;
 
 /**
  * @property mixed|null $content
@@ -49,18 +49,12 @@ class Decision extends ActiveRecord
         ];
     }
 
-    public function getAvatar($username, $image, $user_id)
+    public function getUser()
     {
-        $profile = new \app\models\User\Form\Profile(['id' => $user_id]);
-        if ($image) {
-            return Html::img($profile->getAvatar(), ['widht' => '50', 'height' => '50']);
-        }
-        return $profile->generateAvatar($username, 50);
+        return $this->hasOne(User::class, [
+            'id' => 'user_id'
+        ]);
     }
 
-    public function getUser($user_id)
-    {
-        return \app\models\User\User::findOne($user_id);
-    }
 
 }

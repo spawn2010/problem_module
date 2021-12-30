@@ -25,9 +25,7 @@ class  ProblemController extends Controller
     public function actionView($id): string
     {
         $problem = Problem::findOne($id);
-        $decision = Decision::find();
-        $model = new Decision();
-        return $this->render('view', ['problem' => $problem, 'decision' => $decision, 'model' => $model]);
+        return $this->render('view', ['problem' => $problem]);
     }
 
     public function actionAdd()

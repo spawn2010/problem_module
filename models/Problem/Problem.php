@@ -2,6 +2,7 @@
 
 namespace app\models\Problem;
 
+use app\models\Decision\Decision;
 use app\models\User\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -63,6 +64,13 @@ class Problem extends ActiveRecord
     {
         return $this->hasOne(User::class, [
             'id' => 'user_id'
+        ]);
+    }
+
+    public function getDecisions(): ActiveQuery
+    {
+        return $this->hasMany(Decision::class, [
+            'problem_id' => 'id'
         ]);
     }
 

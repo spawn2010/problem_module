@@ -1,13 +1,7 @@
 <?php
 /**
  * @var $problem
- * @var $decision
- * @var $model
  */
-
-use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html;
-use yii\helpers\Url;
 
 ?>
 <div class="text-left"><h3><b>Инцидент #<?=$problem['id']?></b></h3></div>
@@ -24,11 +18,8 @@ use yii\helpers\Url;
     </div>
 </div>
 <?php
-foreach ($decision->all() as $element){
-    if ($element['problem_id'] === $problem['id']){
-        $avatar = $model->getAvatar($model->getUser($element['user_id'])->username,$model->getUser($element['user_id'])->user_image,$element['user_id']);
-        echo $this->render('_decision_item',['image' => $avatar, 'username' => $model->getUser($element['user_id'])->username, 'decision' => $element]);
-    }
+foreach ($problem->decisions as $decision){
+        echo $this->render('_decision_item',['decision' => $decision]);
 }
 echo $this->render('_form_for_decisions',['problem' => $problem]);
 
