@@ -19,7 +19,14 @@
 </div>
 <?php
 foreach ($problem->decisions as $decision){
-        echo $this->render('_decision_item',['decision' => $decision]);
+        if ($decision['content'] == $problem['decision']){
+            echo $this->render('_decision_item',['decision' => $decision, 'problem' => $problem]);
+        }
+}
+foreach ($problem->decisions as $decision){
+    if ($decision['content'] != $problem['decision']){
+        echo $this->render('_decision_item',['decision' => $decision, 'problem' => $problem]);
+    }
 }
 echo $this->render('_decision_add',['problem' => $problem]);
 

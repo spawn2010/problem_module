@@ -37,6 +37,13 @@ class  ProblemController extends Controller
         return $this->redirect(['/problem/list']);
     }
 
+    public function actionApprove()
+    {
+        $model = Problem::findOne(Yii::$app->request->post('id'));
+        $this->setFlash($model->updateAttributes(['decision' => Yii::$app->request->post('decision') ]));
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
     public function actionAddRating()
     {
         $model = new AddRating();

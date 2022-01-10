@@ -1,7 +1,10 @@
 <?php
+
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 /**
  * @var $decision
+ * @var $problem
  */
 $profile = new \app\models\User\Form\Profile(['id' => $decision->user->id]);
 if ($decision->user->user_image) {
@@ -18,11 +21,31 @@ if ($decision->user->user_image) {
             <span>добавил решение <?=Yii::$app->formatter->asDatetime($decision->created_at, 'dd.MM.Y в HH:mm')?></span>
         </div>
         <div class="w-100"></div>
-        <div class="col text-left p-3">
+        <div class="col text-left m-3">
             <text>
                 <?=$decision['content']?>
             </text>
         </div>
+        <div class="m-3">
+            <?php
+            if (!$problem['decision'] && $problem['user_id'] == Yii::$app->user->id){
+                echo Html::a('Принять решение',
+                    ['approve'], [
+                        'class' => 'btn btn-success',
+                        'data-method' => 'POST',
+                        'data-params' => [
+                            'decision' => $decision['content'],
+                            'id' => $decision['problem_id'],
+                        ],
+                    ]);
+            }elseif($decision['content'] == $problem['decision']){
+                echo 'принятое решение';
+            }
+            ?>
+        </div>
     </div>
 </div>
+
+
+
 
