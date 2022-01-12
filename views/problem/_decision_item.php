@@ -34,11 +34,11 @@ if ($decision->user->user_image) {
                         'class' => 'btn btn-success',
                         'data-method' => 'POST',
                         'data-params' => [
-                            'decision' => $decision['content'],
+                            'decision' => $decision['id'],
                             'id' => $decision['problem_id'],
                         ],
                     ]);
-            }elseif($decision['content'] == $problem['decision']){
+            }elseif($decision['id'] == $problem['decision']){
                 echo 'принятое решение';
             }
             ?>
