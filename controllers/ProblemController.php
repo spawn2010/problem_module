@@ -8,6 +8,7 @@ use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
 use Yii;
+use yii\base\ErrorException;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -39,8 +40,10 @@ class  ProblemController extends Controller
 
     public function actionApprove()
     {
-        $model = Problem::findOne(Yii::$app->request->post('id'));
-        $this->setFlash($model->updateAttributes(['decision' => Yii::$app->request->post('decision') ]));
+        if ($model = Problem::findOne(Yii::$app->request->post('id'))){
+          $model->updateAttributes(['decision' => Yii::$app->request->post('decision') ]);
+        }
+        $this->setFlash($model);
         return $this->redirect(Yii::$app->request->referrer);
     }
 
