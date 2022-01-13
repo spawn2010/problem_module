@@ -8,7 +8,6 @@ use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
 use Yii;
-use yii\base\ErrorException;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -26,7 +25,11 @@ class  ProblemController extends Controller
     public function actionView($id): string
     {
         $problem = Problem::findOne($id);
-        return $this->render('view', ['problem' => $problem]);
+        $decisions = $problem->getDecisions();
+        if ( $decision_id = $problem['decision']){
+            $decisions = $decisions->orderBy(["IF(id = $decision_id, 0, 1)" => SORT_ASC]);
+        }
+        return $this->render('view', ['problem' => $problem,'decisions' => $decisions]);
     }
 
     public function actionAdd()

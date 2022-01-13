@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $problem
+ * @var $decisions
  */
 
 ?>
@@ -18,13 +19,8 @@
     </div>
 </div>
 <?php
-if($decision = $problem->getDecisions()->where(['id' => $problem['decision']])->all()){
-    echo $this->render('_decision_item',['decision' => $decision[0], 'problem' => $problem]);
-}
 
-foreach ($problem->decisions as $decision){
-    if ($decision['id'] != $problem['decision']){
+foreach ($decisions->all() as $decision){
         echo $this->render('_decision_item',['decision' => $decision, 'problem' => $problem]);
-    }
 }
 echo $this->render('_decision_add',['problem' => $problem]);
