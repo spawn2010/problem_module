@@ -1,7 +1,6 @@
 <?php
 /**
  * @var $problem
- * @var $decisions
  */
 
 ?>
@@ -20,7 +19,7 @@
 </div>
 <?php
 
-foreach ($decisions->all() as $decision){
+foreach ($problem->decisions as $decision){
         echo $this->render('_decision_item',['decision' => $decision, 'problem' => $problem]);
 }
 echo $this->render('_decision_add',['problem' => $problem]);

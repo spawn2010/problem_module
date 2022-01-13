@@ -59,5 +59,9 @@ class Decision extends ActiveRecord
         ]);
     }
 
+    public static function find()
+    {
+        return Yii::createObject(Query::class, [get_called_class()]);
+    }
 
 }

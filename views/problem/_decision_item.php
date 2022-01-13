@@ -39,7 +39,9 @@ if ($decision->user->user_image) {
                         ],
                     ]);
             }elseif($decision['id'] == $problem['decision']){
-                echo 'принятое решение';
+                ?>
+                <label class="text-muted">Принятое решение</label>
+                <?php
             }
             ?>
         </div>

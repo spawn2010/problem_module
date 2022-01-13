@@ -25,11 +25,7 @@ class  ProblemController extends Controller
     public function actionView($id): string
     {
         $problem = Problem::findOne($id);
-        $decisions = $problem->getDecisions();
-        if ($decision_id = $problem['decision']) {
-            $decisions = $decisions->orderBy(["IF(id = $decision_id, 0, 1)" => SORT_ASC]);
-        }
-        return $this->render('view', ['problem' => $problem, 'decisions' => $decisions]);
+        return $this->render('view', ['problem' => $problem]);
     }
 
     public function actionAdd()
@@ -44,9 +40,9 @@ class  ProblemController extends Controller
     public function actionApprove()
     {
         if ($model = Problem::findOne(Yii::$app->request->post('id'))) {
-            $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
+            $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
         }
-        $this->setFlash($model);
+        $this->setFlash($isSave);
         return $this->redirect(Yii::$app->request->referrer);
     }
 
