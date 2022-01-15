@@ -63,11 +63,9 @@ class Problem extends ActiveRecord
         ]);
     }
 
-    public function getDecisions(): ActiveQuery
+    public function getDecisions()
     {
-        return $this->hasMany(Decision::class, [
-            'problem_id' => 'id'
-        ]);
+        return $this->hasMany(Decision::class, ['problem_id' => 'id'])->orderByApprove($this->decision);
     }
 
     public static function find()
