@@ -59,6 +59,13 @@ class Decision extends ActiveRecord
         ]);
     }
 
+    public function getProblem()
+    {
+        return $this->hasOne(Problem::class, [
+            'id' => 'problem_id'
+        ]);
+    }
+
     public static function find()
     {
         return Yii::createObject(Query::class, [get_called_class()]);

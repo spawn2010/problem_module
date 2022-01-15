@@ -6,7 +6,7 @@ use yii\db\ActiveQuery;
 
 class Query extends ActiveQuery
 {
-    public function orderByDecisions($decision_id): Query
+    public function orderByApprove($decision_id): Query
     {
         if ($decision_id) {
             $this->orderBy(["IF(id = $decision_id, 0, 1)" => SORT_ASC]);

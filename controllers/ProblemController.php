@@ -39,9 +39,8 @@ class  ProblemController extends Controller
 
     public function actionApprove()
     {
-        if ($model = Problem::findOne(Yii::$app->request->post('id'))) {
-            $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
-        }
+        $model = Problem::findOne(Yii::$app->request->post('id'));
+        $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
         $this->setFlash($isSave);
         return $this->redirect(Yii::$app->request->referrer);
     }

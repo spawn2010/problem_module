@@ -1,10 +1,8 @@
 <?php
 
-use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 /**
  * @var $decision
- * @var $problem
  */
 $profile = new \app\models\User\Form\Profile(['id' => $decision->user->id]);
 if ($decision->user->user_image) {
@@ -28,8 +26,8 @@ if ($decision->user->user_image) {
         </div>
         <div class="m-3">
             <?php
-            if (!$problem['decision'] && $problem['user_id'] == Yii::$app->user->id){
-                echo Html::a('Принять решение',
+            if (!$decision->problem['decision'] && $decision->problem['user_id'] == Yii::$app->user->id):?>
+                <?=Html::a('Принять решение',
                     ['approve'], [
                         'class' => 'btn btn-success',
                         'data-method' => 'POST',
@@ -37,12 +35,11 @@ if ($decision->user->user_image) {
                             'decision' => $decision['id'],
                             'id' => $decision['problem_id'],
                         ],
-                    ]);
-            }elseif($decision['id'] == $problem['decision']){
-                ?>
+                    ])?>
+            <?php elseif($decision['id'] == $decision->problem['decision']):?>
                 <label class="text-muted">Принятое решение</label>
                 <?php
-            }
+            endif;
             ?>
         </div>
     </div>
