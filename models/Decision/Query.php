@@ -6,13 +6,13 @@ use yii\db\ActiveQuery;
 
 class Query extends ActiveQuery
 {
-    public function orderByApprove($decision_id): Query
+    public function orderByApprove($decision_id = null): Query
     {
-        if ($decision_id) {
-            $this->orderBy(["IF(id = $decision_id, 0, 1)" => SORT_ASC]);
+        if ($decision_id === null) {
+            $this->orderBy('id');
             return $this;
         }
-        $this->orderBy('id');
+        $this->orderBy(["IF(id = $decision_id, 0, 1)" => SORT_ASC]);
         return $this;
     }
 }
