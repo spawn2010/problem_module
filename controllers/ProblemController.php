@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Decision\Decision;
 use app\models\Decision\Form;
+use app\models\Evaluation;
 use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
@@ -39,8 +40,13 @@ class  ProblemController extends Controller
 
     public function actionEvaluation()
     {
-        $model = Decision::findOne(Yii::$app->request->get('id'));
-        $model->updateAttributes(['evaluation' => $model['evaluation'] + Yii::$app->request->get('value')]);
+        $evaluation = new Evaluation\Form\Add();
+        $decision = Decision::findOne(Yii::$app->request->post('id'));
+        $evaluation->decision_id = $decision['id'];
+        $evaluation->user_id = Yii::$app->user->id;
+        if ($evaluation->save()){
+            $decision->updateAttributes(['evaluation' => $decision['evaluation'] + Yii::$app->request->post('value')]);
+        }
         return $this->redirect(Yii::$app->request->referrer);
     }
 

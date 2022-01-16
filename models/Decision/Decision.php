@@ -2,6 +2,7 @@
 
 namespace app\models\Decision;
 
+use app\models\Evaluation\Evaluation;
 use app\models\Problem\Problem;
 use app\models\User\User;
 use Yii;
@@ -66,6 +67,11 @@ class Decision extends ActiveRecord
         return $this->hasOne(Problem::class, [
             'id' => 'problem_id'
         ]);
+    }
+
+    public function getEvaluations()
+    {
+        return $this->hasMany(Evaluation::class, ['decision_id' => 'id'])->where(['user_id'=>Yii::$app->user->id]);
     }
 
     public static function find()
