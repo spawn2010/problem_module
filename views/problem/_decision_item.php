@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 /**
  * @var $decision
  */
@@ -12,6 +14,9 @@ if ($decision->user->user_image) {
 }
 ?>
 <div class="container border rounded mt-3">
+    <?=Html::a('плюс',Url::to(['problem/evaluation','value' => 1,'id'=>$decision['id']]))?>
+    <span><?=$decision['evaluation']?></span>
+    <?=Html::a('минус',Url::to(['problem/evaluation','value' => -1,'id'=>$decision['id']]))?>
     <div class="row">
         <div class="col text-left p-3 rounded border-bottom" style="background: #f6f8fa">
             <span><?=$img?></span>
