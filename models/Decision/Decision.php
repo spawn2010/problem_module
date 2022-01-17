@@ -6,7 +6,7 @@ use app\models\Evaluation\Evaluation;
 use app\models\Problem\Problem;
 use app\models\User\User;
 use Yii;
-use yii\behaviors\TimestampBehavior;
+
 use yii\db\ActiveRecord;
 
 /**
@@ -15,7 +15,7 @@ use yii\db\ActiveRecord;
  * @property mixed|null $problem_id
  * @property mixed|null $created_at
  * @property mixed|null $user_id
- *  * @property mixed|null $evaluation
+ * @property mixed|null $evaluation
  */
 class Decision extends ActiveRecord
 {
@@ -71,7 +71,7 @@ class Decision extends ActiveRecord
 
     public function getEvaluations()
     {
-        return $this->hasMany(Evaluation::class, ['decision_id' => 'id'])->where(['user_id'=>Yii::$app->user->id]);
+        return $this->hasMany(Evaluation::class, ['decision_id' => 'id'])->where(['user_id'=>Yii::$app->user->id])->one();
     }
 
     public static function find()

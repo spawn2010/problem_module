@@ -58,14 +58,17 @@ class Problem extends ActiveRecord
 
     public function getUser(): ActiveQuery
     {
-        return $this->hasOne(User::class, [
-            'id' => 'user_id'
-        ]);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function getDecisions()
     {
         return $this->hasMany(Decision::class, ['problem_id' => 'id'])->orderByApprove($this->decision);
+    }
+
+    public function getDecisionContent()
+    {
+        return $this->hasOne(Decision::class, ['id' => 'decision']);
     }
 
     public static function find()

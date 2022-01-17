@@ -12,7 +12,6 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * User model
- *
  * @property integer $id
  * @property string $username
  * @property string $password_hash
@@ -24,7 +23,7 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property string $role
- * * @property string $user_image
+ * @property string $user_image
  */
 class User extends ActiveRecord implements IdentityInterface
 {

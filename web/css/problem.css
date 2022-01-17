@@ -17,3 +17,14 @@
 .problem-content{
     font-size: medium;
 }
+.item-row {
+    display: flex;
+    flex-direction: row;
+
+}
+.item-row .buttons {
+    width: 50px;
+}
+.item-row .item {
+    width: 100%;
+}
