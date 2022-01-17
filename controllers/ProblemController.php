@@ -44,7 +44,7 @@ class  ProblemController extends Controller
         $decision = Decision::findOne(Yii::$app->request->post('id'));
         $evaluation->decision_id = $decision['id'];
         $evaluation->user_id = Yii::$app->user->id;
-        if ($evaluation->save()){
+        if ($evaluation->save()) {
             $decision->updateAttributes(['evaluation' => $decision['evaluation'] + Yii::$app->request->post('value')]);
         }
         return $this->redirect(Yii::$app->request->referrer);

@@ -11,7 +11,6 @@ use yii\db\ActiveRecord;
  * @property mixed|null $user_id
  * @property mixed|null $id
  */
-
 class Evaluation extends ActiveRecord
 {
     public static function tableName()
@@ -23,7 +22,12 @@ class Evaluation extends ActiveRecord
     {
         return [
             ['user_id', 'exist', 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            ['decision_id', 'exist', 'targetClass' => Decision::className(), 'targetAttribute' => ['decision_id' => 'id']]
+            [
+                'decision_id',
+                'exist',
+                'targetClass' => Decision::className(),
+                'targetAttribute' => ['decision_id' => 'id']
+            ]
         ];
     }
 }

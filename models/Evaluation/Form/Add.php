@@ -16,7 +16,12 @@ class Add extends Model
     {
         return [
             ['user_id', 'exist', 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            ['decision_id', 'exist', 'targetClass' => Decision::className(), 'targetAttribute' => ['decision_id' => 'id']]
+            [
+                'decision_id',
+                'exist',
+                'targetClass' => Decision::className(),
+                'targetAttribute' => ['decision_id' => 'id']
+            ]
         ];
     }
 
@@ -30,7 +35,7 @@ class Add extends Model
         $evaluation = new Evaluation();
         $evaluation->decision_id = $this->decision_id;
         $evaluation->user_id = $this->user_id;
-        return  $evaluation->save();
+        return $evaluation->save();
     }
 
 }
