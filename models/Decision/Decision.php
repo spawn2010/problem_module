@@ -72,7 +72,7 @@ class Decision extends ActiveRecord
 
     public function getEvaluations()
     {
-        return $this->hasMany(Evaluation::class, ['decision_id' => 'id'])->where(['user_id' => Yii::$app->user->id]);
+        return $this->hasMany(Evaluation::class, ['decision_id' => 'id']);
     }
 
     public static function find()

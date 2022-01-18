@@ -19,7 +19,7 @@ class  ProblemController extends Controller
         $collection = Problem::find();
         if (Yii::$app->user->identity->role === 'user') {
             $collection = $collection->findByUser(Yii::$app->user->id);
-        };
+        }
         return $this->render('list', ['collection' => $collection]);
     }
 
@@ -41,10 +41,8 @@ class  ProblemController extends Controller
     public function actionEvaluation()
     {
         $evaluation = new Evaluation\Form\Add();
-        $decision = Decision::findOne(Yii::$app->request->post('id'));
-        $evaluation->decision_id = $decision['id'];
-        $evaluation->user_id = Yii::$app->user->id;
-        if ($evaluation->save()) {
+        if (($decision = Decision::findOne(Yii::$app->request->post('id'))) && $evaluation->save($decision['id'], Yii::$app->user->id))
+        {
             $decision->updateAttributes(['evaluation' => $decision['evaluation'] + Yii::$app->request->post('value')]);
         }
         return $this->redirect(Yii::$app->request->referrer);
@@ -52,8 +50,9 @@ class  ProblemController extends Controller
 
     public function actionApprove()
     {
-        $model = Problem::findOne(Yii::$app->request->post('id'));
-        $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
+        if ($model = Problem::findOne(Yii::$app->request->post('id'))){
+            $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
+        }
         $this->setFlash($isSave);
         return $this->redirect(Yii::$app->request->referrer);
     }

@@ -3,7 +3,9 @@
 namespace app\models\Evaluation;
 
 use app\models\Decision\Decision;
+use app\models\Problem\Problem;
 use app\models\User\User;
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**
@@ -30,4 +32,15 @@ class Evaluation extends ActiveRecord
             ]
         ];
     }
+
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getDecision(): ActiveQuery
+    {
+        return $this->hasOne(Decision::class, ['id' => 'decision_id']);
+    }
+
 }

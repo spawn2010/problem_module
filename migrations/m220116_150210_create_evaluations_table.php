@@ -30,6 +30,15 @@ class m220116_150210_create_evaluations_table extends Migration
             'id',
             'CASCADE'
         );
+
+         $this->addForeignKey(
+            'fk-evaluation-user_id',
+            '{{%evaluations}}',
+            'user_id',
+            '{{%user}}',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
@@ -42,6 +51,11 @@ class m220116_150210_create_evaluations_table extends Migration
         $this->dropForeignKey(
             'fk-evaluation-decision_id',
             '{{%decisions}}'
+        );
+
+        $this->dropForeignKey(
+            'fk-evaluation-user_id',
+            '{{%user}}'
         );
     }
 }

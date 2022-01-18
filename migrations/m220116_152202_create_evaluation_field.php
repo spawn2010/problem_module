@@ -12,7 +12,7 @@ class m220116_152202_create_evaluation_field extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('{{%decisions}}', 'evaluation', $this->integer());
+        $this->addColumn('{{%decisions}}', 'evaluation', $this->integer()->defaultValue(0));
     }
 
     /**

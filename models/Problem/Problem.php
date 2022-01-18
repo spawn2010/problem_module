@@ -66,7 +66,7 @@ class Problem extends ActiveRecord
         return $this->hasMany(Decision::class, ['problem_id' => 'id'])->orderByApprove($this->decision);
     }
 
-    public function getDecisionContent()
+    public function getApprovedDecision()
     {
         return $this->hasOne(Decision::class, ['id' => 'decision']);
     }

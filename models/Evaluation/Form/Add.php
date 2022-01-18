@@ -26,15 +26,15 @@ class Add extends Model
     }
 
 
-    public function save()
+    public function save($decision_id,$user_id)
     {
         if (!$this->validate()) {
             return false;
         }
 
         $evaluation = new Evaluation();
-        $evaluation->decision_id = $this->decision_id;
-        $evaluation->user_id = $this->user_id;
+        $evaluation->decision_id = $decision_id;
+        $evaluation->user_id = $user_id;
         return $evaluation->save();
     }
 

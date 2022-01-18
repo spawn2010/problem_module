@@ -59,7 +59,7 @@ JSOUT;
             <div class="col text-left p-3">
                 <?php if($problem['decision']):?>
                     <div><span class="problem-content">Решение:</span></div>
-                    <div class="border p-3" id="decision"><span class="problem-content"><?=$problem->decisionContent->content?></span></div>
+                    <div class="border p-3" id="decision"><span class="problem-content"><?=$problem->approvedDecision->content?></span></div>
                 <?php endif;?>
             </div>
         </div>
