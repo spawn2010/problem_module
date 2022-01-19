@@ -11,6 +11,7 @@ class Add extends Model
 {
     public $decision_id;
     public $user_id;
+    public $value;
 
     public function rules()
     {
@@ -21,21 +22,26 @@ class Add extends Model
                 'exist',
                 'targetClass' => Decision::className(),
                 'targetAttribute' => ['decision_id' => 'id']
-            ]
+            ],
+            [['value'], 'integer']
         ];
     }
 
-
-    public function save($decision_id,$user_id)
+    public function save()
     {
         if (!$this->validate()) {
             return false;
         }
-
         $evaluation = new Evaluation();
-        $evaluation->decision_id = $decision_id;
-        $evaluation->user_id = $user_id;
-        return $evaluation->save();
+
+        if (($decision = Decision::findOne($this->decision_id)) && empty($id = $evaluation::find()->where(['decision_id' => $this->decision_id])->andWhere(['user_id' => $this->user_id])->one())) {
+            $decision->updateAttributes(['evaluation' => $decision['evaluation'] + $this->value]);
+            $evaluation->decision_id = $this->decision_id;
+            $evaluation->user_id = $this->user_id;
+            $evaluation->value = $this->value;
+            return $evaluation->save();
+        }
+        return $evaluation::deleteAll(['id' => $id->id]);
     }
 
 }

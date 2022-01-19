@@ -20,6 +20,7 @@ class m220116_150210_create_evaluations_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'decision_id' => $this->integer(),
+            'value' => $this->integer(),
         ], $tableOptions);
 
         $this->addForeignKey(

@@ -12,6 +12,7 @@ use yii\db\ActiveRecord;
  * @property mixed|null $decision_id
  * @property mixed|null $user_id
  * @property mixed|null $id
+ * @property mixed|null $value
  */
 class Evaluation extends ActiveRecord
 {

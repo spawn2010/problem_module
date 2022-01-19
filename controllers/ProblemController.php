@@ -40,17 +40,20 @@ class  ProblemController extends Controller
 
     public function actionEvaluation()
     {
-        $evaluation = new Evaluation\Form\Add();
-        if (($decision = Decision::findOne(Yii::$app->request->post('id'))) && $evaluation->save($decision['id'], Yii::$app->user->id))
-        {
-            $decision->updateAttributes(['evaluation' => $decision['evaluation'] + Yii::$app->request->post('value')]);
+        if ($value = Evaluation\Evaluation::find()->where(['decision_id' => Yii::$app->request->post('id')])->andWhere(['user_id' => Yii::$app->user->id])) {
+            $evaluation = new Evaluation\Form\Add([
+                'decision_id' => Yii::$app->request->post('id'),
+                'user_id' => Yii::$app->user->id,
+                'value' => Yii::$app->request->post('value')
+            ]);
+            $evaluation->save();
         }
         return $this->redirect(Yii::$app->request->referrer);
     }
 
     public function actionApprove()
     {
-        if ($model = Problem::findOne(Yii::$app->request->post('id'))){
+        if ($model = Problem::findOne(Yii::$app->request->post('id'))) {
             $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
         }
         $this->setFlash($isSave);

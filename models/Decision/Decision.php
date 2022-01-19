@@ -70,9 +70,9 @@ class Decision extends ActiveRecord
         ]);
     }
 
-    public function getEvaluations()
+    public function getEvaluations($id)
     {
-        return $this->hasMany(Evaluation::class, ['decision_id' => 'id']);
+        return $this->hasMany(Evaluation::class, ['decision_id' => 'id'])->where(['user_id' => $id])->one();
     }
 
     public static function find()

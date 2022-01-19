@@ -12,11 +12,20 @@ if ($decision->user->user_image) {
 }else{
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
-if (!$decision->evaluations) {
-    $class = 'enabled';
-} else {
-    $class = 'disabled';
+
+if (empty($decision->getEvaluations(Yii::$app->user->id))){
+    $plus_class = 'enabled';
+    $minus_class = 'enabled';
+}elseif ($decision->getEvaluations(Yii::$app->user->id)->value == 1)
+{
+    $plus_class = 'disabled';
+    $minus_class = 'enabled';
+}elseif ($decision->getEvaluations(Yii::$app->user->id)->value == -1)
+{
+    $plus_class = 'enabled';
+    $minus_class = 'disabled';
 }
+
 ?>
 <div class="item-row mt-3">
     <div class="buttons mr-3">
@@ -28,7 +37,7 @@ if (!$decision->evaluations) {
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
                 'pointer-ever'=> 'none',
-                'class' => "btn btn-link $class",
+                'class' => "btn btn-link $plus_class",
                 'data-params' => [
                     'id' => $decision['id'],
                     'value' => 1,
@@ -42,7 +51,7 @@ if (!$decision->evaluations) {
 </svg>',
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
-                'class' => "btn btn-link $class",
+                'class' => "btn btn-link $minus_class",
                 'data-params' => [
                     'id' => $decision['id'],
                     'value' => -1,
