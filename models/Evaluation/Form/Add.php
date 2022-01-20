@@ -5,6 +5,8 @@ namespace app\models\Evaluation\Form;
 use app\models\Decision\Decision;
 use app\models\Evaluation\Evaluation;
 use app\models\User\User;
+use Exception;
+use Yii;
 use yii\base\Model;
 
 class Add extends Model
@@ -27,6 +29,9 @@ class Add extends Model
         ];
     }
 
+    /**
+     * @return bool
+     */
     public function save()
     {
         if (!$this->validate()) {
@@ -34,14 +39,34 @@ class Add extends Model
         }
         $evaluation = new Evaluation();
 
-        if (($decision = Decision::findOne($this->decision_id)) && empty($id = $evaluation::find()->where(['decision_id' => $this->decision_id])->andWhere(['user_id' => $this->user_id])->one())) {
+        $decision = Decision::findOne($this->decision_id);
+        $oldValue = Evaluation::find()
+            ->where(['decision_id' => $this->decision_id])
+            ->andWhere(['user_id' => $this->user_id])
+            ->one();
+
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            if (!is_null($decision) && is_null($oldValue)) {
+                $evaluation->decision_id = $this->decision_id;
+                $evaluation->user_id = $this->user_id;
+                $evaluation->value = $this->value;
+
+                if (!$evaluation->save()) {
+                    throw new yii\db\Exception(array_values($evaluation->errors)[0][0]);
+                }
+            } else {
+                Evaluation::deleteAll(['id' => $oldValue->id]);
+            }
             $decision->updateAttributes(['evaluation' => $decision['evaluation'] + $this->value]);
-            $evaluation->decision_id = $this->decision_id;
-            $evaluation->user_id = $this->user_id;
-            $evaluation->value = $this->value;
-            return $evaluation->save();
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollBack();
+            return false;
         }
-        return $evaluation::deleteAll(['id' => $id->id]);
+
+        return true;
     }
 
 }

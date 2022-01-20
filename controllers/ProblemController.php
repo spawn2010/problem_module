@@ -2,13 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\Decision\Decision;
 use app\models\Decision\Form;
 use app\models\Evaluation;
 use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
 use Yii;
+use yii\base\ErrorException;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -38,16 +38,21 @@ class  ProblemController extends Controller
         return $this->redirect(['/problem/list']);
     }
 
+    /**
+     * @throws Yii\db\Exception
+     */
     public function actionEvaluation()
     {
-        if ($value = Evaluation\Evaluation::find()->where(['decision_id' => Yii::$app->request->post('id')])->andWhere(['user_id' => Yii::$app->user->id])) {
-            $evaluation = new Evaluation\Form\Add([
-                'decision_id' => Yii::$app->request->post('id'),
-                'user_id' => Yii::$app->user->id,
-                'value' => Yii::$app->request->post('value')
-            ]);
-            $evaluation->save();
+        $evaluation = new Evaluation\Form\Add([
+            'decision_id' => Yii::$app->request->post('id'),
+            'user_id' => Yii::$app->user->id,
+            'value' => Yii::$app->request->post('value')
+        ]);
+
+        if (!$evaluation->save()) {
+            throw new yii\db\Exception(array_values($evaluation->errors)[0][0]);
         }
+
         return $this->redirect(Yii::$app->request->referrer);
     }
 

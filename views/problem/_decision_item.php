@@ -13,19 +13,6 @@ if ($decision->user->user_image) {
 }else{
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
-
-if (empty($decision->getEvaluations(Yii::$app->user->id))){
-    $plus_class = 'enabled';
-    $minus_class = 'enabled';
-}elseif ($decision->getEvaluations(Yii::$app->user->id)->value == 1)
-{
-    $plus_class = 'disabled';
-    $minus_class = 'enabled';
-}elseif ($decision->getEvaluations(Yii::$app->user->id)->value == -1)
-{
-    $plus_class = 'enabled';
-    $minus_class = 'disabled';
-}
 ?>
 
 <div class="item-row mt-3">
@@ -34,7 +21,7 @@ if (empty($decision->getEvaluations(Yii::$app->user->id))){
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
                 'pointer-ever'=> 'none',
-                'class' => "btn $plus_class",
+                'class' => "btn ".((!empty($decision->getEvaluations(Yii::$app->user->id)->value)&&($decision->getEvaluations(Yii::$app->user->id)->value === 1)) ? 'disabled' : 'enabled'),
                 'data-params' => [
                     'id' => $decision['id'],
                     'value' => 1,
@@ -44,7 +31,7 @@ if (empty($decision->getEvaluations(Yii::$app->user->id))){
         <?= Html::a(Icon::show('minus',['class'=>'fa-3x']),
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
-                'class' => "btn $minus_class",
+                'class' => "btn ".((!empty($decision->getEvaluations(Yii::$app->user->id)->value)&&($decision->getEvaluations(Yii::$app->user->id)->value !== 1)) ? 'disabled' : 'enabled'),
                 'data-params' => [
                     'id' => $decision['id'],
                     'value' => -1,
