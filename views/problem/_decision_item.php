@@ -4,12 +4,13 @@ use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Evaluation\View;
+use app\models\User\Form\Profile;
 
 
 /**
  * @var $decision
  */
-$profile = new \app\models\User\Form\Profile(['id' => $decision->user->id]);
+$profile = new Profile(['id' => $decision->user->id]);
 if ($decision->user->user_image) {
     $img =  Html::img($profile->getAvatar(),['widht'=>'100','height'=>'100']);
 }else{
