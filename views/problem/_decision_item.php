@@ -16,7 +16,7 @@ if ($decision->user->user_image) {
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
 
-$value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id) ?? '';
+$value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->value ?? '';
 
 
 $classUp = View::getClassEvaluationUp($value);
