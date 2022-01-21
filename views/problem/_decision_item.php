@@ -3,6 +3,8 @@
 use kartik\icons\Icon;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\Evaluation\View;
+
 
 /**
  * @var $decision
@@ -14,14 +16,11 @@ if ($decision->user->user_image) {
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
 
-$value = '';
+$value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id) ?? '';
 
-if (!empty(Yii::$app->user->identity->getEvaluationByDecisionId($decision['id'])->value)){
-    $value = Yii::$app->user->identity->getEvaluationByDecisionId($decision['id'])->value;
-}
 
-$classUp = \app\models\Evaluation\View::getClassEvaluationUp($value);
-$classDown = \app\models\Evaluation\View::getClassEvaluationDown($value);
+$classUp = View::getClassEvaluationUp($value);
+$classDown = View::getClassEvaluationDown($value);
 
 ?>
 <div class="item-row mt-3">
@@ -32,18 +31,18 @@ $classDown = \app\models\Evaluation\View::getClassEvaluationDown($value);
                 'pointer-ever'=> 'none',
                 'class' => "btn ".$classUp,
                 'data-params' => [
-                    'id' => $decision['id'],
+                    'id' => $decision->id,
                     'value' => 1,
                 ],
             ]) ?>
 
-        <div class="ml-3"><?=Html::label($decision['evaluation'])?></div>
+        <div class="ml-3"><?=Html::label($decision->evaluation)?></div>
         <?= Html::a(Icon::show('minus',['class'=>'fa-3x']),
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
                 'class' => "btn ".$classDown,
                 'data-params' => [
-                    'id' => $decision['id'],
+                    'id' => $decision->id,
                     'value' => -1,
                 ],
             ]) ?>
@@ -63,7 +62,7 @@ $classDown = \app\models\Evaluation\View::getClassEvaluationDown($value);
             <div class="row m-1">
             <div class="text-left col-4 mt-2">
                 <text>
-                    <?=$decision['content']?>
+                    <?=$decision->content?>
                 </text>
             </div>
             <div class="text-right col-8">
@@ -73,8 +72,8 @@ $classDown = \app\models\Evaluation\View::getClassEvaluationDown($value);
                             'class' => 'btn btn-success',
                             'data-method' => 'POST',
                             'data-params' => [
-                                'decision' => $decision['id'],
-                                'id' => $decision['problem_id'],
+                                'decision' => $decision->id,
+                                'id' => $decision->problem_id,
                             ],
                         ])?>
                 <?php endif; ?>
