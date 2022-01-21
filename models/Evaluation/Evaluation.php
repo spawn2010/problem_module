@@ -5,6 +5,7 @@ namespace app\models\Evaluation;
 use app\models\Decision\Decision;
 use app\models\Problem\Problem;
 use app\models\User\User;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -43,5 +44,11 @@ class Evaluation extends ActiveRecord
     {
         return $this->hasOne(Decision::class, ['id' => 'decision_id']);
     }
+
+    public static function find()
+    {
+        return Yii::createObject(Query::class, [get_called_class()]);
+    }
+
 
 }

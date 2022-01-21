@@ -13,8 +13,14 @@ if ($decision->user->user_image) {
 }else{
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
-?>
 
+if ($decision->user->getEvaluation()->one()){
+    var_dump($decision->user->getEvaluation()->one()->value);
+    var_dump($decision->user->getEvaluations($decision['id'])->all());
+}
+echo 1;
+
+?>
 <div class="item-row mt-3">
     <div class="buttons mr-3">
         <?= Html::a(Icon::show('plus',['class'=>'fa-3x']),

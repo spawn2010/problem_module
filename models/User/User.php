@@ -2,6 +2,7 @@
 
 namespace app\models\User;
 
+use app\models\Evaluation\Evaluation;
 use app\models\Problem\Problem;
 use Yii;
 use yii\base\NotSupportedException;
@@ -203,4 +204,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Problem::class, ['user_id' => 'id'])->orderByRating();
     }
 
+    public function getEvaluations($id)
+    {
+        return $this->hasMany(Evaluation::class, ['user_id' => 'id']);
+    }
+
+    public function getEvaluation()
+    {
+        return $this->hasOne(Evaluation::class, ['user_id' => 'id']);
+    }
 }
