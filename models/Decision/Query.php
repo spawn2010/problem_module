@@ -12,4 +12,5 @@ class Query extends ActiveQuery
         $this->orderBy($argument);
         return $this;
     }
+
 }

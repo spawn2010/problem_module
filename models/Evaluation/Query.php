@@ -12,4 +12,10 @@ class Query extends ActiveQuery
             ->andWhere(['user_id' => $user_id]);
         return $this;
     }
+
+    public function findByDecision($decision_id): Query
+    {
+        $this->where(['decision_id' => $decision_id]);
+        return $this;
+    }
 }

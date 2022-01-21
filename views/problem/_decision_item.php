@@ -14,7 +14,14 @@ if ($decision->user->user_image) {
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
 
-$evaluation = $decision->getEvaluations(Yii::$app->user->id);
+$value = '';
+
+if (!empty(Yii::$app->user->identity->getEvaluationByDecisionId($decision['id'])->value)){
+    $value = Yii::$app->user->identity->getEvaluationByDecisionId($decision['id'])->value;
+}
+
+$classUp = \app\models\Evaluation\View::getClassEvaluationUp($value);
+$classDown = \app\models\Evaluation\View::getClassEvaluationDown($value);
 
 ?>
 <div class="item-row mt-3">
@@ -23,17 +30,18 @@ $evaluation = $decision->getEvaluations(Yii::$app->user->id);
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
                 'pointer-ever'=> 'none',
-                'class' => "btn ".((!empty($evaluation->value)&&($evaluation->value === 1)) ? 'disabled' : 'enabled'),
+                'class' => "btn ".$classUp,
                 'data-params' => [
                     'id' => $decision['id'],
                     'value' => 1,
                 ],
             ]) ?>
+
         <div class="ml-3"><?=Html::label($decision['evaluation'])?></div>
         <?= Html::a(Icon::show('minus',['class'=>'fa-3x']),
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
-                'class' => "btn ".((!empty($evaluation->value)&&($evaluation->value !== 1)) ? 'disabled' : 'enabled'),
+                'class' => "btn ".$classDown,
                 'data-params' => [
                     'id' => $decision['id'],
                     'value' => -1,

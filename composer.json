@@ -35,7 +35,8 @@
         "kartik-v/yii2-export": "@dev",
         "yii2tech/ar-softdelete": "dev-master",
         "lasserafn/php-initial-avatar-generator": "dev-master",
-        "kartik-v/yii2-icons": "dev-master"
+        "kartik-v/yii2-icons": "dev-master",
+        "rmrevin/yii2-fontawesome": "2.10.*"
     },
 
     "config": {

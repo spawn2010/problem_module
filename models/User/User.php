@@ -204,13 +204,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Problem::class, ['user_id' => 'id'])->orderByRating();
     }
 
-    public function getEvaluations($id)
+    public function getEvaluations()
     {
         return $this->hasMany(Evaluation::class, ['user_id' => 'id']);
     }
 
-    public function getEvaluation()
+    public function getEvaluationByDecisionId($decision_id)
     {
-        return $this->hasOne(Evaluation::class, ['user_id' => 'id']);
+        return $this->hasMany(Evaluation::class, ['user_id' => 'id'])->findByDecision($decision_id)->one();
     }
 }
