@@ -4,30 +4,20 @@ namespace app\models\Evaluation;
 
 class View
 {
-    public static function getClassEvaluationUp($value = '')
+
+    public static function getClassEvaluation($button, $value = '')
     {
-        if ($value === null) {
+        if ($value === '') {
             return 'enabled';
         }
 
-        switch ($value) {
-            case 1:
-                return 'disabled';
-            case -1:
-                return 'enabled';
+        if ($button == 'up'){
+            return ($value == 1) ? 'disabled' : 'enabled';
+        }
+
+        if ($button == 'down'){
+            return ($value == 1) ? 'enabled' : 'disabled';
         }
     }
 
-    public static function getClassEvaluationDown($value = '')
-    {
-        if ($value === null) {
-            return 'enabled';
-        }
-        switch ($value) {
-            case 1:
-                return 'enabled';
-            case -1:
-                return 'disabled';
-        }
-    }
 }
