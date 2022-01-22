@@ -6,10 +6,10 @@ use yii\helpers\Url;
 use app\models\Evaluation\View;
 use app\models\User\Form\Profile;
 
-
 /**
  * @var $decision
  */
+
 $profile = new Profile(['id' => $decision->user->id]);
 if ($decision->user->user_image) {
     $img =  Html::img($profile->getAvatar(),['widht'=>'100','height'=>'100']);
@@ -19,10 +19,6 @@ if ($decision->user->user_image) {
 
 $value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->value ?? '';
 
-
-$classUp = View::getClassEvaluationUp($value);
-$classDown = View::getClassEvaluationDown($value);
-
 ?>
 <div class="item-row mt-3">
     <div class="buttons mr-3">
@@ -30,7 +26,7 @@ $classDown = View::getClassEvaluationDown($value);
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
                 'pointer-ever'=> 'none',
-                'class' => "btn ".$classUp,
+                'class' => "btn ".View::getClassEvaluation('up',$value),
                 'data-params' => [
                     'id' => $decision->id,
                     'value' => 1,
@@ -41,7 +37,7 @@ $classDown = View::getClassEvaluationDown($value);
         <?= Html::a(Icon::show('minus',['class'=>'fa-3x']),
             Url::to(['problem/evaluation']), [
                 'data-method' => 'POST',
-                'class' => "btn ".$classDown,
+                'class' => "btn ".View::getClassEvaluation('down',$value),
                 'data-params' => [
                     'id' => $decision->id,
                     'value' => -1,

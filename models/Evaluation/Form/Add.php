@@ -32,40 +32,7 @@ class Add extends Model
     /**
      * @return bool
      */
-    public function oldsave()
-    {
-        if (!$this->validate()) {
-            return false;
-        }
-        $evaluation = new Evaluation();
-
-        $decision = Decision::findOne($this->decision_id);
-        $oldValue = Evaluation::find()->findByDecisionidAndUserid($this->decision_id, $this->user_id)->one();
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            if (!is_null($decision) && is_null($oldValue)) {
-                $evaluation->decision_id = $this->decision_id;
-                $evaluation->user_id = $this->user_id;
-                $evaluation->value = $this->value;
-
-                if (!$evaluation->save()) {
-                    throw new yii\db\Exception(array_values($evaluation->errors)[0][0]);
-                }
-            } else {
-                Evaluation::deleteAll(['id' => $oldValue->id]);
-            }
-            $decision->updateAttributes(['evaluation' => $decision['evaluation'] + $this->value]);
-
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollBack();
-            return false;
-        }
-
-        return true;
-    }
-
-    public function save()
+     public function save()
     {
 
         if (!$this->validate()) {
@@ -88,7 +55,7 @@ class Add extends Model
         $transaction = Yii::$app->db->beginTransaction();
         try {
             if ($evaluation->save() === false) {
-                $this->addError($evaluation->getErrors());
+                $this->addErrors($evaluation->getErrors());
                 throw new Exception($evaluation->getErrors());
             }
 
