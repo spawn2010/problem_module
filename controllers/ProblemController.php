@@ -7,7 +7,6 @@ use app\models\Evaluation;
 use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
-use Exception;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -49,8 +48,10 @@ class  ProblemController extends Controller
             'value' => Yii::$app->request->post('value')
         ]);
 
-        if ($evaluation->save() === false){
-            throw new Exception($evaluation->getErrors());
+        if ($evaluation->save() == null){
+           foreach ($evaluation->getErrors() as $error){
+             echo ($error[0]);
+           }
         }
 
         return $this->redirect(Yii::$app->request->referrer);

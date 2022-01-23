@@ -2,7 +2,6 @@
 
 use kartik\icons\Icon;
 use yii\helpers\Html;
-use yii\helpers\Url;
 use app\models\Evaluation\View;
 use app\models\User\Form\Profile;
 
@@ -19,31 +18,29 @@ if ($decision->user->user_image) {
 
 $value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->value ?? '';
 
+
+$addEvaluation = '(function ($event) { 
+$.ajax({
+     type: "POST", 
+     url: "evaluation",
+     data:{
+        value: value,
+        id: id ,
+        },
+     success: function(result){
+      location.reload()
+        }
+   });})();';
+
 ?>
+
 <div class="item-row mt-3">
     <div class="buttons mr-3">
-        <?= Html::a(Icon::show('plus',['class'=>'fa-3x']),
-            Url::to(['problem/evaluation']), [
-                'data-method' => 'POST',
-                'pointer-ever'=> 'none',
-                'class' => "btn ".View::getClassEvaluation('up',$value),
-                'data-params' => [
-                    'id' => $decision->id,
-                    'value' => 1,
-                ],
-            ]) ?>
-
+        <?= Html::button(Icon::show('plus',['class'=>'fa-3x']),
+            [ 'class' => "btn",'disabled' => View::getClassEvaluation('up',$value), 'onclick' => $addEvaluation, 'value' => 1, 'id' => $decision->id]);?>
         <div class="ml-3"><?=Html::label($decision->evaluation)?></div>
-        <?= Html::a(Icon::show('minus',['class'=>'fa-3x']),
-            Url::to(['problem/evaluation']), [
-                'data-method' => 'POST',
-                'class' => "btn ".View::getClassEvaluation('down',$value),
-                'data-params' => [
-                    'id' => $decision->id,
-                    'value' => -1,
-                ],
-            ]) ?>
-
+        <?= Html::button(Icon::show('minus',['class'=>'fa-3x']),
+            [ 'class' => "btn", 'disabled' => View::getClassEvaluation('down',$value), 'onclick' => $addEvaluation, 'value' => -1, 'id' => $decision->id]);?>
     </div>
     <div class="item">
         <div class="border rounded">

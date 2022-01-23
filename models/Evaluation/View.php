@@ -7,17 +7,14 @@ class View
 
     public static function getClassEvaluation($button, $value = '')
     {
-        if ($value === '') {
-            return 'enabled';
+        switch ($button) {
+            case 'up':
+                return ($value == 1);
+            case 'down':
+                return ($value == -1);
+            default:
+                return false;
         }
 
-        if ($button == 'up'){
-            return ($value == 1) ? 'disabled' : 'enabled';
-        }
-
-        if ($button == 'down'){
-            return ($value == 1) ? 'enabled' : 'disabled';
-        }
     }
-
 }
