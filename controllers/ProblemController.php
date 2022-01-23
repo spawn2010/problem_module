@@ -48,9 +48,9 @@ class  ProblemController extends Controller
             'value' => Yii::$app->request->post('value')
         ]);
 
-        if ($evaluation->save() == null) {
+        if ($evaluation->save() === false) {
             foreach ($evaluation->getErrors() as $error) {
-                echo($error[0]);
+                $this->showError($error[0]);
             }
         }
 
@@ -80,6 +80,11 @@ class  ProblemController extends Controller
         $isSave = ($model->load(Yii::$app->request->post()) and $model->save());
         $this->setFlash($isSave);
         return $this->redirect(Url::to(['problem/view', 'id' => $id]));
+    }
+
+    public function showError ($error)
+    {
+        Yii::$app->session->setFlash('error', $error);
     }
 
     public function setFlash($isSave)
