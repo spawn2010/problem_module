@@ -48,10 +48,10 @@ class  ProblemController extends Controller
             'value' => Yii::$app->request->post('value')
         ]);
 
-        if ($evaluation->save() == null){
-           foreach ($evaluation->getErrors() as $error){
-             echo ($error[0]);
-           }
+        if ($evaluation->save() == null) {
+            foreach ($evaluation->getErrors() as $error) {
+                echo($error[0]);
+            }
         }
 
         return $this->redirect(Yii::$app->request->referrer);

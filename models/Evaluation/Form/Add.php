@@ -32,7 +32,7 @@ class Add extends Model
     /**
      * @return bool
      */
-     public function save()
+    public function save()
     {
 
         if (!$this->validate()) {
