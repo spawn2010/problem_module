@@ -54,8 +54,8 @@ class  ProblemController extends Controller
                 $this->showError($error[0]);
             }
         }
-        return Yii::$app->request->post('value');
-        //return Decision::findOne(Yii::$app->request->post('id'))->evaluation;
+        //return Yii::$app->request->post('value');
+        return Decision::findOne(Yii::$app->request->post('id'))->evaluation;
     }
 
     public function actionEvaluation2()

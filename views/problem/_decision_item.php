@@ -17,10 +17,13 @@ if ($decision->user->user_image) {
 }
 
 
-$value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->value ?? '';
-if(Yii::$app->request->getIsPost()){
-    echo 1;
-}
+$value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->value ?? 0;
+
+
+$active = function ($button, $value){
+    return View::getClassEvaluation($button,$value);
+};
+var_dump($value);
 $addEvaluation = <<<JSOUT
                 (function (event) {           
                     $.ajax({
@@ -30,36 +33,16 @@ $addEvaluation = <<<JSOUT
                         value: value,
                         id: parseInt(id) ,
                         },
-                     success: function(response){
-                    
-                     let evaluation = document.getElementById('evaluation' + parseInt(id)).textContent   
-                     document.getElementById('evaluation' + parseInt(id)).textContent = (Number(evaluation) + Number(response))
-                      console.log ({$decision->evaluation}) 
-                      console.log (evaluation)                           
-                      console.log (evaluation == {$decision->evaluation})      
-                      if(value == 1){
-                        document.getElementById(parseInt(id)+'plus').disabled = true
-                        document.getElementById(parseInt(id)+'minus').disabled = false
-                      }else if(value == -1){
-                        document.getElementById(parseInt(id)+'plus').disabled = false
-                        document.getElementById(parseInt(id)+'minus').disabled = true
-                      }                   
-                         
-                         
-                         
-                         if (evaluation == {$decision->evaluation}){
-                        document.getElementById(parseInt(id)+'plus').disabled = false
-                        document.getElementById(parseInt(id)+'minus').disabled = false
-                    
-                      }                                                                               
-                        },
+                     success: function(response){ 
+                  document.getElementById('evaluation' + parseInt(id)).textContent = response
+                  document.getElementById(parseInt(id)+'plus').disabled = ((value == 1 && Number(response) !== {$decision->evaluation}) || {$value} == -1 ) ? true : false             
+                  document.getElementById(parseInt(id)+'minus').disabled = ((value == -1 && Number(response) !== {$decision->evaluation}) || {$value} == 1 ) ? true : false
+                   },
                       error: function(){
                           console.log("failure");
                       }
                    });})();
 JSOUT;
-
-var_dump($value);
 ?>
 
 <div class="item-row mt-3">
