@@ -58,14 +58,6 @@ class  ProblemController extends Controller
         return Decision::findOne(Yii::$app->request->post('id'))->evaluation;
     }
 
-    public function actionEvaluation2()
-    {
-        if(Yii::$app->request->isAjax) {
-
-            return 'dsr';
-        }
-    }
-
     public function actionApprove()
     {
         if ($model = Problem::findOne(Yii::$app->request->post('id'))) {
