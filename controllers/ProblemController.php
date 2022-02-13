@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Decision\Decision;
 use app\models\Decision\Form;
 use app\models\Evaluation;
 use app\models\Problem\Form\Add;
@@ -53,8 +54,16 @@ class  ProblemController extends Controller
                 $this->showError($error[0]);
             }
         }
+        return Yii::$app->request->post('value');
+        //return Decision::findOne(Yii::$app->request->post('id'))->evaluation;
+    }
 
-        return $this->redirect(Yii::$app->request->referrer);
+    public function actionEvaluation2()
+    {
+        if(Yii::$app->request->isAjax) {
+
+            return 'dsr';
+        }
     }
 
     public function actionApprove()

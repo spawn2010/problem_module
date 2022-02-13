@@ -16,31 +16,59 @@ if ($decision->user->user_image) {
     $img = $profile->generateAvatar($decision->user->username, 50);
 }
 
+
 $value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->value ?? '';
+if(Yii::$app->request->getIsPost()){
+    echo 1;
+}
+$addEvaluation = <<<JSOUT
+                (function (event) {           
+                    $.ajax({
+                     type: "POST", 
+                     url: "evaluation",
+                     data:{
+                        value: value,
+                        id: parseInt(id) ,
+                        },
+                     success: function(response){
+                    
+                     let evaluation = document.getElementById('evaluation' + parseInt(id)).textContent   
+                     document.getElementById('evaluation' + parseInt(id)).textContent = (Number(evaluation) + Number(response))
+                      console.log ({$decision->evaluation}) 
+                      console.log (evaluation)                           
+                      console.log (evaluation == {$decision->evaluation})      
+                      if(value == 1){
+                        document.getElementById(parseInt(id)+'plus').disabled = true
+                        document.getElementById(parseInt(id)+'minus').disabled = false
+                      }else if(value == -1){
+                        document.getElementById(parseInt(id)+'plus').disabled = false
+                        document.getElementById(parseInt(id)+'minus').disabled = true
+                      }                   
+                         
+                         
+                         
+                         if (evaluation == {$decision->evaluation}){
+                        document.getElementById(parseInt(id)+'plus').disabled = false
+                        document.getElementById(parseInt(id)+'minus').disabled = false
+                    
+                      }                                                                               
+                        },
+                      error: function(){
+                          console.log("failure");
+                      }
+                   });})();
+JSOUT;
 
-
-$addEvaluation = '(function ($event) { 
-$.ajax({
-     type: "POST", 
-     url: "evaluation",
-     data:{
-        value: value,
-        id: id ,
-        },
-     success: function(result){
-      location.reload()
-        }
-   });})();';
-
+var_dump($value);
 ?>
 
 <div class="item-row mt-3">
     <div class="buttons mr-3">
         <?= Html::button(Icon::show('plus',['class'=>'fa-3x']),
-            [ 'class' => "btn",'disabled' => View::getClassEvaluation('up',$value), 'onclick' => $addEvaluation, 'value' => 1, 'id' => $decision->id]);?>
-        <div class="ml-3"><?=Html::label($decision->evaluation)?></div>
+            [ 'class' => "btn plus", 'disabled' => View::getClassEvaluation('up',$value), 'onclick' => $addEvaluation, 'value' => 1, 'id' => $decision->id.'plus']);?>
+        <div class="ml-3" id="evaluation<?=$decision->id?>"><?=Html::label($decision->evaluation)?></div>
         <?= Html::button(Icon::show('minus',['class'=>'fa-3x']),
-            [ 'class' => "btn", 'disabled' => View::getClassEvaluation('down',$value), 'onclick' => $addEvaluation, 'value' => -1, 'id' => $decision->id]);?>
+            [ 'class' => "btn minus", 'disabled' => View::getClassEvaluation('down',$value), 'onclick' => $addEvaluation, 'value' => -1, 'id' => $decision->id.'minus']);?>
     </div>
     <div class="item">
         <div class="border rounded">

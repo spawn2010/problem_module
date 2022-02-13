@@ -58,9 +58,7 @@ class Add extends Model
                 $this->addErrors($evaluation->getErrors());
                 throw new Exception($evaluation->getErrors());
             }
-
             $decision->updateAttributes(['evaluation' => $decision['evaluation'] + $this->value]);
-
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollBack();
