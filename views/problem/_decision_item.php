@@ -23,7 +23,7 @@ $value = Yii::$app->user->identity->getEvaluationByDecisionId($decision->id)->va
 $active = function ($button, $value){
     return View::getClassEvaluation($button,$value);
 };
-var_dump($value);
+
 $addEvaluation = <<<JSOUT
                 (function (event) {           
                     $.ajax({
@@ -33,14 +33,26 @@ $addEvaluation = <<<JSOUT
                         value: value,
                         id: parseInt(id) ,
                         },
-                     success: function(response){ 
-                  document.getElementById('evaluation' + parseInt(id)).textContent = response
-                  document.getElementById(parseInt(id)+'plus').disabled = ((value == 1 && Number(response) !== {$decision->evaluation}) || {$value} == -1 ) ? true : false             
-                  document.getElementById(parseInt(id)+'minus').disabled = ((value == -1 && Number(response) !== {$decision->evaluation}) || {$value} == 1 ) ? true : false
-                   },
-                      error: function(){
+                     success: function(response) { 
+                            document.getElementById('evaluation' + parseInt(id)).textContent = response
+                              function active (btn) {  
+                                  if ($value !== 0){                                
+                                      if ($value == 1 && btn == 'down'){                    
+                                           return (Number({$decision->evaluation}) % Number(response) == 2) ? true : false 
+                                      }             
+                                      if ($value == -1 && btn == 'up'){    
+                                           return (Number(response) % Number({$decision->evaluation}) == 2) ? true : false 
+                                      }
+                                      return (Number(response) == {$decision->evaluation})
+                                  }                         
+                                  return   ( btn == 'up') ? (value == 1 && Number(response) !== {$decision->evaluation}) : (value == -1 && Number(response) !== {$decision->evaluation})    
+                              } 
+                            document.getElementById(parseInt(id)+'plus').disabled = active('up')          
+                            document.getElementById(parseInt(id)+'minus').disabled = (active('down'))
+                     },
+                     error: function() {
                           console.log("failure");
-                      }
+                     }
                    });})();
 JSOUT;
 ?>
