@@ -35,18 +35,23 @@ $addEvaluation = <<<JSOUT
                         },
                      success: function(response) { 
                             document.getElementById('evaluation' + parseInt(id)).textContent = response
+                            
+                            const checkUp = (Math.abs(Number({$decision->evaluation})) % Math.abs(Number(response)) == 2)
+                            const checkDown = (Math.abs(Number(response)) % Math.abs(Number({$decision->evaluation})) == 2)
+
                               function active (btn) {  
                                   if ($value !== 0){                                
-                                      if ($value == 1 && btn == 'down'){                    
-                                           return (Number({$decision->evaluation}) % Number(response) == 2) ? true : false 
+                                      if ($value == 1 && btn == 'down'){            
+                                           return (Number({$decision->evaluation}) > 0) ? checkUp : checkDown
                                       }             
-                                      if ($value == -1 && btn == 'up'){    
-                                           return (Number(response) % Number({$decision->evaluation}) == 2) ? true : false 
+                                      if ($value == -1 && btn == 'up'){  
+                                           return  (Number({$decision->evaluation}) > 0) ? checkDown : checkUp
                                       }
                                       return (Number(response) == {$decision->evaluation})
                                   }                         
                                   return   ( btn == 'up') ? (value == 1 && Number(response) !== {$decision->evaluation}) : (value == -1 && Number(response) !== {$decision->evaluation})    
                               } 
+
                             document.getElementById(parseInt(id)+'plus').disabled = active('up')          
                             document.getElementById(parseInt(id)+'minus').disabled = (active('down'))
                      },
