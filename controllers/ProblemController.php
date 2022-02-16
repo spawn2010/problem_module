@@ -53,9 +53,22 @@ class  ProblemController extends Controller
             foreach ($evaluation->getErrors() as $error) {
                 $this->showError($error[0]);
             }
+            $response = [
+                'status' => 'error',
+                'data' => [
+                    "Не заполнено поле value"
+                ]
+            ];
+        }else{
+            $response = [
+                'status' => 'ok',
+                'data' => [
+                    'evaluation' => Decision::findOne(Yii::$app->request->post('id'))->evaluation,
+                    'value' => $value = Yii::$app->user->identity->getEvaluationByDecisionId(Yii::$app->request->post('id'))->value ?? 0
+                ]
+            ];
         }
-        //return Yii::$app->request->post('value');
-        return Decision::findOne(Yii::$app->request->post('id'))->evaluation;
+        return $this->asJson($response);
     }
 
     public function actionApprove()
