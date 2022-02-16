@@ -59,7 +59,7 @@ class  ProblemController extends Controller
                     "Не заполнено поле value"
                 ]
             ];
-        }else{
+        } else {
             $response = [
                 'status' => 'ok',
                 'data' => [
@@ -96,7 +96,7 @@ class  ProblemController extends Controller
         return $this->redirect(Url::to(['problem/view', 'id' => $id]));
     }
 
-    public function showError ($error)
+    public function showError($error)
     {
         Yii::$app->session->setFlash('error', $error);
     }
