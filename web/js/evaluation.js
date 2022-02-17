@@ -22,7 +22,7 @@ $(".evaluation").on('click', function() {
             }
         },
         error: function(response) {
-            console.log(response.status);
+            console.log(response);
         }
     })
 });

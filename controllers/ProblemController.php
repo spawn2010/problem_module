@@ -50,24 +50,20 @@ class  ProblemController extends Controller
         ]);
 
         if ($evaluation->save() === false) {
-            foreach ($evaluation->getErrors() as $error) {
-                $this->showError($error[0]);
-            }
             $response = [
                 'status' => 'error',
-                'data' => [
-                    "Не заполнено поле value"
-                ]
+                'data' => $evaluation->getErrors()
             ];
-        } else {
-            $response = [
-                'status' => 'ok',
-                'data' => [
-                    'evaluation' => Decision::findOne(Yii::$app->request->post('id'))->evaluation,
-                    'value' => $value = Yii::$app->user->identity->getEvaluationByDecisionId(Yii::$app->request->post('id'))->value ?? 0
-                ]
-            ];
+            return $this->asJson($response);
         }
+
+        $response = [
+            'status' => 'ок',
+            'data' => [
+                'evaluation' => Decision::findOne($evaluation->decision_id)->evaluation,
+                'value' => Yii::$app->user->identity->getEvaluationByDecisionId($evaluation->decision_id)->value ?? 0
+            ]
+        ];
         return $this->asJson($response);
     }
 
