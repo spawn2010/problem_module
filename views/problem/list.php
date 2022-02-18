@@ -59,8 +59,3 @@ endif;
 foreach ($collection->all() as $problem){
     echo $this->render('_list_item', ['problem' => $problem]);
 }
-
-
-
-
-

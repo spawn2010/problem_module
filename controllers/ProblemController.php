@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Decision\Decision;
 use app\models\Decision\Form;
+use app\models\Evaluation;
 use app\models\Problem\Form\Add;
 use app\models\Problem\Form\AddRating;
 use app\models\Problem\Problem;
@@ -18,7 +19,7 @@ class  ProblemController extends Controller
         $collection = Problem::find();
         if (Yii::$app->user->identity->role === 'user') {
             $collection = $collection->findByUser(Yii::$app->user->id);
-        };
+        }
         return $this->render('list', ['collection' => $collection]);
     }
 
@@ -37,10 +38,40 @@ class  ProblemController extends Controller
         return $this->redirect(['/problem/list']);
     }
 
+    /**
+     * @throws Yii\db\Exception
+     */
+    public function actionEvaluation()
+    {
+        $evaluation = new Evaluation\Form\Add([
+            'decision_id' => Yii::$app->request->post('id'),
+            'user_id' => Yii::$app->user->id,
+            'value' => Yii::$app->request->post('value')
+        ]);
+
+        if ($evaluation->save() === false) {
+            $response = [
+                'status' => 'error',
+                'data' => $evaluation->getErrors()
+            ];
+            return $this->asJson($response);
+        }
+
+        $response = [
+            'status' => 'ок',
+            'data' => [
+                'evaluation' => Decision::findOne($evaluation->decision_id)->evaluation,
+                'value' => Yii::$app->user->identity->getEvaluationByDecisionId($evaluation->decision_id)->value ?? 0
+            ]
+        ];
+        return $this->asJson($response);
+    }
+
     public function actionApprove()
     {
-        $model = Problem::findOne(Yii::$app->request->post('id'));
-        $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
+        if ($model = Problem::findOne(Yii::$app->request->post('id'))) {
+            $isSave = $model->updateAttributes(['decision' => Yii::$app->request->post('decision')]);
+        }
         $this->setFlash($isSave);
         return $this->redirect(Yii::$app->request->referrer);
     }
@@ -59,6 +90,11 @@ class  ProblemController extends Controller
         $isSave = ($model->load(Yii::$app->request->post()) and $model->save());
         $this->setFlash($isSave);
         return $this->redirect(Url::to(['problem/view', 'id' => $id]));
+    }
+
+    public function showError($error)
+    {
+        Yii::$app->session->setFlash('error', $error);
     }
 
     public function setFlash($isSave)

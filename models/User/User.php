@@ -2,6 +2,7 @@
 
 namespace app\models\User;
 
+use app\models\Evaluation\Evaluation;
 use app\models\Problem\Problem;
 use Yii;
 use yii\base\NotSupportedException;
@@ -12,7 +13,6 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
 
 /**
  * User model
- *
  * @property integer $id
  * @property string $username
  * @property string $password_hash
@@ -24,7 +24,7 @@ use yii2tech\ar\softdelete\SoftDeleteBehavior;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property string $role
- * * @property string $user_image
+ * @property string $user_image
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -204,4 +204,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Problem::class, ['user_id' => 'id'])->orderByRating();
     }
 
+    public function getEvaluations()
+    {
+        return $this->hasMany(Evaluation::class, ['user_id' => 'id']);
+    }
+
+    public function getEvaluationByDecisionId($decision_id)
+    {
+        return $this->hasMany(Evaluation::class, ['user_id' => 'id'])->findByDecision($decision_id)->one();
+    }
 }

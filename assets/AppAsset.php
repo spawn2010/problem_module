@@ -25,9 +25,11 @@ class AppAsset extends AssetBundle
         'css/problem.css',
     ];
     public $js = [
+        'js/evaluation.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap4\BootstrapAsset',
+        '\rmrevin\yii\fontawesome\AssetBundle',
     ];
 }
